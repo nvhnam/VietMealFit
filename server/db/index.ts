@@ -6,7 +6,8 @@ if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL is not set. Copy .env.example to .env.local and fill it in.");
 }
 
-// Supabase's pooled connection (pgbouncer) doesn't support prepared statements.
-const client = postgres(process.env.DATABASE_URL, { prepare: false });
+// Supabase's pooled connection (pgbouncer) doesn't support prepared statements,
+// and its pooler silently drops non-SSL startup packets — both required here.
+const client = postgres(process.env.DATABASE_URL, { prepare: false, ssl: "require" });
 
 export const db = drizzle(client, { schema });
