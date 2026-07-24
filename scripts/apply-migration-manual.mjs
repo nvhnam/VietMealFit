@@ -15,10 +15,16 @@ if (!path) {
 }
 
 const sqlText = readFileSync(path, "utf8");
-const statements = sqlText
-  .split("--> statement-breakpoint")
-  .map((s) => s.trim())
-  .filter(Boolean);
+// drizzle-kit-generated migrations use this marker to separate statements;
+// hand-written SQL (e.g. policies.sql, with $$-quoted function bodies) has
+// none, so it's run as a single multi-statement call instead (safe under
+// postgres.js's simple-query protocol, which we use via prepare: false).
+const statements = sqlText.includes("--> statement-breakpoint")
+  ? sqlText
+      .split("--> statement-breakpoint")
+      .map((s) => s.trim())
+      .filter(Boolean)
+  : [sqlText];
 
 const sql = postgres(process.env.DATABASE_URL, {
   prepare: false,
