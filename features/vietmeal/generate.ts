@@ -76,11 +76,23 @@ export function generateWeekPlan(
   return slots;
 }
 
-/** Monday of the current week, as a YYYY-MM-DD date string (no time/TZ component). */
+/**
+ * Monday of the current week, as a YYYY-MM-DD date string (no time/TZ component).
+ *
+ * Built from local date components throughout, not `toISOString()` — that
+ * method always converts to UTC, which silently shifts the result to the
+ * wrong calendar day in any timezone ahead of UTC (e.g. in Asia/Saigon,
+ * UTC+7, local midnight becomes 17:00 the previous day in UTC). Since the
+ * day-of-week arithmetic above is already local-time, the serialization
+ * has to stay local-time too, or the two halves disagree on "today".
+ */
 export function currentWeekStart(now = new Date()): string {
   const d = new Date(now);
   const day = d.getDay(); // 0 = Sunday
   const diffToMonday = day === 0 ? -6 : 1 - day;
   d.setDate(d.getDate() + diffToMonday);
-  return d.toISOString().slice(0, 10);
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
 }

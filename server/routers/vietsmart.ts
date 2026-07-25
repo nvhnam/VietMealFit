@@ -3,6 +3,7 @@ import { and, asc, desc, eq, ilike, or } from "drizzle-orm";
 import { libraryResources, profiles } from "@/server/db/schema";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/trpc/init";
 import { getUploadUrl as getR2UploadUrl, getDownloadUrl as getR2DownloadUrl, deleteObject } from "@/server/storage/r2";
+import { assertNotProfane } from "@/server/lib/content-moderation";
 import { TRPCError } from "@trpc/server";
 
 const ALLOWED_MIME_TYPES = [
@@ -54,6 +55,9 @@ export const vietsmartRouter = createTRPCRouter({
       if (!input.storagePath.startsWith(`library/${ctx.user.id}/`)) {
         throw new TRPCError({ code: "FORBIDDEN", message: "storagePath does not belong to you." });
       }
+
+      assertNotProfane(input.title, "Title");
+      if (input.description) assertNotProfane(input.description, "Description");
 
       const [resource] = await ctx.db
         .insert(libraryResources)

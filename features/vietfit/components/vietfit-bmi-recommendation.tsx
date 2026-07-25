@@ -2,22 +2,10 @@
 
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { bmiBadgeVariant, bmiCategory } from "@/features/shared/bmi";
 import type { ExercisePlanWithItems } from "./vietfit-week-view";
 
-function bmiCategory(bmi: number): string {
-  if (bmi < 18.5) return "Underweight";
-  if (bmi < 25) return "Normal";
-  if (bmi < 30) return "Overweight";
-  return "Obese";
-}
-
-function bmiBadgeVariant(bmi: number): "secondary" | "default" | "destructive" {
-  if (bmi < 18.5) return "secondary";
-  if (bmi < 25) return "default";
-  return "destructive";
-}
-
-function recommendation(category: string, goal: string): string {
+export function recommendation(category: string, goal: string): string {
   const goalText = goal.replace("_", " ");
   if (category === "Underweight") {
     return `Your BMI suggests you're underweight. Combined with your ${goalText} goal, prioritize consistent meals and progressive strength training over heavy cardio.`;

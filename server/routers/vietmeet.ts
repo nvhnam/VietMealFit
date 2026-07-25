@@ -8,6 +8,7 @@ import {
   profiles,
 } from "@/server/db/schema";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/trpc/init";
+import { assertNotProfane } from "@/server/lib/content-moderation";
 import { TRPCError } from "@trpc/server";
 import type { db as Db } from "@/server/db";
 
@@ -100,6 +101,10 @@ export const vietmeetRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      assertNotProfane(input.title, "Title");
+      if (input.description) assertNotProfane(input.description, "Description");
+      assertNotProfane(input.content, "Content");
+
       const [thread] = await ctx.db
         .insert(forumThreads)
         .values({
@@ -141,6 +146,8 @@ export const vietmeetRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      assertNotProfane(input.content, "Comment");
+
       const [thread] = await ctx.db.select({ id: forumThreads.id }).from(forumThreads).where(eq(forumThreads.id, input.threadId)).limit(1);
       if (!thread) throw new TRPCError({ code: "NOT_FOUND", message: "Thread not found." });
 

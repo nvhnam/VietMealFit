@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { and, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { exercisePlans, exercisePlanItems, exercises } from "@/server/db/schema";
 import { createTRPCRouter, protectedProcedure } from "@/server/trpc/init";
 import { upsertProfile } from "@/server/lib/upsert-profile";
@@ -97,7 +97,7 @@ export const vietfitRouter = createTRPCRouter({
       .select({ id: exercisePlans.id })
       .from(exercisePlans)
       .where(eq(exercisePlans.userId, ctx.user.id))
-      .orderBy(exercisePlans.createdAt)
+      .orderBy(desc(exercisePlans.createdAt))
       .limit(1);
 
     if (!latest) return null;

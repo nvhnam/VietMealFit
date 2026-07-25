@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { and, eq, inArray } from "drizzle-orm";
+import { and, desc, eq, inArray } from "drizzle-orm";
 import { mealPlans, mealPlanItems, recipes } from "@/server/db/schema";
 import { createTRPCRouter, protectedProcedure } from "@/server/trpc/init";
 import { upsertProfile } from "@/server/lib/upsert-profile";
@@ -96,7 +96,7 @@ export const vietmealRouter = createTRPCRouter({
       .select({ id: mealPlans.id })
       .from(mealPlans)
       .where(eq(mealPlans.userId, ctx.user.id))
-      .orderBy(mealPlans.createdAt)
+      .orderBy(desc(mealPlans.createdAt))
       .limit(1);
 
     if (!latest) return null;
