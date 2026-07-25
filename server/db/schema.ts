@@ -293,6 +293,16 @@ export const forumCommentsRelations = relations(forumComments, ({ one, many }) =
   attachments: many(forumAttachments),
 }));
 
+// Drizzle's relational query API (db.query.x.findFirst({ with: {...} }))
+// needs both sides of a relation declared, not just the FK — this was
+// missing and broke forumThreads/forumComments' `attachments: true` (caught
+// by scripts/test-vietmeet-router.ts, not by tsc, since it's a runtime-only
+// relational-query-builder check).
+export const forumAttachmentsRelations = relations(forumAttachments, ({ one }) => ({
+  thread: one(forumThreads, { fields: [forumAttachments.threadId], references: [forumThreads.id] }),
+  comment: one(forumComments, { fields: [forumAttachments.commentId], references: [forumComments.id] }),
+}));
+
 export const threadLikesRelations = relations(threadLikes, ({ one }) => ({
   user: one(profiles, { fields: [threadLikes.userId], references: [profiles.id] }),
   thread: one(forumThreads, { fields: [threadLikes.threadId], references: [forumThreads.id] }),
