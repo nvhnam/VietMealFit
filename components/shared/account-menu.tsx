@@ -19,11 +19,16 @@ export async function AccountMenu() {
   }
 
   return (
-    <form action={signOutAction} className="flex items-center gap-2">
+    <div className="flex items-center gap-2">
       <span className="hidden text-sm text-muted-foreground sm:inline">{user.email}</span>
-      <Button type="submit" variant="outline" size="sm">
-        Sign out
-      </Button>
-    </form>
+      <Link href="/account/profile" className={buttonVariants({ variant: "outline", size: "sm" })}>
+        Profile
+      </Link>
+      <form action={signOutAction}>
+        <Button type="submit" variant="outline" size="sm">
+          Sign out
+        </Button>
+      </form>
+    </div>
   );
 }
