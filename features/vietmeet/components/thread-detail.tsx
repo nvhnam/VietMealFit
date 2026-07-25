@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Heart, Trash2 } from "lucide-react";
+import { ArrowLeft, Heart, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { useTRPC } from "@/lib/trpc/client";
 import { useUser } from "@/lib/supabase/use-user";
@@ -68,6 +69,13 @@ export function ThreadDetail({ threadId }: { threadId: string }) {
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-4">
+      <Link
+        href="/vietmeet"
+        className="flex w-fit items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <ArrowLeft className="size-3.5" aria-hidden="true" />
+        Back to VietMeet
+      </Link>
       <Card className="p-6">
         <div className="flex items-start justify-between">
           <div>
@@ -75,7 +83,12 @@ export function ThreadDetail({ threadId }: { threadId: string }) {
             <p className="mt-1 text-xs text-muted-foreground">by {thread.author.displayName}</p>
           </div>
           {canModifyThread && (
-            <Button variant="ghost" size="icon" onClick={() => deleteThread.mutate({ id: thread.id })}>
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Delete thread"
+              onClick={() => deleteThread.mutate({ id: thread.id })}
+            >
               <Trash2 className="size-4" />
             </Button>
           )}
@@ -120,6 +133,7 @@ export function ThreadDetail({ threadId }: { threadId: string }) {
                   <Button
                     variant="ghost"
                     size="icon-sm"
+                    aria-label="Delete comment"
                     onClick={() => deleteComment.mutate({ id: comment.id })}
                   >
                     <Trash2 className="size-3.5" />

@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { skipToken, useQuery } from "@tanstack/react-query";
+import { Search } from "lucide-react";
 import { useTRPC } from "@/lib/trpc/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PageHeader } from "@/components/shared/page-header";
 import {
   Select,
   SelectContent,
@@ -41,12 +43,12 @@ export function VietSearchPageClient() {
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-6">
+      <PageHeader
+        icon={Search}
+        title="VietSearch"
+        description="Look up nutrition facts for Vietnamese food ingredients, scaled to any gram amount."
+      />
       <Card className="p-6">
-        <h1 className="mb-1 text-xl font-semibold">VietSearch</h1>
-        <p className="mb-4 text-sm text-muted-foreground">
-          Look up nutrition facts for Vietnamese food ingredients, scaled to any gram amount.
-        </p>
-
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
             <Label>Category — optional filter</Label>
@@ -104,7 +106,7 @@ export function VietSearchPageClient() {
       {isResultLoading && (
         <Card className="p-6">
           <Skeleton className="mb-3 h-5 w-64" />
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <Skeleton className="h-20" />
             <Skeleton className="h-20" />
             <Skeleton className="h-20" />

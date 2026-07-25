@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { useTRPC } from "@/lib/trpc/client";
 import { useUser } from "@/lib/supabase/use-user";
 import { uploadForumAttachment, type UploadedAttachment } from "@/features/vietmeet/upload-attachment";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -48,9 +48,7 @@ export function CreateThreadDialog() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="inline-flex h-8 items-center rounded-lg bg-primary px-3 text-sm font-medium text-primary-foreground hover:bg-primary/80">
-        New thread
-      </DialogTrigger>
+      <DialogTrigger className={buttonVariants({ size: "sm" })}>New thread</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Start a new thread</DialogTitle>

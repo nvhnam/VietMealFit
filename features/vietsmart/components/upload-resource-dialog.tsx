@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useTRPC } from "@/lib/trpc/client";
 import { useUser } from "@/lib/supabase/use-user";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -60,9 +60,7 @@ export function UploadResourceDialog() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="inline-flex h-8 items-center rounded-lg bg-primary px-3 text-sm font-medium text-primary-foreground hover:bg-primary/80">
-        Upload resource
-      </DialogTrigger>
+      <DialogTrigger className={buttonVariants({ size: "sm" })}>Upload resource</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Upload a fitness resource</DialogTitle>

@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { skipToken, useQuery } from "@tanstack/react-query";
+import { Calculator } from "lucide-react";
 import { useTRPC } from "@/lib/trpc/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
+import { PageHeader } from "@/components/shared/page-header";
 import {
   Select,
   SelectContent,
@@ -34,8 +36,12 @@ export function VietLeanCalculator() {
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-6">
+      <PageHeader
+        icon={Calculator}
+        title="VietLean"
+        description="Calculate your daily calorie and macro targets for a bulking, lean, or cutting phase."
+      />
       <Card className="p-6">
-        <h1 className="mb-4 text-xl font-semibold">VietLean</h1>
         <form
           className="flex flex-wrap items-end gap-4"
           onSubmit={(e) => {
@@ -87,21 +93,27 @@ export function VietLeanCalculator() {
         <>
           <Card className="p-6">
             <h2 className="mb-3 font-semibold">Daily targets</h2>
-            <div className="grid grid-cols-4 gap-4 text-center">
+            <div className="grid grid-cols-2 gap-4 text-center sm:grid-cols-4">
               <div>
-                <div className="text-2xl font-bold">{data.calorieTarget}</div>
+                <div className="font-mono text-2xl font-bold tabular-nums">{data.calorieTarget}</div>
                 <div className="text-xs text-muted-foreground">kcal</div>
               </div>
               <div>
-                <div className="text-2xl font-bold">{data.proteinG}g</div>
+                <div className="font-mono text-2xl font-bold tabular-nums" style={{ color: "var(--chart-1)" }}>
+                  {data.proteinG}g
+                </div>
                 <div className="text-xs text-muted-foreground">Protein</div>
               </div>
               <div>
-                <div className="text-2xl font-bold">{data.carbG}g</div>
+                <div className="font-mono text-2xl font-bold tabular-nums" style={{ color: "var(--chart-2)" }}>
+                  {data.carbG}g
+                </div>
                 <div className="text-xs text-muted-foreground">Carbs</div>
               </div>
               <div>
-                <div className="text-2xl font-bold">{data.fatG}g</div>
+                <div className="font-mono text-2xl font-bold tabular-nums" style={{ color: "var(--chart-3)" }}>
+                  {data.fatG}g
+                </div>
                 <div className="text-xs text-muted-foreground">Fat</div>
               </div>
             </div>

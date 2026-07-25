@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Sparkles } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import type { ExperienceMode } from "@/features/experience-mode";
@@ -19,8 +20,11 @@ export function AdvancedModeGate({
 }) {
   if (mode !== "advanced") {
     return (
-      <Card className="mx-auto max-w-md p-6 text-center">
-        <p className="mb-4 text-sm text-muted-foreground">
+      <Card className="mx-auto flex max-w-md flex-col items-center gap-3 p-8 text-center">
+        <span className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <Sparkles className="size-5" aria-hidden="true" />
+        </span>
+        <p className="text-sm text-muted-foreground">
           This module is only available in Advanced mode.
         </p>
         <Link href="?mode=advanced" className={buttonVariants()}>

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { inferRouterOutputs } from "@trpc/server";
 import { useTRPC } from "@/lib/trpc/client";
+import { cn } from "@/lib/utils";
 import type { AppRouter } from "@/server/trpc/root";
 import { useExperienceMode } from "@/features/experience-mode";
 import { Card } from "@/components/ui/card";
@@ -60,7 +61,13 @@ export function VietFitWeekView({ plan }: { plan: ExercisePlanWithItems }) {
           <p className="text-sm text-muted-foreground">Rest day — no exercises scheduled.</p>
         )}
         {dayItems.map((item) => (
-          <div key={item.id} className="rounded-lg border p-4">
+          <div
+            key={item.id}
+            className={cn(
+              "rounded-lg border p-4 transition-colors duration-200",
+              item.completed && "border-primary/30 bg-primary/5",
+            )}
+          >
             <div className="flex gap-3">
               <Checkbox
                 checked={item.completed}
@@ -74,7 +81,10 @@ export function VietFitWeekView({ plan }: { plan: ExercisePlanWithItems }) {
                   </Badge>
                   <button
                     type="button"
-                    className="font-medium hover:underline"
+                    className={cn(
+                      "cursor-pointer font-medium hover:underline disabled:cursor-default",
+                      item.completed && "text-muted-foreground line-through",
+                    )}
                     disabled={mode !== "advanced"}
                     onClick={() => setExpandedItemId(expandedItemId === item.id ? null : item.id)}
                   >

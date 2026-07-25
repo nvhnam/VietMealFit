@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { inferRouterOutputs } from "@trpc/server";
 import { useTRPC } from "@/lib/trpc/client";
+import { cn } from "@/lib/utils";
 import type { AppRouter } from "@/server/trpc/root";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -61,7 +62,13 @@ export function VietMealWeekView({ plan }: { plan: MealPlanWithItems }) {
 
       <div className="mt-4 flex flex-col gap-4">
         {dayItems.map((item) => (
-          <div key={item.id} className="flex gap-3 rounded-lg border p-4">
+          <div
+            key={item.id}
+            className={cn(
+              "flex gap-3 rounded-lg border p-4 transition-colors duration-200",
+              item.completed && "border-primary/30 bg-primary/5",
+            )}
+          >
             <Checkbox
               checked={item.completed}
               onCheckedChange={(v) => toggle.mutate({ itemId: item.id, completed: v === true })}
@@ -72,7 +79,9 @@ export function VietMealWeekView({ plan }: { plan: MealPlanWithItems }) {
                 <Badge variant="secondary" className="capitalize">
                   {item.mealType}
                 </Badge>
-                <span className="font-medium">{item.recipe.nameVi}</span>
+                <span className={cn("font-medium", item.completed && "text-muted-foreground line-through")}>
+                  {item.recipe.nameVi}
+                </span>
                 {item.recipe.nameEn && (
                   <span className="text-sm text-muted-foreground">({item.recipe.nameEn})</span>
                 )}

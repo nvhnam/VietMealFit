@@ -26,9 +26,9 @@ export function VietAskDock() {
   return (
     <div className="fixed bottom-4 right-4 z-50">
       {open && (
-        <Card className="mb-2 flex h-96 w-80 flex-col p-0 sm:w-96">
-          <div className="border-b px-4 py-3">
-            <h2 className="text-sm font-semibold">VietAsk</h2>
+        <Card className="animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-2 mb-2 flex h-96 w-80 flex-col p-0 shadow-xl duration-200 sm:w-96">
+          <div className="rounded-t-xl border-b bg-primary/5 px-4 py-3">
+            <h2 className="text-sm font-semibold text-foreground">VietAsk</h2>
             <p className="text-xs text-muted-foreground">Ask about navigating the app or general fitness questions.</p>
           </div>
 

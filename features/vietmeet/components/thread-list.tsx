@@ -3,12 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { MessageSquare, Heart } from "lucide-react";
+import { MessageSquare, Heart, Users } from "lucide-react";
 import { useTRPC } from "@/lib/trpc/client";
 import { useDebouncedValue } from "@/lib/use-debounced-value";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PageHeader } from "@/components/shared/page-header";
 import {
   Select,
   SelectContent,
@@ -30,10 +31,12 @@ export function ThreadList() {
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">VietMeet</h1>
-        <CreateThreadDialog />
-      </div>
+      <PageHeader
+        icon={Users}
+        title="VietMeet"
+        description="A shared forum to ask questions, share progress, and connect with others."
+        action={<CreateThreadDialog />}
+      />
 
       <div className="flex gap-2">
         <Input
@@ -69,7 +72,7 @@ export function ThreadList() {
       <div className="flex flex-col gap-3">
         {threads?.map((thread) => (
           <Link key={thread.id} href={`/vietmeet/${thread.id}`}>
-            <Card className="p-4 transition-colors hover:bg-muted/50">
+            <Card className="cursor-pointer p-4 transition-all duration-200 hover:border-primary/30 hover:shadow-md">
               <h2 className="font-medium">{thread.title}</h2>
               {thread.description && (
                 <p className="mt-1 text-sm text-muted-foreground">{thread.description}</p>

@@ -111,7 +111,7 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
     <Card className="mx-auto max-w-lg p-6">
       <h1 className="mb-4 text-xl font-semibold">Your profile</h1>
       <form
-        className="grid grid-cols-2 gap-4"
+        className="grid grid-cols-1 gap-4 sm:grid-cols-2"
         onSubmit={(e) => {
           e.preventDefault();
           upsert.mutate({

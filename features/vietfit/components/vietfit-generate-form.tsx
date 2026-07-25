@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { Dumbbell } from "lucide-react";
 import { useTRPC } from "@/lib/trpc/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
+import { PageHeader } from "@/components/shared/page-header";
 import {
   Select,
   SelectContent,
@@ -42,10 +44,15 @@ export function VietFitGenerateForm({ hasExistingPlan }: { hasExistingPlan: bool
   );
 
   return (
-    <Card className="p-6">
-      <h1 className="mb-4 text-xl font-semibold">VietFit</h1>
+    <div className="flex flex-col gap-4">
+      <PageHeader
+        icon={Dumbbell}
+        title="VietFit"
+        description="Generate a structured weekly workout schedule tailored to your goals and experience level."
+      />
+      <Card className="p-6">
       <form
-        className="grid grid-cols-2 gap-4"
+        className="grid grid-cols-1 gap-4 sm:grid-cols-2"
         onSubmit={(e) => {
           e.preventDefault();
           const height = Number(heightCm);
@@ -153,6 +160,7 @@ export function VietFitGenerateForm({ hasExistingPlan }: { hasExistingPlan: bool
               : "Generate schedule"}
         </Button>
       </form>
-    </Card>
+      </Card>
+    </div>
   );
 }

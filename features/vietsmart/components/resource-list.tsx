@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Download, FileText, Trash2 } from "lucide-react";
+import { Download, FileText, Library, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { useTRPC } from "@/lib/trpc/client";
 import { useUser } from "@/lib/supabase/use-user";
@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PageHeader } from "@/components/shared/page-header";
 import {
   Select,
   SelectContent,
@@ -56,10 +57,12 @@ export function ResourceList() {
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">VietSmart</h1>
-        <UploadResourceDialog />
-      </div>
+      <PageHeader
+        icon={Library}
+        title="VietSmart"
+        description="A shared library of fitness and nutrition resources — uploaded once, available to everyone."
+        action={<UploadResourceDialog />}
+      />
 
       <div className="flex flex-wrap gap-2">
         <Input
@@ -109,8 +112,10 @@ export function ResourceList() {
 
       <div className="flex flex-col gap-3">
         {resources?.map((r) => (
-          <Card key={r.id} className="flex items-start gap-3 p-4">
-            <FileText className="mt-0.5 size-5 shrink-0 text-muted-foreground" />
+          <Card key={r.id} className="flex items-start gap-3 p-4 transition-shadow duration-200 hover:shadow-md">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <FileText className="size-4" aria-hidden="true" />
+            </span>
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
                 <h2 className="truncate font-medium">{r.title}</h2>
@@ -125,6 +130,7 @@ export function ResourceList() {
               <Button
                 variant="outline"
                 size="sm"
+                aria-label={`Download ${r.title}`}
                 disabled={getDownloadUrl.isPending}
                 onClick={async () => {
                   const { url } = await getDownloadUrl.mutateAsync({ id: r.id });

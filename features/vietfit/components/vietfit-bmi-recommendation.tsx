@@ -1,6 +1,7 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import type { ExercisePlanWithItems } from "./vietfit-week-view";
 
 function bmiCategory(bmi: number): string {
@@ -8,6 +9,12 @@ function bmiCategory(bmi: number): string {
   if (bmi < 25) return "Normal";
   if (bmi < 30) return "Overweight";
   return "Obese";
+}
+
+function bmiBadgeVariant(bmi: number): "secondary" | "default" | "destructive" {
+  if (bmi < 18.5) return "secondary";
+  if (bmi < 25) return "default";
+  return "destructive";
 }
 
 function recommendation(category: string, goal: string): string {
@@ -36,8 +43,10 @@ export function VietFitBmiRecommendation({ plan }: { plan: ExercisePlanWithItems
       <h2 className="mb-2 font-semibold">BMI & recommendation</h2>
       {bmi ? (
         <>
-          <p className="text-sm text-muted-foreground">
-            BMI {bmi.toFixed(1)} ({bmiCategory(bmi)}) — informational only, not a diagnosis.
+          <p className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+            <span className="font-mono tabular-nums text-foreground">BMI {bmi.toFixed(1)}</span>
+            <Badge variant={bmiBadgeVariant(bmi)}>{bmiCategory(bmi)}</Badge>
+            <span>— informational only, not a diagnosis.</span>
           </p>
           <p className="mt-2 text-sm">{recommendation(bmiCategory(bmi), plan.goal)}</p>
         </>
