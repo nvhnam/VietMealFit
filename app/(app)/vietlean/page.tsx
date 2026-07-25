@@ -1,6 +1,6 @@
 import { AdvancedModeGate } from "@/components/shared/advanced-mode-gate";
-import { ModulePlaceholder } from "@/components/shared/module-placeholder";
 import { getServerExperienceMode } from "@/features/experience-mode/get-server-experience-mode";
+import { VietLeanCalculator } from "@/features/vietlean/components/vietlean-calculator";
 
 export default async function VietLeanPage({
   searchParams,
@@ -11,11 +11,7 @@ export default async function VietLeanPage({
 
   return (
     <AdvancedModeGate mode={mode}>
-      <ModulePlaceholder
-        title="VietLean"
-        description="Calorie & macronutrient calculator — daily targets and food-category guidance by bulking/lean/cutting phase."
-        phase="Phase 2"
-      />
+      <VietLeanCalculator />
     </AdvancedModeGate>
   );
 }
