@@ -6,6 +6,8 @@ import { AppNav } from "@/components/shared/app-nav";
 import { ExperienceModeToggle } from "@/components/shared/experience-mode-toggle";
 import { ExperienceModeQuerySync } from "@/components/shared/experience-mode-query-sync";
 import { VietAskDock } from "@/features/vietask/components/vietask-dock";
+import { AccountMenu } from "@/components/shared/account-menu";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const initialMode = await getServerExperienceMode();
@@ -21,7 +23,12 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             VietMealFit
           </Link>
           <AppNav />
-          <ExperienceModeToggle />
+          <div className="flex items-center gap-2">
+            <ExperienceModeToggle />
+            <Suspense fallback={<Skeleton className="h-8 w-20" />}>
+              <AccountMenu />
+            </Suspense>
+          </div>
         </div>
       </header>
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8">{children}</main>
