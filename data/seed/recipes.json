@@ -1,0 +1,471 @@
+[
+  {
+    "name_vi": "Phở bò",
+    "name_en": "Beef noodle soup",
+    "meal_type": "breakfast",
+    "diet_tags": ["anything", "gluten-free", "high-protein"],
+    "calories": 450,
+    "protein_g": 25,
+    "carb_g": 55,
+    "fat_g": 12,
+    "ingredients": [
+      { "name": "Bánh phở (rice noodles)", "amount": "200g" },
+      { "name": "Thịt bò (beef slices)", "amount": "100g" },
+      { "name": "Nước dùng xương bò (beef bone broth)", "amount": "500ml" },
+      { "name": "Hành lá, ngò (scallion, cilantro)", "amount": "to taste" },
+      { "name": "Giá đỗ (bean sprouts)", "amount": "50g" }
+    ],
+    "instructions": "Simmer beef bones for broth (or use pre-made stock). Blanch rice noodles. Thinly slice raw beef and place over noodles, ladle boiling broth over to cook the beef. Top with scallion, cilantro, bean sprouts.",
+    "allergen_tags": [],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Bánh mì trứng",
+    "name_en": "Vietnamese egg baguette sandwich",
+    "meal_type": "breakfast",
+    "diet_tags": ["anything"],
+    "calories": 400,
+    "protein_g": 16,
+    "carb_g": 45,
+    "fat_g": 18,
+    "ingredients": [
+      { "name": "Bánh mì (baguette)", "amount": "1 loaf (~120g)" },
+      { "name": "Trứng gà (eggs)", "amount": "2" },
+      { "name": "Pate, bơ (pate, butter)", "amount": "1 tbsp each" },
+      { "name": "Rau thơm, dưa leo, đồ chua (herbs, cucumber, pickled carrot/daikon)", "amount": "to taste" }
+    ],
+    "instructions": "Fry eggs. Split baguette, spread pate and butter, add fried egg, cucumber, pickled vegetables, and herbs.",
+    "allergen_tags": ["gluten", "egg"],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Xôi xéo",
+    "name_en": "Mung bean sticky rice",
+    "meal_type": "breakfast",
+    "diet_tags": ["vegan", "vegetarian", "gluten-free"],
+    "calories": 350,
+    "protein_g": 8,
+    "carb_g": 65,
+    "fat_g": 8,
+    "ingredients": [
+      { "name": "Gạo nếp (glutinous rice)", "amount": "150g" },
+      { "name": "Đậu xanh (mung bean)", "amount": "50g" },
+      { "name": "Hành phi (fried shallots)", "amount": "1 tbsp" },
+      { "name": "Dầu ăn (cooking oil)", "amount": "1 tsp" }
+    ],
+    "instructions": "Steam glutinous rice. Steam and mash mung beans, form into a log, slice thinly. Serve rice topped with mung bean slices, fried shallots, and a drizzle of oil.",
+    "allergen_tags": [],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Cháo gà",
+    "name_en": "Chicken rice porridge",
+    "meal_type": "breakfast",
+    "diet_tags": ["anything", "gluten-free"],
+    "calories": 280,
+    "protein_g": 18,
+    "carb_g": 35,
+    "fat_g": 6,
+    "ingredients": [
+      { "name": "Gạo tẻ (rice)", "amount": "60g" },
+      { "name": "Thịt gà (chicken)", "amount": "80g" },
+      { "name": "Gừng, hành lá (ginger, scallion)", "amount": "to taste" }
+    ],
+    "instructions": "Simmer rice in chicken broth until porridge consistency. Add shredded cooked chicken, ginger, scallion.",
+    "allergen_tags": [],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Bún riêu",
+    "name_en": "Crab paste noodle soup",
+    "meal_type": "breakfast",
+    "diet_tags": ["pescatarian", "gluten-free"],
+    "calories": 380,
+    "protein_g": 20,
+    "carb_g": 50,
+    "fat_g": 10,
+    "ingredients": [
+      { "name": "Bún (rice vermicelli)", "amount": "200g" },
+      { "name": "Riêu cua (crab paste)", "amount": "100g" },
+      { "name": "Cà chua, đậu hũ (tomato, tofu)", "amount": "80g" }
+    ],
+    "instructions": "Simmer tomato-crab broth, add fried tofu. Serve over rice vermicelli.",
+    "allergen_tags": ["shellfish", "soy"],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Bánh cuốn",
+    "name_en": "Steamed rice rolls with pork",
+    "meal_type": "breakfast",
+    "diet_tags": ["anything", "gluten-free"],
+    "calories": 320,
+    "protein_g": 14,
+    "carb_g": 48,
+    "fat_g": 8,
+    "ingredients": [
+      { "name": "Bột gạo (rice batter)", "amount": "200g" },
+      { "name": "Thịt heo băm, mộc nhĩ (minced pork, wood ear mushroom)", "amount": "80g" },
+      { "name": "Nước mắm chua ngọt (sweet fish sauce)", "amount": "to taste" }
+    ],
+    "instructions": "Steam thin rice batter sheets, fill with sautéed minced pork and mushroom, roll up. Serve with dipping sauce.",
+    "allergen_tags": ["fish"],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Sinh tố bơ",
+    "name_en": "Avocado smoothie",
+    "meal_type": "snack",
+    "diet_tags": ["vegan", "vegetarian", "gluten-free"],
+    "calories": 250,
+    "protein_g": 3,
+    "carb_g": 25,
+    "fat_g": 16,
+    "ingredients": [
+      { "name": "Bơ (avocado)", "amount": "1 medium" },
+      { "name": "Sữa đặc / sữa hạt (condensed or plant milk)", "amount": "50ml" },
+      { "name": "Đá (ice)", "amount": "as needed" }
+    ],
+    "instructions": "Blend avocado, milk, and ice until smooth.",
+    "allergen_tags": [],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Cơm tấm sườn nướng",
+    "name_en": "Broken rice with grilled pork chop",
+    "meal_type": "lunch",
+    "diet_tags": ["anything", "high-protein"],
+    "calories": 650,
+    "protein_g": 35,
+    "carb_g": 70,
+    "fat_g": 22,
+    "ingredients": [
+      { "name": "Cơm tấm (broken rice)", "amount": "250g" },
+      { "name": "Sườn heo (pork chop)", "amount": "150g" },
+      { "name": "Trứng ốp la, mỡ hành (fried egg, scallion oil)", "amount": "1 egg" },
+      { "name": "Dưa leo, cà chua (cucumber, tomato)", "amount": "to taste" }
+    ],
+    "instructions": "Marinate and grill pork chop. Serve over broken rice with fried egg, scallion oil, cucumber, tomato, and fish sauce.",
+    "allergen_tags": ["egg", "fish"],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Bún chả Hà Nội",
+    "name_en": "Grilled pork with rice vermicelli",
+    "meal_type": "lunch",
+    "diet_tags": ["anything", "gluten-free"],
+    "calories": 550,
+    "protein_g": 28,
+    "carb_g": 60,
+    "fat_g": 18,
+    "ingredients": [
+      { "name": "Bún (rice vermicelli)", "amount": "200g" },
+      { "name": "Thịt heo nướng (grilled pork patties/slices)", "amount": "150g" },
+      { "name": "Nước mắm chua ngọt, đu đủ xanh (sweet fish sauce, green papaya)", "amount": "to taste" }
+    ],
+    "instructions": "Grill marinated pork. Serve with rice vermicelli, herbs, and dipping sauce with pickled green papaya.",
+    "allergen_tags": ["fish"],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Cơm gà xối mỡ",
+    "name_en": "Fried chicken rice",
+    "meal_type": "lunch",
+    "diet_tags": ["anything"],
+    "calories": 700,
+    "protein_g": 32,
+    "carb_g": 65,
+    "fat_g": 32,
+    "ingredients": [
+      { "name": "Cơm (rice cooked in chicken broth)", "amount": "250g" },
+      { "name": "Đùi gà (chicken thigh, deep-fried)", "amount": "1 piece" },
+      { "name": "Đồ chua (pickled vegetables)", "amount": "to taste" }
+    ],
+    "instructions": "Cook rice in chicken broth. Deep-fry chicken thigh until crispy. Serve together with pickled vegetables.",
+    "allergen_tags": [],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Bún bò Huế",
+    "name_en": "Spicy Hue-style beef noodle soup",
+    "meal_type": "lunch",
+    "diet_tags": ["anything", "gluten-free"],
+    "calories": 500,
+    "protein_g": 24,
+    "carb_g": 58,
+    "fat_g": 16,
+    "ingredients": [
+      { "name": "Bún (thick rice vermicelli)", "amount": "200g" },
+      { "name": "Thịt bò, giò heo (beef, pork knuckle)", "amount": "150g" },
+      { "name": "Sả, ớt, mắm ruốc (lemongrass, chili, shrimp paste)", "amount": "to taste" }
+    ],
+    "instructions": "Simmer lemongrass-shrimp paste broth with beef and pork knuckle. Serve over thick rice vermicelli.",
+    "allergen_tags": ["shellfish"],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Đậu hũ sốt cà chua",
+    "name_en": "Tofu in tomato sauce with rice",
+    "meal_type": "lunch",
+    "diet_tags": ["vegan", "vegetarian", "gluten-free"],
+    "calories": 400,
+    "protein_g": 14,
+    "carb_g": 55,
+    "fat_g": 12,
+    "ingredients": [
+      { "name": "Đậu hũ (tofu)", "amount": "200g" },
+      { "name": "Cà chua (tomato)", "amount": "2 medium" },
+      { "name": "Cơm (rice)", "amount": "150g" }
+    ],
+    "instructions": "Fry tofu until golden, simmer in tomato sauce. Serve with steamed rice.",
+    "allergen_tags": ["soy"],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Cá kho tộ",
+    "name_en": "Caramelized braised fish with rice",
+    "meal_type": "lunch",
+    "diet_tags": ["pescatarian", "gluten-free", "high-protein"],
+    "calories": 480,
+    "protein_g": 30,
+    "carb_g": 50,
+    "fat_g": 14,
+    "ingredients": [
+      { "name": "Cá (fish, e.g. catfish)", "amount": "200g" },
+      { "name": "Nước màu, nước mắm (caramel sauce, fish sauce)", "amount": "to taste" },
+      { "name": "Cơm (rice)", "amount": "150g" }
+    ],
+    "instructions": "Braise fish in clay pot with caramel sauce and fish sauce until sauce thickens. Serve with rice.",
+    "allergen_tags": ["fish"],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Gỏi cuốn tôm thịt",
+    "name_en": "Fresh spring rolls with shrimp and pork",
+    "meal_type": "lunch",
+    "diet_tags": ["anything", "gluten-free"],
+    "calories": 300,
+    "protein_g": 18,
+    "carb_g": 35,
+    "fat_g": 6,
+    "ingredients": [
+      { "name": "Bánh tráng (rice paper)", "amount": "4 sheets" },
+      { "name": "Tôm, thịt heo luộc (shrimp, boiled pork)", "amount": "100g each" },
+      { "name": "Bún, rau sống (vermicelli, fresh herbs)", "amount": "80g" }
+    ],
+    "instructions": "Wrap shrimp, pork, vermicelli, and herbs in softened rice paper. Serve with peanut hoisin dipping sauce.",
+    "allergen_tags": ["shellfish", "peanut"],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Canh chua cá",
+    "name_en": "Sweet and sour fish soup with rice",
+    "meal_type": "dinner",
+    "diet_tags": ["pescatarian", "gluten-free"],
+    "calories": 420,
+    "protein_g": 26,
+    "carb_g": 48,
+    "fat_g": 10,
+    "ingredients": [
+      { "name": "Cá (fish)", "amount": "200g" },
+      { "name": "Dứa, cà chua, giá (pineapple, tomato, bean sprouts)", "amount": "100g" },
+      { "name": "Cơm (rice)", "amount": "150g" }
+    ],
+    "instructions": "Simmer tamarind broth with pineapple and tomato, add fish and bean sprouts. Serve with rice.",
+    "allergen_tags": ["fish"],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Thịt kho trứng",
+    "name_en": "Braised pork with eggs and rice",
+    "meal_type": "dinner",
+    "diet_tags": ["anything", "high-protein"],
+    "calories": 600,
+    "protein_g": 30,
+    "carb_g": 55,
+    "fat_g": 28,
+    "ingredients": [
+      { "name": "Thịt ba chỉ (pork belly)", "amount": "200g" },
+      { "name": "Trứng gà (eggs)", "amount": "2" },
+      { "name": "Nước dừa, nước mắm (coconut water, fish sauce)", "amount": "to taste" },
+      { "name": "Cơm (rice)", "amount": "150g" }
+    ],
+    "instructions": "Braise pork belly and boiled eggs in coconut water and fish sauce until tender. Serve with rice.",
+    "allergen_tags": ["egg", "fish"],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Rau muống xào tỏi",
+    "name_en": "Stir-fried water spinach with garlic and rice",
+    "meal_type": "dinner",
+    "diet_tags": ["vegan", "vegetarian", "gluten-free"],
+    "calories": 350,
+    "protein_g": 8,
+    "carb_g": 60,
+    "fat_g": 8,
+    "ingredients": [
+      { "name": "Rau muống (water spinach)", "amount": "200g" },
+      { "name": "Tỏi (garlic)", "amount": "2 cloves" },
+      { "name": "Cơm (rice)", "amount": "150g" }
+    ],
+    "instructions": "Stir-fry water spinach with garlic in oil. Serve with rice.",
+    "allergen_tags": [],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Đậu que xào thịt bò",
+    "name_en": "Green beans stir-fried with beef and rice",
+    "meal_type": "dinner",
+    "diet_tags": ["anything", "high-protein", "gluten-free"],
+    "calories": 500,
+    "protein_g": 28,
+    "carb_g": 50,
+    "fat_g": 18,
+    "ingredients": [
+      { "name": "Đậu que (green beans)", "amount": "150g" },
+      { "name": "Thịt bò (beef strips)", "amount": "120g" },
+      { "name": "Cơm (rice)", "amount": "150g" }
+    ],
+    "instructions": "Stir-fry beef until browned, add green beans, stir-fry until crisp-tender. Serve with rice.",
+    "allergen_tags": [],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Canh bí đỏ",
+    "name_en": "Pumpkin soup with rice",
+    "meal_type": "dinner",
+    "diet_tags": ["vegan", "vegetarian", "gluten-free"],
+    "calories": 380,
+    "protein_g": 8,
+    "carb_g": 68,
+    "fat_g": 6,
+    "ingredients": [
+      { "name": "Bí đỏ (pumpkin)", "amount": "200g" },
+      { "name": "Hành lá (scallion)", "amount": "to taste" },
+      { "name": "Cơm (rice)", "amount": "150g" }
+    ],
+    "instructions": "Simmer pumpkin in vegetable broth until soft. Season and garnish with scallion. Serve with rice.",
+    "allergen_tags": [],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Gà kho gừng",
+    "name_en": "Ginger braised chicken with rice",
+    "meal_type": "dinner",
+    "diet_tags": ["anything", "high-protein", "gluten-free"],
+    "calories": 550,
+    "protein_g": 32,
+    "carb_g": 52,
+    "fat_g": 18,
+    "ingredients": [
+      { "name": "Thịt gà (chicken pieces)", "amount": "200g" },
+      { "name": "Gừng (ginger)", "amount": "30g" },
+      { "name": "Cơm (rice)", "amount": "150g" }
+    ],
+    "instructions": "Braise chicken with ginger, fish sauce, and a little sugar until sauce thickens. Serve with rice.",
+    "allergen_tags": ["fish"],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Lẩu thái chay",
+    "name_en": "Vegan Thai-style hot pot",
+    "meal_type": "dinner",
+    "diet_tags": ["vegan", "vegetarian"],
+    "calories": 450,
+    "protein_g": 14,
+    "carb_g": 70,
+    "fat_g": 12,
+    "ingredients": [
+      { "name": "Nấm, đậu hũ, rau các loại (mushrooms, tofu, mixed vegetables)", "amount": "300g" },
+      { "name": "Sả, riềng, lá chanh (lemongrass, galangal, kaffir lime leaf)", "amount": "to taste" },
+      { "name": "Bún (rice vermicelli)", "amount": "150g" }
+    ],
+    "instructions": "Simmer a sour-spicy broth with lemongrass, galangal, and lime leaf. Add mushrooms, tofu, and vegetables. Serve with vermicelli.",
+    "allergen_tags": ["soy"],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Trứng chiên thịt bằm không cơm",
+    "name_en": "Minced pork omelette (no rice, keto)",
+    "meal_type": "dinner",
+    "diet_tags": ["keto", "high-protein", "gluten-free"],
+    "calories": 380,
+    "protein_g": 26,
+    "carb_g": 5,
+    "fat_g": 28,
+    "ingredients": [
+      { "name": "Trứng gà (eggs)", "amount": "3" },
+      { "name": "Thịt heo băm (minced pork)", "amount": "100g" },
+      { "name": "Hành lá (scallion)", "amount": "to taste" }
+    ],
+    "instructions": "Mix beaten eggs with minced pork and scallion, pan-fry until set. Served without rice for a low-carb option.",
+    "allergen_tags": ["egg"],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Chè đậu xanh",
+    "name_en": "Mung bean sweet soup",
+    "meal_type": "snack",
+    "diet_tags": ["vegan", "vegetarian", "gluten-free"],
+    "calories": 220,
+    "protein_g": 6,
+    "carb_g": 42,
+    "fat_g": 4,
+    "ingredients": [
+      { "name": "Đậu xanh (mung bean)", "amount": "80g" },
+      { "name": "Đường, nước cốt dừa (sugar, coconut milk)", "amount": "to taste" }
+    ],
+    "instructions": "Simmer mung beans until soft, sweeten, top with a little coconut milk.",
+    "allergen_tags": [],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Bắp xào",
+    "name_en": "Stir-fried corn",
+    "meal_type": "snack",
+    "diet_tags": ["vegetarian", "gluten-free"],
+    "calories": 180,
+    "protein_g": 5,
+    "carb_g": 28,
+    "fat_g": 6,
+    "ingredients": [
+      { "name": "Bắp (corn kernels)", "amount": "150g" },
+      { "name": "Bơ, hành lá (butter, scallion)", "amount": "to taste" }
+    ],
+    "instructions": "Stir-fry corn kernels in butter with scallion.",
+    "allergen_tags": ["dairy"],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Trái cây tươi thập cẩm",
+    "name_en": "Mixed fresh fruit",
+    "meal_type": "snack",
+    "diet_tags": ["vegan", "vegetarian", "gluten-free", "keto-friendly-in-moderation"],
+    "calories": 150,
+    "protein_g": 2,
+    "carb_g": 36,
+    "fat_g": 1,
+    "ingredients": [
+      { "name": "Trái cây theo mùa (seasonal fruit mix)", "amount": "250g" }
+    ],
+    "instructions": "Wash and cut a mix of seasonal fruit.",
+    "allergen_tags": [],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  },
+  {
+    "name_vi": "Sữa chua nếp cẩm",
+    "name_en": "Yogurt with black sticky rice",
+    "meal_type": "snack",
+    "diet_tags": ["vegetarian", "gluten-free"],
+    "calories": 280,
+    "protein_g": 8,
+    "carb_g": 48,
+    "fat_g": 6,
+    "ingredients": [
+      { "name": "Sữa chua (yogurt)", "amount": "100g" },
+      { "name": "Nếp cẩm (black sticky rice, cooked)", "amount": "80g" }
+    ],
+    "instructions": "Layer yogurt with cooked, slightly sweetened black sticky rice.",
+    "allergen_tags": ["dairy"],
+    "source": "Hand-curated starter seed — typical home preparation, not lab-measured"
+  }
+]

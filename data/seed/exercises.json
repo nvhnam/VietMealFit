@@ -1,0 +1,252 @@
+[
+  {
+    "name": "Push-up",
+    "muscle_groups": ["chest", "triceps", "shoulders"],
+    "equipment": "bodyweight",
+    "difficulty": "beginner",
+    "default_sets": 3,
+    "rep_scheme": "10-15 reps",
+    "instructions": "Hands slightly wider than shoulders, body in a straight line from head to heels, lower chest to the floor and push back up.",
+    "limitation_tags": ["wrist_pain"]
+  },
+  {
+    "name": "Bodyweight Squat",
+    "muscle_groups": ["quadriceps", "glutes", "hamstrings"],
+    "equipment": "bodyweight",
+    "difficulty": "beginner",
+    "default_sets": 3,
+    "rep_scheme": "15-20 reps",
+    "instructions": "Feet shoulder-width apart, lower hips back and down as if sitting into a chair, keep chest up, return to standing.",
+    "limitation_tags": ["knee_pain"]
+  },
+  {
+    "name": "Plank",
+    "muscle_groups": ["core"],
+    "equipment": "bodyweight",
+    "difficulty": "beginner",
+    "default_sets": 3,
+    "rep_scheme": "30-60 sec hold",
+    "instructions": "Forearms and toes on the ground, body in a straight line, brace the core and hold.",
+    "limitation_tags": ["lower_back_pain"]
+  },
+  {
+    "name": "Dumbbell Bench Press",
+    "muscle_groups": ["chest", "triceps", "shoulders"],
+    "equipment": "dumbbell",
+    "difficulty": "intermediate",
+    "default_sets": 4,
+    "rep_scheme": "8-12 reps",
+    "instructions": "Lying on a bench, press dumbbells up from chest level until arms are extended, lower with control.",
+    "limitation_tags": ["shoulder_injury"]
+  },
+  {
+    "name": "Barbell Squat",
+    "muscle_groups": ["quadriceps", "glutes", "hamstrings", "core"],
+    "equipment": "barbell",
+    "difficulty": "intermediate",
+    "default_sets": 4,
+    "rep_scheme": "6-10 reps",
+    "instructions": "Bar racked across upper back, feet shoulder-width, squat down until thighs are parallel to the floor, drive back up.",
+    "limitation_tags": ["knee_pain", "lower_back_pain"]
+  },
+  {
+    "name": "Deadlift",
+    "muscle_groups": ["back", "glutes", "hamstrings", "core"],
+    "equipment": "barbell",
+    "difficulty": "advanced",
+    "default_sets": 4,
+    "rep_scheme": "5-8 reps",
+    "instructions": "Hinge at the hips with a flat back, grip the bar just outside the legs, drive through the heels to stand up straight.",
+    "limitation_tags": ["lower_back_pain"]
+  },
+  {
+    "name": "Pull-up",
+    "muscle_groups": ["back", "biceps"],
+    "equipment": "bodyweight",
+    "difficulty": "intermediate",
+    "default_sets": 3,
+    "rep_scheme": "6-10 reps",
+    "instructions": "Hang from a bar with an overhand grip, pull chin above the bar, lower with control.",
+    "limitation_tags": ["shoulder_injury"]
+  },
+  {
+    "name": "Dumbbell Shoulder Press",
+    "muscle_groups": ["shoulders", "triceps"],
+    "equipment": "dumbbell",
+    "difficulty": "intermediate",
+    "default_sets": 3,
+    "rep_scheme": "8-12 reps",
+    "instructions": "Seated or standing, press dumbbells overhead from shoulder height until arms are extended.",
+    "limitation_tags": ["shoulder_injury"]
+  },
+  {
+    "name": "Lunges",
+    "muscle_groups": ["quadriceps", "glutes", "hamstrings"],
+    "equipment": "bodyweight",
+    "difficulty": "beginner",
+    "default_sets": 3,
+    "rep_scheme": "12 reps per leg",
+    "instructions": "Step forward, lower until both knees are bent near 90 degrees, push back to start.",
+    "limitation_tags": ["knee_pain"]
+  },
+  {
+    "name": "Dumbbell Bicep Curl",
+    "muscle_groups": ["biceps"],
+    "equipment": "dumbbell",
+    "difficulty": "beginner",
+    "default_sets": 3,
+    "rep_scheme": "10-15 reps",
+    "instructions": "Standing, curl dumbbells up toward the shoulders keeping elbows close to the body, lower with control.",
+    "limitation_tags": []
+  },
+  {
+    "name": "Tricep Dip",
+    "muscle_groups": ["triceps", "chest", "shoulders"],
+    "equipment": "bodyweight",
+    "difficulty": "intermediate",
+    "default_sets": 3,
+    "rep_scheme": "10-15 reps",
+    "instructions": "Hands on a bench or bars behind you, lower body by bending elbows, push back up.",
+    "limitation_tags": ["shoulder_injury"]
+  },
+  {
+    "name": "Bent-over Row",
+    "muscle_groups": ["back", "biceps"],
+    "equipment": "barbell",
+    "difficulty": "intermediate",
+    "default_sets": 4,
+    "rep_scheme": "8-12 reps",
+    "instructions": "Hinge forward at the hips with a flat back, pull the bar toward the lower ribs, lower with control.",
+    "limitation_tags": ["lower_back_pain"]
+  },
+  {
+    "name": "Leg Press",
+    "muscle_groups": ["quadriceps", "glutes", "hamstrings"],
+    "equipment": "machine",
+    "difficulty": "beginner",
+    "default_sets": 4,
+    "rep_scheme": "10-15 reps",
+    "instructions": "Seated in the machine, press the platform away by extending the knees, return with control.",
+    "limitation_tags": ["knee_pain"]
+  },
+  {
+    "name": "Lat Pulldown",
+    "muscle_groups": ["back", "biceps"],
+    "equipment": "machine",
+    "difficulty": "beginner",
+    "default_sets": 3,
+    "rep_scheme": "10-12 reps",
+    "instructions": "Seated, pull the bar down to upper chest level, control it back up.",
+    "limitation_tags": ["shoulder_injury"]
+  },
+  {
+    "name": "Russian Twist",
+    "muscle_groups": ["core", "obliques"],
+    "equipment": "bodyweight",
+    "difficulty": "beginner",
+    "default_sets": 3,
+    "rep_scheme": "20 reps",
+    "instructions": "Seated, lean back slightly, rotate the torso side to side, feet can stay grounded for an easier version.",
+    "limitation_tags": ["lower_back_pain"]
+  },
+  {
+    "name": "Burpee",
+    "muscle_groups": ["full_body", "cardio"],
+    "equipment": "bodyweight",
+    "difficulty": "intermediate",
+    "default_sets": 3,
+    "rep_scheme": "10-15 reps",
+    "instructions": "Drop into a squat, kick feet back to a plank, do a push-up, jump feet back in, then jump up.",
+    "limitation_tags": ["knee_pain", "wrist_pain"]
+  },
+  {
+    "name": "Mountain Climbers",
+    "muscle_groups": ["core", "cardio"],
+    "equipment": "bodyweight",
+    "difficulty": "beginner",
+    "default_sets": 3,
+    "rep_scheme": "30 sec",
+    "instructions": "In a plank position, drive knees toward the chest alternately at a quick pace.",
+    "limitation_tags": ["wrist_pain"]
+  },
+  {
+    "name": "Jumping Jacks",
+    "muscle_groups": ["full_body", "cardio"],
+    "equipment": "bodyweight",
+    "difficulty": "beginner",
+    "default_sets": 3,
+    "rep_scheme": "30-60 sec",
+    "instructions": "Jump feet out while raising arms overhead, jump back to start.",
+    "limitation_tags": ["knee_pain"]
+  },
+  {
+    "name": "Hip Thrust",
+    "muscle_groups": ["glutes", "hamstrings"],
+    "equipment": "barbell",
+    "difficulty": "intermediate",
+    "default_sets": 4,
+    "rep_scheme": "10-15 reps",
+    "instructions": "Upper back on a bench, bar over hips, drive hips up until torso is parallel to the floor.",
+    "limitation_tags": ["lower_back_pain"]
+  },
+  {
+    "name": "Dumbbell Lateral Raise",
+    "muscle_groups": ["shoulders"],
+    "equipment": "dumbbell",
+    "difficulty": "beginner",
+    "default_sets": 3,
+    "rep_scheme": "12-15 reps",
+    "instructions": "Standing, raise dumbbells out to the sides to shoulder height, lower with control.",
+    "limitation_tags": ["shoulder_injury"]
+  },
+  {
+    "name": "Leg Curl",
+    "muscle_groups": ["hamstrings"],
+    "equipment": "machine",
+    "difficulty": "beginner",
+    "default_sets": 3,
+    "rep_scheme": "12 reps",
+    "instructions": "Lying or seated in the machine, curl the pad toward the glutes, return with control.",
+    "limitation_tags": ["knee_pain"]
+  },
+  {
+    "name": "Dumbbell Chest Fly",
+    "muscle_groups": ["chest"],
+    "equipment": "dumbbell",
+    "difficulty": "intermediate",
+    "default_sets": 3,
+    "rep_scheme": "10-12 reps",
+    "instructions": "Lying on a bench, arms slightly bent, open arms out wide then bring dumbbells back together above the chest.",
+    "limitation_tags": ["shoulder_injury"]
+  },
+  {
+    "name": "Calf Raise",
+    "muscle_groups": ["calves"],
+    "equipment": "bodyweight",
+    "difficulty": "beginner",
+    "default_sets": 3,
+    "rep_scheme": "15-20 reps",
+    "instructions": "Standing, rise onto the balls of the feet, lower with control.",
+    "limitation_tags": []
+  },
+  {
+    "name": "Cable Row",
+    "muscle_groups": ["back", "biceps"],
+    "equipment": "machine",
+    "difficulty": "intermediate",
+    "default_sets": 3,
+    "rep_scheme": "10-12 reps",
+    "instructions": "Seated, pull the handle toward the torso keeping the back straight, control it back out.",
+    "limitation_tags": ["lower_back_pain"]
+  },
+  {
+    "name": "Jump Rope",
+    "muscle_groups": ["full_body", "cardio", "calves"],
+    "equipment": "none",
+    "difficulty": "beginner",
+    "default_sets": 3,
+    "rep_scheme": "60 sec",
+    "instructions": "Jump rope at a steady pace, landing softly on the balls of the feet.",
+    "limitation_tags": ["knee_pain"]
+  }
+]
