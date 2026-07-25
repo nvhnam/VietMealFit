@@ -1,0 +1,35 @@
+name: Migrate production DB
+
+# Runs Drizzle migrations against prod before Vercel's own build picks up the
+# new commit. Separate from ci.yml because it needs write access to the real
+# DB, not just read-only test credentials, and only ever touches main.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "server/db/migrations/**"
+      - "server/db/schema.ts"
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # No-op once 0000_wet_spyke.sql (the schema built via `drizzle-kit push`
+      # across Phases 0-7, before migrations/ existed) is stamped as applied —
+      # see scripts/stamp-baseline-migration.mjs for why this exists at all.
+      - run: node scripts/stamp-baseline-migration.mjs
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - run: npm run db:migrate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}

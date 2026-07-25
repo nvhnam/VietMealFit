@@ -6,7 +6,11 @@
 // the underlying connectivity issue is understood (see chat for diagnosis).
 import { readFileSync } from "node:fs";
 import postgres from "postgres";
-import "dotenv/config";
+import { config } from "dotenv";
+
+// dotenv/config defaults to loading `.env`, which this project doesn't have —
+// DATABASE_URL lives in `.env.local` (Next.js convention).
+config({ path: ".env.local" });
 
 const path = process.argv[2];
 if (!path) {
