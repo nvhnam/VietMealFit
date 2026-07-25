@@ -1,6 +1,6 @@
 import { AdvancedModeGate } from "@/components/shared/advanced-mode-gate";
-import { ModulePlaceholder } from "@/components/shared/module-placeholder";
 import { getServerExperienceMode } from "@/features/experience-mode/get-server-experience-mode";
+import { ResourceList } from "@/features/vietsmart/components/resource-list";
 
 export default async function VietSmartPage({
   searchParams,
@@ -11,11 +11,7 @@ export default async function VietSmartPage({
 
   return (
     <AdvancedModeGate mode={mode}>
-      <ModulePlaceholder
-        title="VietSmart"
-        description="E-library — upload, search, and download fitness resources, stored centrally (not per-browser)."
-        phase="Phase 4"
-      />
+      <ResourceList />
     </AdvancedModeGate>
   );
 }

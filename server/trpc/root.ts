@@ -6,6 +6,7 @@ import { vietfitRouter } from "@/server/routers/vietfit";
 import { vietsearchRouter } from "@/server/routers/vietsearch";
 import { vietaskRouter } from "@/server/routers/vietask";
 import { vietmeetRouter } from "@/server/routers/vietmeet";
+import { vietsmartRouter } from "@/server/routers/vietsmart";
 
 export const appRouter = createTRPCRouter({
   profiles: profilesRouter,
@@ -15,7 +16,7 @@ export const appRouter = createTRPCRouter({
   vietsearch: vietsearchRouter,
   vietask: vietaskRouter,
   vietmeet: vietmeetRouter,
-  // Further module routers are added here as they're built.
+  vietsmart: vietsmartRouter,
 });
 
 export type AppRouter = typeof appRouter;
