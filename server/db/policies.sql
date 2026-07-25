@@ -225,3 +225,33 @@ create policy "chat_messages_insert_own" on public.chat_messages
   for insert with check (
     exists (select 1 from public.chat_sessions cs where cs.id = chat_messages.session_id and cs.user_id = auth.uid())
   );
+
+-- ---------------------------------------------------------------------------
+-- storage.objects — forum-attachments bucket (Phase 4, plan §1.6/§2.6)
+-- Bucket is public-read (set via the Storage API, not here) — public forum
+-- images don't need signed URLs. Writes require the object's path to be
+-- namespaced under the uploader's own auth.uid(), i.e.
+-- `forum/{auth.uid()}/{filename}`, so ownership is enforced by path
+-- structure rather than a separate ownership table.
+-- ---------------------------------------------------------------------------
+drop policy if exists "forum_attachments_storage_select_all" on storage.objects;
+create policy "forum_attachments_storage_select_all" on storage.objects
+  for select using (bucket_id = 'forum-attachments');
+
+drop policy if exists "forum_attachments_storage_insert_own" on storage.objects;
+create policy "forum_attachments_storage_insert_own" on storage.objects
+  for insert with check (
+    bucket_id = 'forum-attachments'
+    and (storage.foldername(name))[1] = 'forum'
+    and (storage.foldername(name))[2] = auth.uid()::text
+  );
+
+drop policy if exists "forum_attachments_storage_delete_own_or_admin" on storage.objects;
+create policy "forum_attachments_storage_delete_own_or_admin" on storage.objects
+  for delete using (
+    bucket_id = 'forum-attachments'
+    and (
+      public.is_admin()
+      or (storage.foldername(name))[2] = auth.uid()::text
+    )
+  );
