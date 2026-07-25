@@ -1,11 +1,16 @@
-import { ModulePlaceholder } from "@/components/shared/module-placeholder";
+import { createClient } from "@/lib/supabase/server";
+import { SignInRequired } from "@/components/shared/sign-in-required";
+import { VietMealPageClient } from "@/features/vietmeal/components/vietmeal-page-client";
 
-export default function VietMealPage() {
-  return (
-    <ModulePlaceholder
-      title="VietMeal"
-      description="Personalized meal planner — enter measurements, calorie goal, diet, and allergies to generate a weekly plan."
-      phase="Phase 2"
-    />
-  );
+export default async function VietMealPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return <SignInRequired what="generate a meal plan" />;
+  }
+
+  return <VietMealPageClient />;
 }

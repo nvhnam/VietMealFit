@@ -60,7 +60,7 @@ export function VietLeanCalculator() {
           </div>
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="phase">Phase</Label>
-            <Select value={phase} onValueChange={(v) => setPhase(v as LeanPhase)}>
+            <Select value={phase} onValueChange={(v) => v && setPhase(v as LeanPhase)}>
               <SelectTrigger id="phase" className="w-48">
                 <SelectValue />
               </SelectTrigger>
