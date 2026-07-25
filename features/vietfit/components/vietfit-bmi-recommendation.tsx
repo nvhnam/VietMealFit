@@ -1,0 +1,49 @@
+"use client";
+
+import { Card } from "@/components/ui/card";
+import type { ExercisePlanWithItems } from "./vietfit-week-view";
+
+function bmiCategory(bmi: number): string {
+  if (bmi < 18.5) return "Underweight";
+  if (bmi < 25) return "Normal";
+  if (bmi < 30) return "Overweight";
+  return "Obese";
+}
+
+function recommendation(category: string, goal: string): string {
+  const goalText = goal.replace("_", " ");
+  if (category === "Underweight") {
+    return `Your BMI suggests you're underweight. Combined with your ${goalText} goal, prioritize consistent meals and progressive strength training over heavy cardio.`;
+  }
+  if (category === "Overweight" || category === "Obese") {
+    return `Your BMI suggests some extra weight to manage. Combined with your ${goalText} goal, pair this schedule with a modest calorie deficit — see VietLean for a target.`;
+  }
+  return `Your BMI is in the normal range. Combined with your ${goalText} goal, this schedule and consistent nutrition should support steady progress.`;
+}
+
+/**
+ * Shown in both Basic and Advanced mode — plan §1.3 only tags the
+ * muscle-group/video exercise detail as Advanced-only, not this.
+ */
+export function VietFitBmiRecommendation({ plan }: { plan: ExercisePlanWithItems }) {
+  const params = plan.params as { heightCm?: number; weightKg?: number };
+  const heightCm = params.heightCm;
+  const weightKg = params.weightKg;
+  const bmi = heightCm && weightKg ? weightKg / (heightCm / 100) ** 2 : null;
+
+  return (
+    <Card className="p-6">
+      <h2 className="mb-2 font-semibold">BMI & recommendation</h2>
+      {bmi ? (
+        <>
+          <p className="text-sm text-muted-foreground">
+            BMI {bmi.toFixed(1)} ({bmiCategory(bmi)}) — informational only, not a diagnosis.
+          </p>
+          <p className="mt-2 text-sm">{recommendation(bmiCategory(bmi), plan.goal)}</p>
+        </>
+      ) : (
+        <p className="text-sm text-muted-foreground">Height/weight not available for this plan.</p>
+      )}
+    </Card>
+  );
+}

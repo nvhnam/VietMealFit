@@ -1,11 +1,16 @@
-import { ModulePlaceholder } from "@/components/shared/module-placeholder";
+import { createClient } from "@/lib/supabase/server";
+import { SignInRequired } from "@/components/shared/sign-in-required";
+import { VietFitPageClient } from "@/features/vietfit/components/vietfit-page-client";
 
-export default function VietFitPage() {
-  return (
-    <ModulePlaceholder
-      title="VietFit"
-      description="Personalized exercise planner — a chronological daily schedule based on your goals, experience, and limitations."
-      phase="Phase 2"
-    />
-  );
+export default async function VietFitPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return <SignInRequired what="generate an exercise plan" />;
+  }
+
+  return <VietFitPageClient />;
 }
