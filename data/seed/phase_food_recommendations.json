@@ -1,0 +1,19 @@
+[
+  { "phase": "bulking", "food_category": "Protein sources", "recommendation": "Lean meats, fish, eggs, tofu, and dairy — prioritize at every meal to support muscle growth." },
+  { "phase": "bulking", "food_category": "Carbohydrate sources", "recommendation": "Rice, noodles, bread, potatoes, and fruit — the main driver of your calorie surplus." },
+  { "phase": "bulking", "food_category": "Fat sources", "recommendation": "Nuts, avocado, olive oil, and fatty fish — support hormone production without excess volume." },
+  { "phase": "bulking", "food_category": "Vegetables", "recommendation": "Still include a variety daily for micronutrients, even though they're not the calorie focus in a surplus." },
+  { "phase": "bulking", "food_category": "Meal frequency", "recommendation": "Spread intake across 4-5 meals/snacks to make the extra calories easier to eat consistently." },
+
+  { "phase": "lean", "food_category": "Protein sources", "recommendation": "Lean meats, fish, eggs, legumes — enough at each meal to preserve and slowly build muscle." },
+  { "phase": "lean", "food_category": "Carbohydrate sources", "recommendation": "Whole grains, rice, fruit — time around training for energy and recovery." },
+  { "phase": "lean", "food_category": "Fat sources", "recommendation": "Moderate amounts from nuts, oils, and fatty fish — support hormones without excess calories." },
+  { "phase": "lean", "food_category": "Vegetables", "recommendation": "Fill at least half your plate at main meals — volume and fiber with minimal calories." },
+  { "phase": "lean", "food_category": "Consistency", "recommendation": "Small day-to-day fluctuations are normal; judge progress over weeks, not single meals." },
+
+  { "phase": "cutting", "food_category": "Protein sources", "recommendation": "Prioritize lean protein at every meal — higher than usual to help preserve muscle in a deficit." },
+  { "phase": "cutting", "food_category": "Carbohydrate sources", "recommendation": "Favor high-fiber, high-volume carbs (vegetables, whole grains) to stay full on fewer calories." },
+  { "phase": "cutting", "food_category": "Fat sources", "recommendation": "Keep moderate — enough for hormone health, but the first macro to trim when cutting calories." },
+  { "phase": "cutting", "food_category": "Vegetables", "recommendation": "Lean on non-starchy vegetables for volume and satiety without much calorie cost." },
+  { "phase": "cutting", "food_category": "Hydration", "recommendation": "Drink water before meals — deficit-related hunger is often mistaken for thirst." }
+]
