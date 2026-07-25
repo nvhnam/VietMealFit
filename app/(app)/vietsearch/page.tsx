@@ -1,6 +1,6 @@
 import { AdvancedModeGate } from "@/components/shared/advanced-mode-gate";
-import { ModulePlaceholder } from "@/components/shared/module-placeholder";
 import { getServerExperienceMode } from "@/features/experience-mode/get-server-experience-mode";
+import { VietSearchPageClient } from "@/features/vietsearch/components/vietsearch-page-client";
 
 export default async function VietSearchPage({
   searchParams,
@@ -11,11 +11,7 @@ export default async function VietSearchPage({
 
   return (
     <AdvancedModeGate mode={mode}>
-      <ModulePlaceholder
-        title="VietSearch"
-        description="Vietnamese nutrition dictionary — search 526 official food items for calories, protein, carbs, and fat per gram."
-        phase="Phase 3"
-      />
+      <VietSearchPageClient />
     </AdvancedModeGate>
   );
 }
