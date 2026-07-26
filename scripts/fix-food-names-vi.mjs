@@ -28,6 +28,7 @@ export const CORRECTIONS = {
   "1018": ["Bột mị", "Bột mì"],
   "1022": ["Mỳ sổi", "Mỳ sợi"],
   "2001": ["Củ ốu", "Củ ấu"],
+  "2002": ["Củ cái", "Củ cải"],
   "3021": ["Bột đậu tương đã loại bềo (đậu nành)", "Bột đậu tương đã loại béo (đậu nành)"],
   "3029": ["Hạt dưa đỏ rang (dưa hốu)", "Hạt dưa đỏ rang (dưa hấu)"],
   "3030": ["Hạt điều khô, chiên dỗu", "Hạt điều khô, chiên dầu"],
@@ -211,6 +212,10 @@ if (isMain) {
 
     const [expectedOld, newValue] = correction;
     const field = readField(line, secondComma + 1);
+    remaining.delete(foodCode);
+    if (field.value === newValue) {
+      return line; // already applied by a previous run
+    }
     if (field.value !== expectedOld) {
       throw new Error(
         `Row ${idx + 1} (food_code ${foodCode}): expected Food_Name_Vietnamese ` +
@@ -218,7 +223,6 @@ if (isMain) {
       );
     }
 
-    remaining.delete(foodCode);
     changed++;
     const newRaw = quoteField(newValue);
     return line.slice(0, field.start) + newRaw + line.slice(field.end);
