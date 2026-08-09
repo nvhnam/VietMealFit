@@ -6,6 +6,7 @@ import type { inferRouterOutputs } from "@trpc/server";
 import { useTRPC } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
 import type { AppRouter } from "@/server/trpc/root";
+import { useI18n } from "@/features/i18n";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
@@ -14,7 +15,6 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 type RouterOutputs = inferRouterOutputs<AppRouter>;
 export type MealPlanWithItems = NonNullable<RouterOutputs["vietmeal"]["getCurrentPlan"]>;
 
-const DAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 // meal_plan_items.mealType shares its column type with recipes.mealType
 // (both use the same Postgres enum), which includes "snack" even though
 // generated plans never produce one — widened to string[] so .indexOf()
@@ -24,6 +24,7 @@ const MEAL_TYPE_ORDER: string[] = ["breakfast", "lunch", "dinner"];
 export function VietMealWeekView({ plan }: { plan: MealPlanWithItems }) {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
+  const { t, language } = useI18n();
   const [activeDay, setActiveDay] = useState(0);
 
   const toggle = useMutation(
@@ -52,7 +53,7 @@ export function VietMealWeekView({ plan }: { plan: MealPlanWithItems }) {
     <Card className="p-6">
       <Tabs value={String(activeDay)} onValueChange={(v) => setActiveDay(Number(v))}>
         <TabsList>
-          {DAY_LABELS.map((label, day) => (
+          {t.common.dayLabelsShort.map((label, day) => (
             <TabsTrigger key={day} value={String(day)}>
               {label}
             </TabsTrigger>
@@ -77,20 +78,31 @@ export function VietMealWeekView({ plan }: { plan: MealPlanWithItems }) {
             <div className="flex-1">
               <div className="flex items-center gap-2">
                 <Badge variant="secondary" className="capitalize">
-                  {item.mealType}
+                  {t.common.mealType[item.mealType as keyof typeof t.common.mealType] ?? item.mealType}
                 </Badge>
-                <span className={cn("font-medium", item.completed && "text-muted-foreground line-through")}>
-                  {item.recipe.nameVi}
-                </span>
-                {item.recipe.nameEn && (
-                  <span className="text-sm text-muted-foreground">({item.recipe.nameEn})</span>
-                )}
+                {(() => {
+                  const primary = language === "vi" ? item.recipe.nameVi : (item.recipe.nameEn ?? item.recipe.nameVi);
+                  const secondary = language === "vi" ? item.recipe.nameEn : item.recipe.nameVi;
+                  return (
+                    <>
+                      <span className={cn("font-medium", item.completed && "text-muted-foreground line-through")}>
+                        {primary}
+                      </span>
+                      {secondary && secondary !== primary && (
+                        <span className="text-sm text-muted-foreground">({secondary})</span>
+                      )}
+                    </>
+                  );
+                })()}
               </div>
               <p className="mt-1 text-sm text-muted-foreground">
-                {item.recipe.calories} kcal · {item.recipe.proteinG}g protein ·{" "}
-                {item.recipe.carbG}g carb · {item.recipe.fatG}g fat
+                {item.recipe.calories} kcal · {item.recipe.proteinG}g {t.common.macro.protein.toLowerCase()} ·{" "}
+                {item.recipe.carbG}g {t.common.macro.carbs.toLowerCase()} · {item.recipe.fatG}g{" "}
+                {t.common.macro.fat.toLowerCase()}
               </p>
-              <p className="mt-2 text-sm">{item.recipe.instructions}</p>
+              <p className="mt-2 text-sm">
+                {language === "vi" ? (item.recipe.instructionsVi ?? item.recipe.instructions) : item.recipe.instructions}
+              </p>
             </div>
           </div>
         ))}

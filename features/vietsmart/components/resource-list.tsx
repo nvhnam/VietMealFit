@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { useTRPC } from "@/lib/trpc/client";
 import { useUser } from "@/lib/supabase/use-user";
 import { useDebouncedValue } from "@/lib/use-debounced-value";
+import { useI18n } from "@/features/i18n";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -34,6 +35,7 @@ export function ResourceList() {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const { user } = useUser();
+  const { t } = useI18n();
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<string | undefined>(undefined);
   const [sort, setSort] = useState<Sort>("newest");
@@ -48,7 +50,7 @@ export function ResourceList() {
   const deleteResource = useMutation(
     trpc.vietsmart.deleteResource.mutationOptions({
       onSuccess: () => {
-        toast.success("Resource deleted");
+        toast.success(t.vietsmart.resourceDeleted);
         queryClient.invalidateQueries({ queryKey: trpc.vietsmart.listResources.queryKey() });
       },
       onError: (err) => toast.error(err.message),
@@ -59,14 +61,14 @@ export function ResourceList() {
     <div className="mx-auto flex max-w-3xl flex-col gap-4">
       <PageHeader
         icon={Library}
-        title="VietSmart"
-        description="A shared library of fitness and nutrition resources — uploaded once, available to everyone."
+        title={t.vietsmart.title}
+        description={t.vietsmart.description}
         action={<UploadResourceDialog />}
       />
 
       <div className="flex flex-wrap gap-2">
         <Input
-          placeholder="Search resources..."
+          placeholder={t.vietsmart.searchResources}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="flex-1"
@@ -79,7 +81,7 @@ export function ResourceList() {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="__all__">All categories</SelectItem>
+            <SelectItem value="__all__">{t.vietsmart.allCategories}</SelectItem>
             {categories?.map((c) => (
               <SelectItem key={c} value={c}>
                 {c}
@@ -92,9 +94,9 @@ export function ResourceList() {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="newest">Newest first</SelectItem>
-            <SelectItem value="oldest">Oldest first</SelectItem>
-            <SelectItem value="popular">Most downloaded</SelectItem>
+            <SelectItem value="newest">{t.vietsmart.newestFirst}</SelectItem>
+            <SelectItem value="oldest">{t.vietsmart.oldestFirst}</SelectItem>
+            <SelectItem value="popular">{t.vietsmart.mostDownloaded}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -107,7 +109,7 @@ export function ResourceList() {
       )}
 
       {!isLoading && resources?.length === 0 && (
-        <p className="text-sm text-muted-foreground">No resources found. Be the first to upload one.</p>
+        <p className="text-sm text-muted-foreground">{t.vietsmart.noResourcesFound}</p>
       )}
 
       <div className="flex flex-col gap-3">
@@ -121,16 +123,21 @@ export function ResourceList() {
                 <h2 className="truncate font-medium">{r.title}</h2>
                 {r.category && <Badge variant="secondary">{r.category}</Badge>}
               </div>
-              {r.description && <p className="mt-1 text-sm text-muted-foreground">{r.description}</p>}
+              {r.description && (
+                <>
+                  <p className="mt-1 text-sm text-muted-foreground">{r.description}</p>
+                  <p className="text-[11px] italic text-muted-foreground/70">{t.vietsmart.originalLanguageBadge}</p>
+                </>
+              )}
               <p className="mt-1 text-xs text-muted-foreground">
-                {r.uploaderDisplayName} · {formatBytes(r.size)} · {r.downloadCount} downloads
+                {r.uploaderDisplayName} · {formatBytes(r.size)} · {t.vietsmart.downloadsCount(r.downloadCount)}
               </p>
             </div>
             <div className="flex shrink-0 gap-1">
               <Button
                 variant="outline"
                 size="sm"
-                aria-label={`Download ${r.title}`}
+                aria-label={t.vietsmart.downloadLabel(r.title)}
                 disabled={getDownloadUrl.isPending}
                 onClick={async () => {
                   const { url } = await getDownloadUrl.mutateAsync({ id: r.id });
@@ -145,7 +152,7 @@ export function ResourceList() {
                   variant="ghost"
                   size="icon-sm"
                   onClick={() => deleteResource.mutate({ id: r.id })}
-                  aria-label="Delete resource"
+                  aria-label={t.vietsmart.deleteResource}
                 >
                   <Trash2 className="size-3.5" />
                 </Button>

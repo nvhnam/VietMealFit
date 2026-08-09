@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { Card } from "@/components/ui/card";
+import { useI18n } from "@/features/i18n";
 import type { MealPlanWithItems } from "./vietmeal-week-view";
 
 // Colors mapped to CSS custom properties (design tokens), not hardcoded hex —
@@ -10,6 +11,7 @@ import type { MealPlanWithItems } from "./vietmeal-week-view";
 const COLORS = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)"];
 
 export function VietMealMacroChart({ plan }: { plan: MealPlanWithItems }) {
+  const { t } = useI18n();
   const data = useMemo(() => {
     let proteinG = 0;
     let carbG = 0;
@@ -20,15 +22,15 @@ export function VietMealMacroChart({ plan }: { plan: MealPlanWithItems }) {
       fatG += Number(item.recipe.fatG);
     }
     return [
-      { name: "Protein", grams: Math.round(proteinG) },
-      { name: "Carbs", grams: Math.round(carbG) },
-      { name: "Fat", grams: Math.round(fatG) },
+      { name: t.common.macro.protein, grams: Math.round(proteinG) },
+      { name: t.common.macro.carbs, grams: Math.round(carbG) },
+      { name: t.common.macro.fat, grams: Math.round(fatG) },
     ];
-  }, [plan.items]);
+  }, [plan.items, t]);
 
   return (
     <Card className="p-6">
-      <h2 className="mb-2 font-semibold">Weekly macro split</h2>
+      <h2 className="mb-2 font-semibold">{t.vietmeal.macroChartHeading}</h2>
       <div className="h-64 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>

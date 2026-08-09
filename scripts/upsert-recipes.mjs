@@ -5,6 +5,15 @@
 // entirely). Recipes no longer present in the JSON are deleted; if a delete
 // is blocked by a live FK reference, it's skipped with a warning rather than
 // forced.
+//
+// Deliberately NOT wrapped in a single sql.begin() transaction: against this
+// project's Supabase pooler, a transaction held open across ~70 sequential
+// round trips reliably dies mid-way with CONNECTION_CLOSED/ECONNRESET, while
+// short independent statements succeed. Each row's update/insert is already
+// atomic on its own, so per-statement retry (same pattern as
+// scripts/apply-migration-manual.mjs) trades whole-batch atomicity for
+// actually being able to complete — the right trade here since the batch
+// transaction was failing 100% of the time, not intermittently.
 // Run: node --env-file=.env.local scripts/upsert-recipes.mjs
 import { readFileSync } from "node:fs";
 import postgres from "postgres";
@@ -32,11 +41,14 @@ let inserted = 0;
 let deleted = 0;
 let deleteSkipped = 0;
 
-await sql.begin(async (tx) => {
-  for (const r of recipes) {
-    const existing = await tx`select id from recipes where name_vi = ${r.name_vi} limit 1`;
-    if (existing.length > 0) {
-      await tx`
+const existingRows = await withRetry(() => sql`select id, name_vi from recipes`);
+const byName = new Map(existingRows.map((r) => [r.name_vi, r.id]));
+
+for (const r of recipes) {
+  const existingId = byName.get(r.name_vi);
+  if (existingId) {
+    await withRetry(
+      () => sql`
         update recipes set
           name_en = ${r.name_en},
           meal_type = ${r.meal_type},
@@ -47,45 +59,47 @@ await sql.begin(async (tx) => {
           fat_g = ${r.fat_g},
           ingredients = ${sql.json(r.ingredients)},
           instructions = ${r.instructions},
+          instructions_vi = ${r.instructions_vi ?? null},
           allergen_tags = ${r.allergen_tags},
           source = ${r.source}
-        where id = ${existing[0].id}
-      `;
-      updated++;
-    } else {
-      await tx`
+        where id = ${existingId}
+      `,
+    );
+    updated++;
+  } else {
+    await withRetry(
+      () => sql`
         insert into recipes
-          (name_vi, name_en, meal_type, diet_tags, calories, protein_g, carb_g, fat_g, ingredients, instructions, allergen_tags, source)
+          (name_vi, name_en, meal_type, diet_tags, calories, protein_g, carb_g, fat_g, ingredients, instructions, instructions_vi, allergen_tags, source)
         values (
           ${r.name_vi}, ${r.name_en}, ${r.meal_type}, ${r.diet_tags}, ${r.calories},
-          ${r.protein_g}, ${r.carb_g}, ${r.fat_g}, ${sql.json(r.ingredients)}, ${r.instructions}, ${r.allergen_tags}, ${r.source}
+          ${r.protein_g}, ${r.carb_g}, ${r.fat_g}, ${sql.json(r.ingredients)}, ${r.instructions}, ${r.instructions_vi ?? null}, ${r.allergen_tags}, ${r.source}
         )
-      `;
-      inserted++;
-    }
+      `,
+    );
+    inserted++;
   }
+}
 
-  // Remove rows from the old catalog that are no longer in the new set.
-  // Each delete runs in its own savepoint so a single FK-restrict failure
-  // (a live meal plan still referencing that recipe) doesn't abort the
-  // whole transaction — it's just rolled back to before that one delete.
-  const stale = await tx`select id, name_vi from recipes where name_vi != ALL(${sql.array([...names])})`;
-  for (const row of stale) {
-    try {
-      await tx.savepoint(async (sp) => {
-        await sp`delete from recipes where id = ${row.id}`;
-      });
-      deleted++;
-    } catch (err) {
-      console.log(`  Skipped deleting "${row.name_vi}" (${row.id}): ${err.message} — likely still referenced by a user's meal plan.`);
-      deleteSkipped++;
-    }
+const stale = existingRows.filter((row) => !names.has(row.name_vi));
+for (const row of stale) {
+  try {
+    await withRetry(() => sql`delete from recipes where id = ${row.id}`, 2);
+    deleted++;
+  } catch (err) {
+    console.log(`  Skipped deleting "${row.name_vi}" (${row.id}): ${err.message} — likely still referenced by a user's meal plan.`);
+    deleteSkipped++;
   }
-});
+}
 
 console.log(`Updated: ${updated}, Inserted: ${inserted}, Deleted: ${deleted}, Delete-skipped (FK-referenced): ${deleteSkipped}`);
 
 const finalCount = await withRetry(() => sql`select count(*)::int as n from recipes`);
 console.log("Final recipes row count:", finalCount[0].n);
 
-await sql.end();
+// Not awaited: sql.end()'s graceful-close handshake has been hanging under
+// the same pooler flakiness this script otherwise retries around, blocking
+// process exit indefinitely even after all work above completed successfully.
+// A one-off script exiting immediately after logging its result is fine.
+sql.end({ timeout: 1 });
+process.exit(0);

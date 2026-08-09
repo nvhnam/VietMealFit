@@ -9,7 +9,7 @@ export default async function VietFitPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return <SignInRequired what="generate an exercise plan" />;
+    return <SignInRequired what="vietfit-plan" />;
   }
 
   return <VietFitPageClient />;

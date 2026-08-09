@@ -7,6 +7,7 @@ import { useTRPC } from "@/lib/trpc/client";
 import { cn } from "@/lib/utils";
 import type { AppRouter } from "@/server/trpc/root";
 import { useExperienceMode } from "@/features/experience-mode";
+import { useI18n } from "@/features/i18n";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
@@ -15,12 +16,11 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 type RouterOutputs = inferRouterOutputs<AppRouter>;
 export type ExercisePlanWithItems = NonNullable<RouterOutputs["vietfit"]["getCurrentPlan"]>;
 
-const DAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
 export function VietFitWeekView({ plan }: { plan: ExercisePlanWithItems }) {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const { mode } = useExperienceMode();
+  const { t, language } = useI18n();
   const [activeDay, setActiveDay] = useState(0);
   const [expandedItemId, setExpandedItemId] = useState<string | null>(null);
 
@@ -48,7 +48,7 @@ export function VietFitWeekView({ plan }: { plan: ExercisePlanWithItems }) {
     <Card className="p-6">
       <Tabs value={String(activeDay)} onValueChange={(v) => setActiveDay(Number(v))}>
         <TabsList>
-          {DAY_LABELS.map((label, day) => (
+          {t.common.dayLabelsShort.map((label, day) => (
             <TabsTrigger key={day} value={String(day)}>
               {label}
             </TabsTrigger>
@@ -58,7 +58,7 @@ export function VietFitWeekView({ plan }: { plan: ExercisePlanWithItems }) {
 
       <div className="mt-4 flex flex-col gap-4">
         {dayItems.length === 0 && (
-          <p className="text-sm text-muted-foreground">Rest day — no exercises scheduled.</p>
+          <p className="text-sm text-muted-foreground">{t.vietfit.restDayMessage}</p>
         )}
         {dayItems.map((item) => (
           <div
@@ -77,7 +77,8 @@ export function VietFitWeekView({ plan }: { plan: ExercisePlanWithItems }) {
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <Badge variant="secondary" className="capitalize">
-                    {item.exercise.difficulty}
+                    {t.vietfit.experienceOption[item.exercise.difficulty as keyof typeof t.vietfit.experienceOption] ??
+                      item.exercise.difficulty}
                   </Badge>
                   <button
                     type="button"
@@ -88,17 +89,22 @@ export function VietFitWeekView({ plan }: { plan: ExercisePlanWithItems }) {
                     disabled={mode !== "advanced"}
                     onClick={() => setExpandedItemId(expandedItemId === item.id ? null : item.id)}
                   >
-                    {item.exercise.name}
+                    {language === "vi" ? (item.exercise.nameVi ?? item.exercise.name) : item.exercise.name}
                   </button>
                 </div>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  {item.sets} sets × {item.repScheme}
+                  {item.sets}{" "}
+                  {language === "vi"
+                    ? `set × ${item.exercise.repSchemeVi ?? item.repScheme}`
+                    : `sets × ${item.repScheme}`}
                 </p>
-                <p className="mt-2 text-sm">{item.exercise.instructions}</p>
+                <p className="mt-2 text-sm">
+                  {language === "vi" ? (item.exercise.instructionsVi ?? item.exercise.instructions) : item.exercise.instructions}
+                </p>
 
                 {mode === "advanced" && expandedItemId === item.id && (
                   <div className="mt-3 rounded-md bg-muted p-3">
-                    <p className="mb-1 text-sm font-medium">Targeted muscles</p>
+                    <p className="mb-1 text-sm font-medium">{t.vietfit.targetedMuscles}</p>
                     <div className="mb-2 flex flex-wrap gap-1">
                       {item.exercise.muscleGroups.map((m) => (
                         <Badge key={m} variant="outline" className="capitalize">
@@ -113,12 +119,10 @@ export function VietFitWeekView({ plan }: { plan: ExercisePlanWithItems }) {
                         rel="noopener noreferrer"
                         className="text-sm text-primary underline-offset-4 hover:underline"
                       >
-                        Watch instructional video
+                        {t.vietfit.watchVideo}
                       </a>
                     ) : (
-                      <p className="text-sm text-muted-foreground">
-                        Instructional video not yet added for this exercise.
-                      </p>
+                      <p className="text-sm text-muted-foreground">{t.vietfit.videoNotYetAdded}</p>
                     )}
                   </div>
                 )}

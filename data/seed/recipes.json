@@ -14,29 +14,40 @@
     "fat_g": 10,
     "ingredients": [
       {
-        "name": "Bánh phở (rice noodles)",
-        "amount": "200g"
+        "name_vi": "Bánh phở",
+        "name_en": "rice noodles",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Thịt bò (beef slices)",
-        "amount": "100g"
+        "name_vi": "Thịt bò",
+        "name_en": "beef slices",
+        "amount_vi": "100g",
+        "amount_en": "100g"
       },
       {
-        "name": "Nước dùng xương bò (beef bone broth)",
-        "amount": "500ml"
+        "name_vi": "Nước dùng xương bò",
+        "name_en": "beef bone broth",
+        "amount_vi": "500ml",
+        "amount_en": "500ml"
       },
       {
-        "name": "Hành lá, ngò (scallion, cilantro)",
-        "amount": "to taste"
+        "name_vi": "Hành lá, ngò",
+        "name_en": "scallion, cilantro",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       },
       {
-        "name": "Giá đỗ (bean sprouts)",
-        "amount": "50g"
+        "name_vi": "Giá đỗ",
+        "name_en": "bean sprouts",
+        "amount_vi": "50g",
+        "amount_en": "50g"
       }
     ],
     "instructions": "Simmer beef bones for broth (or use pre-made stock). Blanch rice noodles. Thinly slice raw beef and place over noodles, ladle boiling broth over to cook the beef. Top with scallion, cilantro, bean sprouts.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAN-113091 (\"Phở bò tái\"), accessed 2026-08-08. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAN-113091 (\"Phở bò tái\"), accessed 2026-08-08. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Hầm xương bò lấy nước dùng (hoặc dùng nước dùng đóng sẵn). Trụng bánh phở. Thái mỏng thịt bò sống, xếp lên trên bánh phở rồi chan nước dùng đang sôi để làm chín thịt. Rắc hành lá, ngò, giá đỗ lên trên."
   },
   {
     "name_vi": "Bánh mỳ ốp la",
@@ -51,16 +62,22 @@
     "fat_g": 21.7,
     "ingredients": [
       {
-        "name": "Bánh mì (baguette)",
-        "amount": "1 loaf (~120g)"
+        "name_vi": "Bánh mì",
+        "name_en": "baguette",
+        "amount_vi": "1 loaf (~120g)",
+        "amount_en": "1 loaf (~120g)"
       },
       {
-        "name": "Trứng gà (eggs)",
-        "amount": "2"
+        "name_vi": "Trứng gà",
+        "name_en": "eggs",
+        "amount_vi": "2",
+        "amount_en": "2"
       },
       {
-        "name": "Nước mắm, rau thơm (fish sauce, herbs)",
-        "amount": "to taste"
+        "name_vi": "Nước mắm, rau thơm",
+        "name_en": "fish sauce, herbs",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Fry eggs sunny-side up. Split baguette and tuck in the fried eggs with a dash of fish sauce and herbs.",
@@ -68,7 +85,8 @@
       "gluten",
       "egg"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000309 (\"Bánh mỳ ốp la\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Replaces a prior hand-typed egg-baguette estimate with a direct NIN dish match."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000309 (\"Bánh mỳ ốp la\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Replaces a prior hand-typed egg-baguette estimate with a direct NIN dish match.",
+    "instructions_vi": "Chiên trứng ốp la. Xẻ ổ bánh mì rồi kẹp trứng chiên vào cùng chút nước mắm và rau thơm."
   },
   {
     "name_vi": "Xôi xéo",
@@ -86,25 +104,34 @@
     "fat_g": 3.6,
     "ingredients": [
       {
-        "name": "Gạo nếp (glutinous rice)",
-        "amount": "150g"
+        "name_vi": "Gạo nếp",
+        "name_en": "glutinous rice",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Đậu xanh (mung bean)",
-        "amount": "50g"
+        "name_vi": "Đậu xanh",
+        "name_en": "mung bean",
+        "amount_vi": "50g",
+        "amount_en": "50g"
       },
       {
-        "name": "Hành phi (fried shallots)",
-        "amount": "1 tbsp"
+        "name_vi": "Hành phi",
+        "name_en": "fried shallots",
+        "amount_vi": "1 tbsp",
+        "amount_en": "1 tbsp"
       },
       {
-        "name": "Dầu ăn (cooking oil)",
-        "amount": "1 tsp"
+        "name_vi": "Dầu ăn",
+        "name_en": "cooking oil",
+        "amount_vi": "1 tsp",
+        "amount_en": "1 tsp"
       }
     ],
     "instructions": "Steam glutinous rice. Steam and mash mung beans, form into a log, slice thinly. Serve rice topped with mung bean slices, fried shallots, and a drizzle of oil.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-223036 (\"Xôi xéo\"), accessed 2026-08-08. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-223036 (\"Xôi xéo\"), accessed 2026-08-08. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Đồ chín gạo nếp. Đồ chín đậu xanh rồi tán nhuyễn, nắm thành khối, thái lát mỏng. Xới xôi ra đĩa, rắc đậu xanh, hành phi và rưới chút dầu ăn lên trên."
   },
   {
     "name_vi": "Cháo gà",
@@ -120,21 +147,28 @@
     "fat_g": 7.8,
     "ingredients": [
       {
-        "name": "Gạo tẻ (rice)",
-        "amount": "60g"
+        "name_vi": "Gạo tẻ",
+        "name_en": "rice",
+        "amount_vi": "60g",
+        "amount_en": "60g"
       },
       {
-        "name": "Thịt gà (chicken)",
-        "amount": "80g"
+        "name_vi": "Thịt gà",
+        "name_en": "chicken",
+        "amount_vi": "80g",
+        "amount_en": "80g"
       },
       {
-        "name": "Gừng, hành lá (ginger, scallion)",
-        "amount": "to taste"
+        "name_vi": "Gừng, hành lá",
+        "name_en": "ginger, scallion",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Simmer rice in chicken broth until porridge consistency. Add shredded cooked chicken, ginger, scallion.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000243 (\"Cháo gà\"), accessed 2026-08-08. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000243 (\"Cháo gà\"), accessed 2026-08-08. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Ninh gạo trong nước dùng gà đến khi nhuyễn thành cháo. Cho thịt gà xé, gừng, hành lá vào."
   },
   {
     "name_vi": "Bún riêu",
@@ -150,16 +184,22 @@
     "fat_g": 3.6,
     "ingredients": [
       {
-        "name": "Bún (rice vermicelli)",
-        "amount": "200g"
+        "name_vi": "Bún",
+        "name_en": "rice vermicelli",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Riêu cua (crab paste)",
-        "amount": "100g"
+        "name_vi": "Riêu cua",
+        "name_en": "crab paste",
+        "amount_vi": "100g",
+        "amount_en": "100g"
       },
       {
-        "name": "Cà chua, đậu hũ (tomato, tofu)",
-        "amount": "80g"
+        "name_vi": "Cà chua, đậu hũ",
+        "name_en": "tomato, tofu",
+        "amount_vi": "80g",
+        "amount_en": "80g"
       }
     ],
     "instructions": "Simmer tomato-crab broth, add fried tofu. Serve over rice vermicelli.",
@@ -167,7 +207,8 @@
       "shellfish",
       "soy"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000233 (\"Bún riêu cua\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000233 (\"Bún riêu cua\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Ninh nước dùng cà chua riêu cua, cho đậu hũ chiên vào. Ăn kèm bún."
   },
   {
     "name_vi": "Bánh cuốn",
@@ -183,23 +224,30 @@
     "fat_g": 18.5,
     "ingredients": [
       {
-        "name": "Bột gạo (rice batter)",
-        "amount": "200g"
+        "name_vi": "Bột gạo",
+        "name_en": "rice batter",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Thịt heo băm, mộc nhĩ (minced pork, wood ear mushroom)",
-        "amount": "80g"
+        "name_vi": "Thịt heo băm, mộc nhĩ",
+        "name_en": "minced pork, wood ear mushroom",
+        "amount_vi": "80g",
+        "amount_en": "80g"
       },
       {
-        "name": "Nước mắm chua ngọt (sweet fish sauce)",
-        "amount": "to taste"
+        "name_vi": "Nước mắm chua ngọt",
+        "name_en": "sweet fish sauce",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Steam thin rice batter sheets, fill with sautéed minced pork and mushroom, roll up. Serve with dipping sauce.",
     "allergen_tags": [
       "fish"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000293 (\"Bánh cuốn thịt\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000293 (\"Bánh cuốn thịt\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Hấp bột gạo thành lớp bánh mỏng, cuộn với nhân thịt heo băm và mộc nhĩ đã xào chín. Ăn kèm nước chấm."
   },
   {
     "name_vi": "Bơ",
@@ -218,13 +266,16 @@
     "fat_g": 12.9,
     "ingredients": [
       {
-        "name": "Bơ (avocado)",
-        "amount": "1 medium"
+        "name_vi": "Bơ",
+        "name_en": "avocado",
+        "amount_vi": "1 quả cỡ vừa",
+        "amount_en": "1 medium"
       }
     ],
     "instructions": "Halve and serve fresh, optionally with a pinch of salt or a squeeze of lime.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000418 (\"Quả bơ vỏ xanh\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Replaces a prior hand-typed avocado-smoothie estimate; no blended-drink entry exists in NIN's database, so this recipe was changed to plain avocado, which does."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000418 (\"Quả bơ vỏ xanh\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Replaces a prior hand-typed avocado-smoothie estimate; no blended-drink entry exists in NIN's database, so this recipe was changed to plain avocado, which does.",
+    "instructions_vi": "Bổ đôi quả bơ, ăn tươi, có thể rắc thêm chút muối hoặc vắt chanh."
   },
   {
     "name_vi": "Cơm tấm sườn nướng",
@@ -240,20 +291,28 @@
     "fat_g": 16.2,
     "ingredients": [
       {
-        "name": "Cơm tấm (broken rice)",
-        "amount": "250g"
+        "name_vi": "Cơm tấm",
+        "name_en": "broken rice",
+        "amount_vi": "250g",
+        "amount_en": "250g"
       },
       {
-        "name": "Sườn heo (pork chop)",
-        "amount": "150g"
+        "name_vi": "Sườn heo",
+        "name_en": "pork chop",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Trứng ốp la, mỡ hành (fried egg, scallion oil)",
-        "amount": "1 egg"
+        "name_vi": "Trứng ốp la, mỡ hành",
+        "name_en": "fried egg, scallion oil",
+        "amount_vi": "1 quả",
+        "amount_en": "1 egg"
       },
       {
-        "name": "Dưa leo, cà chua (cucumber, tomato)",
-        "amount": "to taste"
+        "name_vi": "Dưa leo, cà chua",
+        "name_en": "cucumber, tomato",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Marinate and grill pork chop. Serve over broken rice with fried egg, scallion oil, cucumber, tomato, and fish sauce.",
@@ -261,7 +320,8 @@
       "egg",
       "fish"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000013 (\"Cơm sườn\" — closest available match for broken rice with pork rib), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000013 (\"Cơm sườn\" — closest available match for broken rice with pork rib), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Ướp và nướng sườn heo. Ăn cùng cơm tấm, trứng ốp la, mỡ hành, dưa leo, cà chua và nước mắm."
   },
   {
     "name_vi": "Bún chả Hà Nội",
@@ -277,23 +337,30 @@
     "fat_g": 11,
     "ingredients": [
       {
-        "name": "Bún (rice vermicelli)",
-        "amount": "200g"
+        "name_vi": "Bún",
+        "name_en": "rice vermicelli",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Thịt heo nướng (grilled pork patties/slices)",
-        "amount": "150g"
+        "name_vi": "Thịt heo nướng",
+        "name_en": "grilled pork patties/slices",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Nước mắm chua ngọt, đu đủ xanh (sweet fish sauce, green papaya)",
-        "amount": "to taste"
+        "name_vi": "Nước mắm chua ngọt, đu đủ xanh",
+        "name_en": "sweet fish sauce, green papaya",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Grill marinated pork. Serve with rice vermicelli, herbs, and dipping sauce with pickled green papaya.",
     "allergen_tags": [
       "fish"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000223 (\"Bún chả\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000223 (\"Bún chả\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Nướng thịt heo đã ướp. Ăn cùng bún, rau sống và nước chấm chua ngọt kèm đu đủ xanh."
   },
   {
     "name_vi": "Đùi gà rán",
@@ -309,21 +376,28 @@
     "carb_g": 42.9,
     "ingredients": [
       {
-        "name": "Đùi gà (chicken thigh)",
-        "amount": "1 piece (~200g)"
+        "name_vi": "Đùi gà",
+        "name_en": "chicken thigh",
+        "amount_vi": "1 piece (~200g)",
+        "amount_en": "1 piece (~200g)"
       },
       {
-        "name": "Cơm (rice)",
-        "amount": "150g"
+        "name_vi": "Cơm",
+        "name_en": "rice",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Đồ chua (pickled vegetables)",
-        "amount": "to taste"
+        "name_vi": "Đồ chua",
+        "name_en": "pickled vegetables",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Deep-fry chicken thigh until crispy and cooked through. Serve with steamed rice and pickled vegetables.",
     "allergen_tags": [],
-    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000126 (\"Đùi gà rán\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09. Replaces a prior hand-typed \"cơm gà xối mỡ\" estimate; the closest confidently matched NIN dish is a fried chicken thigh, so the recipe was renamed to match what's actually sourced, composited with a standard rice serving since the NIN record is chicken-only."
+    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000126 (\"Đùi gà rán\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09. Replaces a prior hand-typed \"cơm gà xối mỡ\" estimate; the closest confidently matched NIN dish is a fried chicken thigh, so the recipe was renamed to match what's actually sourced, composited with a standard rice serving since the NIN record is chicken-only.",
+    "instructions_vi": "Chiên ngập dầu đùi gà đến khi giòn và chín đều. Ăn cùng cơm trắng và đồ chua."
   },
   {
     "name_vi": "Bún bò Huế",
@@ -339,23 +413,30 @@
     "fat_g": 16.7,
     "ingredients": [
       {
-        "name": "Bún (thick rice vermicelli)",
-        "amount": "200g"
+        "name_vi": "Bún",
+        "name_en": "thick rice vermicelli",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Thịt bò, giò heo (beef, pork knuckle)",
-        "amount": "150g"
+        "name_vi": "Thịt bò, giò heo",
+        "name_en": "beef, pork knuckle",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Sả, ớt, mắm ruốc (lemongrass, chili, shrimp paste)",
-        "amount": "to taste"
+        "name_vi": "Sả, ớt, mắm ruốc",
+        "name_en": "lemongrass, chili, shrimp paste",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Simmer lemongrass-shrimp paste broth with beef and pork knuckle. Serve over thick rice vermicelli.",
     "allergen_tags": [
       "shellfish"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000219 (\"Bún bò giò heo (Huế)\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000219 (\"Bún bò giò heo (Huế)\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Ninh nước dùng sả và mắm ruốc cùng thịt bò và giò heo. Ăn kèm bún to."
   },
   {
     "name_vi": "Đậu hũ sốt cà chua",
@@ -373,23 +454,30 @@
     "fat_g": 25.2,
     "ingredients": [
       {
-        "name": "Đậu hũ (tofu)",
-        "amount": "200g"
+        "name_vi": "Đậu hũ",
+        "name_en": "tofu",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Cà chua (tomato)",
-        "amount": "2 medium"
+        "name_vi": "Cà chua",
+        "name_en": "tomato",
+        "amount_vi": "2 quả cỡ vừa",
+        "amount_en": "2 medium"
       },
       {
-        "name": "Cơm (rice)",
-        "amount": "150g"
+        "name_vi": "Cơm",
+        "name_en": "rice",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       }
     ],
     "instructions": "Fry tofu until golden, simmer in tomato sauce. Serve with steamed rice.",
     "allergen_tags": [
       "soy"
     ],
-    "source": "Composite: tofu-in-tomato-sauce component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000125 (\"Đậu phụ sốt cà chua\"), which is recorded without rice (carb value near zero), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09."
+    "source": "Composite: tofu-in-tomato-sauce component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000125 (\"Đậu phụ sốt cà chua\"), which is recorded without rice (carb value near zero), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09.",
+    "instructions_vi": "Chiên đậu hũ vàng đều rồi om trong sốt cà chua. Ăn cùng cơm trắng."
   },
   {
     "name_vi": "Cá thu sốt cà chua",
@@ -405,23 +493,30 @@
     "carb_g": 43.4,
     "ingredients": [
       {
-        "name": "Cá thu (mackerel)",
-        "amount": "200g"
+        "name_vi": "Cá thu",
+        "name_en": "mackerel",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Sốt cà chua (tomato sauce)",
-        "amount": "100g"
+        "name_vi": "Sốt cà chua",
+        "name_en": "tomato sauce",
+        "amount_vi": "100g",
+        "amount_en": "100g"
       },
       {
-        "name": "Cơm (rice)",
-        "amount": "150g"
+        "name_vi": "Cơm",
+        "name_en": "rice",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       }
     ],
     "instructions": "Pan-fry mackerel until golden, then simmer briefly in tomato sauce. Serve with steamed rice.",
     "allergen_tags": [
       "fish"
     ],
-    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000117 (\"Cá thu rán sốt cà chua\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09. Replaces a prior hand-typed \"cá kho tộ\" (clay-pot braised fish) estimate; no clay-pot kho tộ preparation exists in NIN's database, so the recipe was changed to the closest real match (mackerel in tomato sauce), composited with a standard rice serving."
+    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000117 (\"Cá thu rán sốt cà chua\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09. Replaces a prior hand-typed \"cá kho tộ\" (clay-pot braised fish) estimate; no clay-pot kho tộ preparation exists in NIN's database, so the recipe was changed to the closest real match (mackerel in tomato sauce), composited with a standard rice serving.",
+    "instructions_vi": "Áp chảo cá thu vàng đều rồi om nhanh trong sốt cà chua. Ăn cùng cơm trắng."
   },
   {
     "name_vi": "Bánh đa cuốn thập cẩm",
@@ -437,23 +532,30 @@
     "fat_g": 30.2,
     "ingredients": [
       {
-        "name": "Bánh đa (rice paper)",
-        "amount": "4 sheets"
+        "name_vi": "Bánh đa",
+        "name_en": "rice paper",
+        "amount_vi": "4 tấm",
+        "amount_en": "4 sheets"
       },
       {
-        "name": "Tôm, thịt heo, bún (shrimp, pork, vermicelli)",
-        "amount": "mixed filling"
+        "name_vi": "Tôm, thịt heo, bún",
+        "name_en": "shrimp, pork, vermicelli",
+        "amount_vi": "nhân thập cẩm",
+        "amount_en": "mixed filling"
       },
       {
-        "name": "Rau sống (fresh herbs)",
-        "amount": "to taste"
+        "name_vi": "Rau sống",
+        "name_en": "fresh herbs",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Wrap a mix of shrimp, pork, vermicelli, and herbs in softened rice paper. Serve with dipping sauce.",
     "allergen_tags": [
       "shellfish"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000195 (\"Bánh đa cuốn thập cẩm\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Replaces a prior hand-typed fresh-spring-roll estimate; no \"gỏi cuốn\" entry exists in NIN's database, so the recipe was changed to the closest real mixed rice-paper-roll match."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000195 (\"Bánh đa cuốn thập cẩm\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Replaces a prior hand-typed fresh-spring-roll estimate; no \"gỏi cuốn\" entry exists in NIN's database, so the recipe was changed to the closest real mixed rice-paper-roll match.",
+    "instructions_vi": "Cuốn hỗn hợp tôm, thịt heo, bún và rau thơm trong bánh đa đã làm mềm. Ăn kèm nước chấm."
   },
   {
     "name_vi": "Lươn om chuối đậu",
@@ -469,27 +571,36 @@
     "fat_g": 33.3,
     "ingredients": [
       {
-        "name": "Lươn (eel)",
-        "amount": "200g"
+        "name_vi": "Lươn",
+        "name_en": "eel",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Chuối xanh (green banana)",
-        "amount": "150g"
+        "name_vi": "Chuối xanh",
+        "name_en": "green banana",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Đậu hũ (tofu)",
-        "amount": "100g"
+        "name_vi": "Đậu hũ",
+        "name_en": "tofu",
+        "amount_vi": "100g",
+        "amount_en": "100g"
       },
       {
-        "name": "Nghệ, tía tô (turmeric, perilla leaf)",
-        "amount": "to taste"
+        "name_vi": "Nghệ, tía tô",
+        "name_en": "turmeric, perilla leaf",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Braise eel with green banana, tofu, and turmeric until the sauce thickens. Garnish with perilla leaf.",
     "allergen_tags": [
       "soy"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000051 (\"Lươn om chuối đậu\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Replaces a prior hand-typed sweet-and-sour fish soup estimate; no \"canh chua\" entry exists in NIN's database despite repeated search attempts, so the recipe was changed to a different real pescatarian dinner dish."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000051 (\"Lươn om chuối đậu\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Replaces a prior hand-typed sweet-and-sour fish soup estimate; no \"canh chua\" entry exists in NIN's database despite repeated search attempts, so the recipe was changed to a different real pescatarian dinner dish.",
+    "instructions_vi": "Om lươn với chuối xanh, đậu hũ và nghệ đến khi nước sốt sánh lại. Rắc tía tô lên trên."
   },
   {
     "name_vi": "Thịt kho trứng",
@@ -505,20 +616,28 @@
     "fat_g": 36.7,
     "ingredients": [
       {
-        "name": "Thịt ba chỉ (pork belly)",
-        "amount": "200g"
+        "name_vi": "Thịt ba chỉ",
+        "name_en": "pork belly",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Trứng gà (eggs)",
-        "amount": "2"
+        "name_vi": "Trứng gà",
+        "name_en": "eggs",
+        "amount_vi": "2",
+        "amount_en": "2"
       },
       {
-        "name": "Nước dừa, nước mắm (coconut water, fish sauce)",
-        "amount": "to taste"
+        "name_vi": "Nước dừa, nước mắm",
+        "name_en": "coconut water, fish sauce",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       },
       {
-        "name": "Cơm (rice)",
-        "amount": "150g"
+        "name_vi": "Cơm",
+        "name_en": "rice",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       }
     ],
     "instructions": "Braise pork belly and boiled eggs in coconut water and fish sauce until tender. Serve with rice.",
@@ -526,7 +645,8 @@
       "egg",
       "fish"
     ],
-    "source": "Composite: braised pork belly and egg component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000057 (\"Thịt lợn ba chỉ kho trứng cút\" — uses quail eggs rather than this recipe's chicken eggs, a reasonable near-substitute), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09."
+    "source": "Composite: braised pork belly and egg component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000057 (\"Thịt lợn ba chỉ kho trứng cút\" — uses quail eggs rather than this recipe's chicken eggs, a reasonable near-substitute), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09.",
+    "instructions_vi": "Kho thịt ba chỉ và trứng luộc trong nước dừa và nước mắm đến khi mềm. Ăn cùng cơm."
   },
   {
     "name_vi": "Rau muống xào tỏi",
@@ -544,21 +664,28 @@
     "fat_g": 11.6,
     "ingredients": [
       {
-        "name": "Rau muống (water spinach)",
-        "amount": "200g"
+        "name_vi": "Rau muống",
+        "name_en": "water spinach",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Tỏi (garlic)",
-        "amount": "2 cloves"
+        "name_vi": "Tỏi",
+        "name_en": "garlic",
+        "amount_vi": "2 tép",
+        "amount_en": "2 cloves"
       },
       {
-        "name": "Cơm (rice)",
-        "amount": "150g"
+        "name_vi": "Cơm",
+        "name_en": "rice",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       }
     ],
     "instructions": "Stir-fry water spinach with garlic in oil. Serve with rice.",
     "allergen_tags": [],
-    "source": "Composite: stir-fry component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000179 (\"Rau muống xào\"; carbohydrate was blank in the source record and was estimated from the stated energy minus protein/fat, ~9g), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09."
+    "source": "Composite: stir-fry component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000179 (\"Rau muống xào\"; carbohydrate was blank in the source record and was estimated from the stated energy minus protein/fat, ~9g), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09.",
+    "instructions_vi": "Xào rau muống với tỏi trong dầu ăn. Ăn cùng cơm."
   },
   {
     "name_vi": "Đậu que xào thịt bò",
@@ -575,21 +702,28 @@
     "fat_g": 6.1,
     "ingredients": [
       {
-        "name": "Đậu que (green beans)",
-        "amount": "150g"
+        "name_vi": "Đậu que",
+        "name_en": "green beans",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Thịt bò (beef strips)",
-        "amount": "120g"
+        "name_vi": "Thịt bò",
+        "name_en": "beef strips",
+        "amount_vi": "120g",
+        "amount_en": "120g"
       },
       {
-        "name": "Cơm (rice)",
-        "amount": "150g"
+        "name_vi": "Cơm",
+        "name_en": "rice",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       }
     ],
     "instructions": "Stir-fry beef until browned, add green beans, stir-fry until crisp-tender. Serve with rice.",
     "allergen_tags": [],
-    "source": "Composite: stir-fry component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000184 (\"Thịt bò xào đậu cove\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09."
+    "source": "Composite: stir-fry component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000184 (\"Thịt bò xào đậu cove\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09.",
+    "instructions_vi": "Xào thịt bò săn lại, cho đậu que vào xào đến khi chín tới còn giòn. Ăn cùng cơm."
   },
   {
     "name_vi": "Bí đỏ luộc",
@@ -607,17 +741,22 @@
     "carb_g": 46.5,
     "ingredients": [
       {
-        "name": "Bí đỏ (pumpkin)",
-        "amount": "250g"
+        "name_vi": "Bí đỏ",
+        "name_en": "pumpkin",
+        "amount_vi": "250g",
+        "amount_en": "250g"
       },
       {
-        "name": "Cơm (rice)",
-        "amount": "150g"
+        "name_vi": "Cơm",
+        "name_en": "rice",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       }
     ],
     "instructions": "Boil pumpkin chunks until tender. Serve with rice.",
     "allergen_tags": [],
-    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000063 (\"Bí đỏ luộc\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09. Replaces the prior \"canh bí đỏ\" recipe, whose only NIN name-match contained pork (conflicting with this recipe's vegan/vegetarian tags — see nin_dish_sources.json for that rejected match). Changed to a genuinely vegan NIN dish (boiled pumpkin), composited with a standard rice serving."
+    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000063 (\"Bí đỏ luộc\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09. Replaces the prior \"canh bí đỏ\" recipe, whose only NIN name-match contained pork (conflicting with this recipe's vegan/vegetarian tags — see nin_dish_sources.json for that rejected match). Changed to a genuinely vegan NIN dish (boiled pumpkin), composited with a standard rice serving.",
+    "instructions_vi": "Luộc bí đỏ cắt khúc đến khi mềm. Ăn cùng cơm."
   },
   {
     "name_vi": "Gà Tần thuốc bắc",
@@ -635,21 +774,28 @@
     "fat_g": 16.8,
     "ingredients": [
       {
-        "name": "Thịt gà (chicken pieces)",
-        "amount": "300g"
+        "name_vi": "Thịt gà",
+        "name_en": "chicken pieces",
+        "amount_vi": "300g",
+        "amount_en": "300g"
       },
       {
-        "name": "Thuốc bắc (Chinese herbal mix)",
-        "amount": "1 packet"
+        "name_vi": "Thuốc bắc",
+        "name_en": "Chinese herbal mix",
+        "amount_vi": "1 gói",
+        "amount_en": "1 packet"
       },
       {
-        "name": "Nấm, hạt sen (mushroom, lotus seed)",
-        "amount": "to taste"
+        "name_vi": "Nấm, hạt sen",
+        "name_en": "mushroom, lotus seed",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Simmer chicken with herbal mix, mushroom, and lotus seed until tender and fragrant.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000050 (\"Gà Tần thuốc bắc\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Replaces a prior hand-typed ginger-braised-chicken estimate; no \"gà kho gừng\" entry exists in NIN's database, so the recipe was changed to a different real braised-chicken dish."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000050 (\"Gà Tần thuốc bắc\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Replaces a prior hand-typed ginger-braised-chicken estimate; no \"gà kho gừng\" entry exists in NIN's database, so the recipe was changed to a different real braised-chicken dish.",
+    "instructions_vi": "Hầm gà với thuốc bắc, nấm và hạt sen đến khi mềm và thơm."
   },
   {
     "name_vi": "Rau bí xào tỏi",
@@ -667,21 +813,28 @@
     "carb_g": 48.4,
     "ingredients": [
       {
-        "name": "Rau bí (pumpkin leaves and shoots)",
-        "amount": "250g"
+        "name_vi": "Rau bí",
+        "name_en": "pumpkin leaves and shoots",
+        "amount_vi": "250g",
+        "amount_en": "250g"
       },
       {
-        "name": "Tỏi (garlic)",
-        "amount": "2 cloves"
+        "name_vi": "Tỏi",
+        "name_en": "garlic",
+        "amount_vi": "2 tép",
+        "amount_en": "2 cloves"
       },
       {
-        "name": "Cơm (rice)",
-        "amount": "150g"
+        "name_vi": "Cơm",
+        "name_en": "rice",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       }
     ],
     "instructions": "Stir-fry pumpkin leaves and shoots with garlic in oil. Serve with rice.",
     "allergen_tags": [],
-    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000172 (\"Rau bí xào tỏi\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09. Replaces a prior hand-typed vegan Thai hot pot estimate; no vegan/vegetarian hot pot entry exists in NIN's database despite repeated search attempts, so the recipe was changed to a different real vegan dinner dish, composited with a standard rice serving."
+    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000172 (\"Rau bí xào tỏi\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09. Replaces a prior hand-typed vegan Thai hot pot estimate; no vegan/vegetarian hot pot entry exists in NIN's database despite repeated search attempts, so the recipe was changed to a different real vegan dinner dish, composited with a standard rice serving.",
+    "instructions_vi": "Xào rau bí (ngọn và lá bí đỏ) với tỏi trong dầu ăn. Ăn cùng cơm."
   },
   {
     "name_vi": "Trứng đúc thịt rán",
@@ -698,23 +851,30 @@
     "fat_g": 26.2,
     "ingredients": [
       {
-        "name": "Trứng gà (eggs)",
-        "amount": "3"
+        "name_vi": "Trứng gà",
+        "name_en": "eggs",
+        "amount_vi": "3",
+        "amount_en": "3"
       },
       {
-        "name": "Thịt heo băm (minced pork)",
-        "amount": "100g"
+        "name_vi": "Thịt heo băm",
+        "name_en": "minced pork",
+        "amount_vi": "100g",
+        "amount_en": "100g"
       },
       {
-        "name": "Hành lá (scallion)",
-        "amount": "to taste"
+        "name_vi": "Hành lá",
+        "name_en": "scallion",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Mix beaten eggs with minced pork and scallion, pan-fry until set. Served without rice for a low-carb option.",
     "allergen_tags": [
       "egg"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000146 (\"Trứng đúc thịt rán\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Replaces a prior hand-typed estimate with a near-identical direct NIN dish match (egg-and-minced-pork omelette)."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000146 (\"Trứng đúc thịt rán\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Replaces a prior hand-typed estimate with a near-identical direct NIN dish match (egg-and-minced-pork omelette).",
+    "instructions_vi": "Trộn trứng đánh tan với thịt heo băm và hành lá, chiên đến khi chín đông lại. Dùng không kèm cơm để giảm tinh bột."
   },
   {
     "name_vi": "Chè đậu xanh",
@@ -732,17 +892,22 @@
     "fat_g": 1.1,
     "ingredients": [
       {
-        "name": "Đậu xanh (mung bean)",
-        "amount": "80g"
+        "name_vi": "Đậu xanh",
+        "name_en": "mung bean",
+        "amount_vi": "80g",
+        "amount_en": "80g"
       },
       {
-        "name": "Đường, nước cốt dừa (sugar, coconut milk)",
-        "amount": "to taste"
+        "name_vi": "Đường, nước cốt dừa",
+        "name_en": "sugar, coconut milk",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Simmer mung beans until soft, sweeten, top with a little coconut milk.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000366 (\"Chè đỗ xanh\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000366 (\"Chè đỗ xanh\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Ninh đậu xanh đến khi mềm, cho đường vào, rưới chút nước cốt dừa lên trên."
   },
   {
     "name_vi": "Ngô luộc",
@@ -760,13 +925,16 @@
     "fat_g": 3.9,
     "ingredients": [
       {
-        "name": "Ngô nếp (glutinous corn)",
-        "amount": "1 ear (~250g)"
+        "name_vi": "Ngô nếp",
+        "name_en": "glutinous corn",
+        "amount_vi": "1 bắp (~250g)",
+        "amount_en": "1 ear (~250g)"
       }
     ],
     "instructions": "Boil corn on the cob until tender.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-221027 (\"Ngô luộc\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Replaces a prior hand-typed butter-corn stir-fry estimate; no plain corn stir-fry entry exists in NIN's database, so the recipe was changed to the closest real simple-corn-snack match (boiled corn, a very common Vietnamese street snack)."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-221027 (\"Ngô luộc\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Replaces a prior hand-typed butter-corn stir-fry estimate; no plain corn stir-fry entry exists in NIN's database, so the recipe was changed to the closest real simple-corn-snack match (boiled corn, a very common Vietnamese street snack).",
+    "instructions_vi": "Luộc ngô nguyên bắp đến khi chín mềm."
   },
   {
     "name_vi": "Xoài",
@@ -785,13 +953,16 @@
     "fat_g": 0.2,
     "ingredients": [
       {
-        "name": "Xoài (mango)",
-        "amount": "1 medium (~150g)"
+        "name_vi": "Xoài",
+        "name_en": "mango",
+        "amount_vi": "1 quả cỡ vừa (~150g)",
+        "amount_en": "1 medium (~150g)"
       }
     ],
     "instructions": "Peel and slice fresh mango.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000427 (\"Xoài\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Replaces a prior generic \"mixed seasonal fruit\" estimate, which was too unspecific to match a single NIN entry, with a single named fruit that does have a direct NIN record."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000427 (\"Xoài\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Replaces a prior generic \"mixed seasonal fruit\" estimate, which was too unspecific to match a single NIN entry, with a single named fruit that does have a direct NIN record.",
+    "instructions_vi": "Gọt vỏ và thái lát xoài tươi."
   },
   {
     "name_vi": "Sữa chua nếp cẩm",
@@ -808,19 +979,24 @@
     "fat_g": 8.8,
     "ingredients": [
       {
-        "name": "Sữa chua (yogurt)",
-        "amount": "100g"
+        "name_vi": "Sữa chua",
+        "name_en": "yogurt",
+        "amount_vi": "100g",
+        "amount_en": "100g"
       },
       {
-        "name": "Nếp cẩm (black sticky rice, cooked)",
-        "amount": "80g"
+        "name_vi": "Nếp cẩm",
+        "name_en": "black sticky rice, cooked",
+        "amount_vi": "80g",
+        "amount_en": "80g"
       }
     ],
     "instructions": "Layer yogurt with cooked, slightly sweetened black sticky rice.",
     "allergen_tags": [
       "dairy"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAN-112041 (\"Sữa chua nếp cẩm\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAN-112041 (\"Sữa chua nếp cẩm\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Xếp lớp sữa chua với nếp cẩm đã nấu chín và trộn chút đường."
   },
   {
     "name_vi": "Đậu phụ kho nấm",
@@ -840,23 +1016,30 @@
     "fat_g": 9,
     "ingredients": [
       {
-        "name": "Đậu hũ (tofu)",
-        "amount": "200g"
+        "name_vi": "Đậu hũ",
+        "name_en": "tofu",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Nấm (mushrooms, e.g. shiitake or wood ear)",
-        "amount": "100g"
+        "name_vi": "Nấm",
+        "name_en": "mushrooms, e.g. shiitake or wood ear",
+        "amount_vi": "100g",
+        "amount_en": "100g"
       },
       {
-        "name": "Nước tương, tỏi (soy sauce, garlic)",
-        "amount": "to taste"
+        "name_vi": "Nước tương, tỏi",
+        "name_en": "soy sauce, garlic",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Pan-fry tofu cubes until lightly golden. Add mushrooms and a splash of soy sauce, braise until the mushrooms soften and the sauce reduces.",
     "allergen_tags": [
       "soy"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000048 (\"Đậu phụ kho nấm\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Added to fill a catalog gap: vegan/vegetarian and keto breakfast pools had one or zero options."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000048 (\"Đậu phụ kho nấm\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Added to fill a catalog gap: vegan/vegetarian and keto breakfast pools had one or zero options.",
+    "instructions_vi": "Chiên sơ đậu hũ đến khi hơi vàng. Cho nấm và chút nước tương vào, kho đến khi nấm mềm và nước sốt sánh lại."
   },
   {
     "name_vi": "Đậu phụ luộc chấm tương",
@@ -874,23 +1057,30 @@
     "fat_g": 11.2,
     "ingredients": [
       {
-        "name": "Đậu hũ (tofu)",
-        "amount": "250g"
+        "name_vi": "Đậu hũ",
+        "name_en": "tofu",
+        "amount_vi": "250g",
+        "amount_en": "250g"
       },
       {
-        "name": "Nước tương, ớt, chanh (soy sauce, chili, lime dipping sauce)",
-        "amount": "to taste"
+        "name_vi": "Nước tương, ớt, chanh",
+        "name_en": "soy sauce, chili, lime dipping sauce",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       },
       {
-        "name": "Cơm (rice)",
-        "amount": "150g"
+        "name_vi": "Cơm",
+        "name_en": "rice",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       }
     ],
     "instructions": "Boil tofu briefly until warmed through. Serve with steamed rice and a soy-lime-chili dipping sauce.",
     "allergen_tags": [
       "soy"
     ],
-    "source": "Composite: boiled tofu component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000072 (\"Đậu phụ luộc\"; carbohydrate was blank in the source record and was estimated from the stated energy minus protein/fat, ~1.4g), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09. Added to fill a catalog gap: vegan/vegetarian lunch pool had only one option."
+    "source": "Composite: boiled tofu component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000072 (\"Đậu phụ luộc\"; carbohydrate was blank in the source record and was estimated from the stated energy minus protein/fat, ~1.4g), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09. Added to fill a catalog gap: vegan/vegetarian lunch pool had only one option.",
+    "instructions_vi": "Luộc sơ đậu hũ đến khi nóng đều. Ăn cùng cơm trắng và nước chấm tương ớt chanh."
   },
   {
     "name_vi": "Bánh cuốn chay chả",
@@ -906,20 +1096,28 @@
     "fat_g": 36.2,
     "ingredients": [
       {
-        "name": "Bột gạo (rice batter)",
-        "amount": "250g"
+        "name_vi": "Bột gạo",
+        "name_en": "rice batter",
+        "amount_vi": "250g",
+        "amount_en": "250g"
       },
       {
-        "name": "Chả chay (vegetarian mock meat)",
-        "amount": "100g"
+        "name_vi": "Chả chay",
+        "name_en": "vegetarian mock meat",
+        "amount_vi": "100g",
+        "amount_en": "100g"
       },
       {
-        "name": "Mộc nhĩ (wood ear mushroom)",
-        "amount": "30g"
+        "name_vi": "Mộc nhĩ",
+        "name_en": "wood ear mushroom",
+        "amount_vi": "30g",
+        "amount_en": "30g"
       },
       {
-        "name": "Nước tương hoặc nước mắm chay (soy sauce or vegetarian fish-sauce substitute)",
-        "amount": "to taste"
+        "name_vi": "Nước tương hoặc nước mắm chay",
+        "name_en": "soy sauce or vegetarian fish-sauce substitute",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Steam thin rice batter sheets, fill with sautéed vegetarian mock meat and mushroom, roll up. Serve with dipping sauce.",
@@ -927,7 +1125,8 @@
       "soy",
       "gluten"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-211004 (\"Bánh cuốn chay chả\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN; commercial vegetarian \"chả\" varies by brand and is commonly soy- and/or wheat-gluten-based, so both are listed defensively as possible allergens. Kept as vegetarian rather than vegan since dairy or egg binders are sometimes used. Added to fill a catalog gap: vegetarian lunch pool was thin."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-211004 (\"Bánh cuốn chay chả\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN; commercial vegetarian \"chả\" varies by brand and is commonly soy- and/or wheat-gluten-based, so both are listed defensively as possible allergens. Kept as vegetarian rather than vegan since dairy or egg binders are sometimes used. Added to fill a catalog gap: vegetarian lunch pool was thin.",
+    "instructions_vi": "Hấp bột gạo thành lớp bánh mỏng, cuộn với nhân chả chay và nấm đã xào chín. Ăn kèm nước chấm."
   },
   {
     "name_vi": "Thịt bò xào su su",
@@ -945,21 +1144,28 @@
     "fat_g": 10.9,
     "ingredients": [
       {
-        "name": "Thịt bò (beef strips)",
-        "amount": "150g"
+        "name_vi": "Thịt bò",
+        "name_en": "beef strips",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Su su (chayote)",
-        "amount": "200g"
+        "name_vi": "Su su",
+        "name_en": "chayote",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Tỏi, dầu ăn (garlic, cooking oil)",
-        "amount": "to taste"
+        "name_vi": "Tỏi, dầu ăn",
+        "name_en": "garlic, cooking oil",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Stir-fry beef until browned, add sliced chayote, stir-fry until crisp-tender.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000190 (\"Thịt bò xào su su\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Added to fill a catalog gap: keto had zero lunch options."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000190 (\"Thịt bò xào su su\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Added to fill a catalog gap: keto had zero lunch options.",
+    "instructions_vi": "Xào thịt bò săn lại, cho su su thái lát vào xào đến khi chín tới còn giòn."
   },
   {
     "name_vi": "Tôm nướng",
@@ -977,19 +1183,24 @@
     "fat_g": 0.9,
     "ingredients": [
       {
-        "name": "Tôm (shrimp)",
-        "amount": "150g"
+        "name_vi": "Tôm",
+        "name_en": "shrimp",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Muối ớt xanh, chanh (chili-lime salt, lime)",
-        "amount": "to taste"
+        "name_vi": "Muối ớt xanh, chanh",
+        "name_en": "chili-lime salt, lime",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Skewer and grill shrimp until pink and lightly charred. Serve with chili-lime salt.",
     "allergen_tags": [
       "shellfish"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000110 (\"Tôm nướng\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Added to fill a catalog gap: keto had zero snack options."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000110 (\"Tôm nướng\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Added to fill a catalog gap: keto had zero snack options.",
+    "instructions_vi": "Xiên tôm rồi nướng đến khi chín hồng và hơi cháy cạnh. Ăn cùng muối ớt xanh."
   },
   {
     "name_vi": "Nộm bò khô",
@@ -1007,16 +1218,22 @@
     "fat_g": 6.9,
     "ingredients": [
       {
-        "name": "Đu đủ xanh bào sợi (shredded green papaya)",
-        "amount": "150g"
+        "name_vi": "Đu đủ xanh bào sợi",
+        "name_en": "shredded green papaya",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Thịt bò khô (dried beef strips)",
-        "amount": "50g"
+        "name_vi": "Thịt bò khô",
+        "name_en": "dried beef strips",
+        "amount_vi": "50g",
+        "amount_en": "50g"
       },
       {
-        "name": "Đậu phộng rang, rau thơm (roasted peanuts, herbs)",
-        "amount": "to taste"
+        "name_vi": "Đậu phộng rang, rau thơm",
+        "name_en": "roasted peanuts, herbs",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Toss shredded green papaya with dried beef and a fish sauce-lime-sugar-chili dressing. Top with crushed roasted peanuts and herbs.",
@@ -1024,7 +1241,8 @@
       "peanut",
       "fish"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-213068 (\"Nộm bò khô\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Tagged keto-friendly-in-moderation rather than strict keto due to the papaya/dressing carbohydrate content. Added to fill a catalog gap: keto snack pool had zero options."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-213068 (\"Nộm bò khô\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Tagged keto-friendly-in-moderation rather than strict keto due to the papaya/dressing carbohydrate content. Added to fill a catalog gap: keto snack pool had zero options.",
+    "instructions_vi": "Trộn đu đủ xanh bào sợi với thịt bò khô và nước trộn chua ngọt cay. Rắc đậu phộng rang giã và rau thơm lên trên."
   },
   {
     "name_vi": "Xôi đỗ xanh",
@@ -1042,17 +1260,22 @@
     "fat_g": 12.8,
     "ingredients": [
       {
-        "name": "Gạo nếp (glutinous rice)",
-        "amount": "200g"
+        "name_vi": "Gạo nếp",
+        "name_en": "glutinous rice",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Đậu xanh (mung bean)",
-        "amount": "80g"
+        "name_vi": "Đậu xanh",
+        "name_en": "mung bean",
+        "amount_vi": "80g",
+        "amount_en": "80g"
       }
     ],
     "instructions": "Steam glutinous rice with soaked mung beans until tender.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAN-121038 (\"Xôi đỗ xanh\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAN-121038 (\"Xôi đỗ xanh\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Đồ gạo nếp cùng đậu xanh đã ngâm đến khi chín mềm."
   },
   {
     "name_vi": "Cháo đỗ xanh",
@@ -1070,17 +1293,22 @@
     "fat_g": 0.6,
     "ingredients": [
       {
-        "name": "Gạo tẻ (rice)",
-        "amount": "60g"
+        "name_vi": "Gạo tẻ",
+        "name_en": "rice",
+        "amount_vi": "60g",
+        "amount_en": "60g"
       },
       {
-        "name": "Đậu xanh (mung bean)",
-        "amount": "50g"
+        "name_vi": "Đậu xanh",
+        "name_en": "mung bean",
+        "amount_vi": "50g",
+        "amount_en": "50g"
       }
     ],
     "instructions": "Simmer rice and mung beans together until porridge consistency.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-211048 (\"Cháo đỗ xanh\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-211048 (\"Cháo đỗ xanh\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Ninh gạo cùng đậu xanh đến khi nhuyễn thành cháo."
   },
   {
     "name_vi": "Cháo trai",
@@ -1096,23 +1324,30 @@
     "fat_g": 6.4,
     "ingredients": [
       {
-        "name": "Gạo tẻ (rice)",
-        "amount": "60g"
+        "name_vi": "Gạo tẻ",
+        "name_en": "rice",
+        "amount_vi": "60g",
+        "amount_en": "60g"
       },
       {
-        "name": "Thịt trai (clam meat)",
-        "amount": "80g"
+        "name_vi": "Thịt trai",
+        "name_en": "clam meat",
+        "amount_vi": "80g",
+        "amount_en": "80g"
       },
       {
-        "name": "Hành lá (scallion)",
-        "amount": "to taste"
+        "name_vi": "Hành lá",
+        "name_en": "scallion",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Simmer rice into porridge, stir in sautéed clam meat, garnish with scallion.",
     "allergen_tags": [
       "shellfish"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-221024 (\"Cháo trai\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-221024 (\"Cháo trai\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Ninh gạo thành cháo, cho thịt trai đã xào thơm vào, rắc hành lá."
   },
   {
     "name_vi": "Cháo lươn cay",
@@ -1128,21 +1363,28 @@
     "fat_g": 3.1,
     "ingredients": [
       {
-        "name": "Gạo tẻ (rice)",
-        "amount": "60g"
+        "name_vi": "Gạo tẻ",
+        "name_en": "rice",
+        "amount_vi": "60g",
+        "amount_en": "60g"
       },
       {
-        "name": "Lươn (eel)",
-        "amount": "80g"
+        "name_vi": "Lươn",
+        "name_en": "eel",
+        "amount_vi": "80g",
+        "amount_en": "80g"
       },
       {
-        "name": "Ớt, nghệ (chili, turmeric)",
-        "amount": "to taste"
+        "name_vi": "Ớt, nghệ",
+        "name_en": "chili, turmeric",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Simmer rice into porridge with shredded eel, season with chili and turmeric.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-213021 (\"Cháo lươn cay\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-213021 (\"Cháo lươn cay\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Ninh gạo thành cháo cùng lươn xé sợi, nêm ớt và nghệ."
   },
   {
     "name_vi": "Bún cá",
@@ -1159,23 +1401,30 @@
     "fat_g": 9.2,
     "ingredients": [
       {
-        "name": "Bún (rice vermicelli)",
-        "amount": "200g"
+        "name_vi": "Bún",
+        "name_en": "rice vermicelli",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Cá (fish)",
-        "amount": "150g"
+        "name_vi": "Cá",
+        "name_en": "fish",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Cà chua, thì là (tomato, dill)",
-        "amount": "to taste"
+        "name_vi": "Cà chua, thì là",
+        "name_en": "tomato, dill",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Simmer a tomato-dill fish broth, add fried or poached fish. Serve over rice vermicelli.",
     "allergen_tags": [
       "fish"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAN-121047 (\"Bún cá\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAN-121047 (\"Bún cá\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Ninh nước dùng cà chua thì là, cho cá chiên hoặc luộc vào. Ăn kèm bún."
   },
   {
     "name_vi": "Bún thang",
@@ -1192,19 +1441,24 @@
     "fat_g": 9.4,
     "ingredients": [
       {
-        "name": "Bún (rice vermicelli)",
-        "amount": "200g"
+        "name_vi": "Bún",
+        "name_en": "rice vermicelli",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Thịt gà xé, trứng tráng, giò (shredded chicken, egg strips, pork pie)",
-        "amount": "120g"
+        "name_vi": "Thịt gà xé, trứng tráng, giò",
+        "name_en": "shredded chicken, egg strips, pork pie",
+        "amount_vi": "120g",
+        "amount_en": "120g"
       }
     ],
     "instructions": "Simmer a clear chicken broth. Top rice vermicelli with shredded chicken, egg strips, and pork pie.",
     "allergen_tags": [
       "egg"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-221038 (\"Bún thang\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-221038 (\"Bún thang\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Ninh nước dùng gà trong. Xếp thịt gà xé, trứng tráng thái sợi và giò lên trên bún."
   },
   {
     "name_vi": "Bánh giò",
@@ -1220,17 +1474,22 @@
     "fat_g": 33.6,
     "ingredients": [
       {
-        "name": "Bột gạo tẻ (rice flour)",
-        "amount": "150g"
+        "name_vi": "Bột gạo tẻ",
+        "name_en": "rice flour",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Thịt heo băm, mộc nhĩ (minced pork, wood ear mushroom)",
-        "amount": "80g"
+        "name_vi": "Thịt heo băm, mộc nhĩ",
+        "name_en": "minced pork, wood ear mushroom",
+        "amount_vi": "80g",
+        "amount_en": "80g"
       }
     ],
     "instructions": "Cook rice flour into a thick paste, wrap around a minced pork and mushroom filling in banana leaf, steam until set.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000298 (\"Bánh giò\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000298 (\"Bánh giò\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Khuấy bột gạo thành hỗn hợp sánh đặc, gói cùng nhân thịt heo băm và mộc nhĩ trong lá chuối, hấp đến khi chín."
   },
   {
     "name_vi": "Thịt bò xào măng",
@@ -1248,17 +1507,22 @@
     "fat_g": 3.7,
     "ingredients": [
       {
-        "name": "Thịt bò (beef strips)",
-        "amount": "150g"
+        "name_vi": "Thịt bò",
+        "name_en": "beef strips",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Măng (bamboo shoots)",
-        "amount": "150g"
+        "name_vi": "Măng",
+        "name_en": "bamboo shoots",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       }
     ],
     "instructions": "Stir-fry beef until browned, add sliced bamboo shoots, stir-fry until heated through.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000188 (\"Thịt bò xào măng\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000188 (\"Thịt bò xào măng\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Xào thịt bò săn lại, cho măng thái lát vào xào đến khi nóng đều."
   },
   {
     "name_vi": "Thịt bò xào nấm",
@@ -1276,17 +1540,22 @@
     "fat_g": 8.5,
     "ingredients": [
       {
-        "name": "Thịt bò (beef strips)",
-        "amount": "150g"
+        "name_vi": "Thịt bò",
+        "name_en": "beef strips",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Nấm (mushrooms)",
-        "amount": "150g"
+        "name_vi": "Nấm",
+        "name_en": "mushrooms",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       }
     ],
     "instructions": "Stir-fry beef until browned, add mushrooms, stir-fry until tender.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000189 (\"Thịt bò xào nấm\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000189 (\"Thịt bò xào nấm\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Xào thịt bò săn lại, cho nấm vào xào đến khi chín mềm."
   },
   {
     "name_vi": "Thịt gà xào sả",
@@ -1304,17 +1573,22 @@
     "fat_g": 16.4,
     "ingredients": [
       {
-        "name": "Thịt gà (chicken pieces)",
-        "amount": "200g"
+        "name_vi": "Thịt gà",
+        "name_en": "chicken pieces",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Sả, ớt (lemongrass, chili)",
-        "amount": "to taste"
+        "name_vi": "Sả, ớt",
+        "name_en": "lemongrass, chili",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Stir-fry chicken with lemongrass and chili until fragrant and cooked through.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000193 (\"Thịt gà xào sả\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000193 (\"Thịt gà xào sả\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Xào thịt gà cùng sả và ớt đến khi thơm và chín đều."
   },
   {
     "name_vi": "Cá rô phi rán",
@@ -1332,19 +1606,24 @@
     "fat_g": 22.3,
     "ingredients": [
       {
-        "name": "Cá rô phi (tilapia)",
-        "amount": "1 whole fish (~400g)"
+        "name_vi": "Cá rô phi",
+        "name_en": "tilapia",
+        "amount_vi": "1 con nguyên con (~400g)",
+        "amount_en": "1 whole fish (~400g)"
       },
       {
-        "name": "Nước mắm, chanh (fish sauce, lime)",
-        "amount": "to taste"
+        "name_vi": "Nước mắm, chanh",
+        "name_en": "fish sauce, lime",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Pan-fry a whole tilapia until crisp and cooked through. Serve with fish sauce-lime dip.",
     "allergen_tags": [
       "fish"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000114 (\"Cá rô phi rán\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000114 (\"Cá rô phi rán\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Chiên nguyên con cá rô phi đến khi giòn và chín đều. Ăn cùng nước mắm chanh."
   },
   {
     "name_vi": "Cua biển hấp",
@@ -1361,19 +1640,24 @@
     "fat_g": 2.6,
     "ingredients": [
       {
-        "name": "Cua biển (sea crab)",
-        "amount": "400g"
+        "name_vi": "Cua biển",
+        "name_en": "sea crab",
+        "amount_vi": "400g",
+        "amount_en": "400g"
       },
       {
-        "name": "Muối tiêu chanh (salt-pepper-lime dip)",
-        "amount": "to taste"
+        "name_vi": "Muối tiêu chanh",
+        "name_en": "salt-pepper-lime dip",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Steam crab until fully cooked. Serve with salt-pepper-lime dipping sauce.",
     "allergen_tags": [
       "shellfish"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000065 (\"Cua biển hấp\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000065 (\"Cua biển hấp\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Hấp cua đến khi chín hẳn. Ăn cùng muối tiêu chanh."
   },
   {
     "name_vi": "Đậu phụ kho thịt",
@@ -1391,16 +1675,22 @@
     "fat_g": 35.9,
     "ingredients": [
       {
-        "name": "Đậu hũ (tofu)",
-        "amount": "200g"
+        "name_vi": "Đậu hũ",
+        "name_en": "tofu",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Thịt heo (pork)",
-        "amount": "100g"
+        "name_vi": "Thịt heo",
+        "name_en": "pork",
+        "amount_vi": "100g",
+        "amount_en": "100g"
       },
       {
-        "name": "Nước mắm (fish sauce)",
-        "amount": "to taste"
+        "name_vi": "Nước mắm",
+        "name_en": "fish sauce",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Braise tofu and pork together in a fish-sauce caramel broth until the sauce thickens.",
@@ -1408,7 +1698,8 @@
       "soy",
       "fish"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000049 (\"Đậu phụ kho thịt\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000049 (\"Đậu phụ kho thịt\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Kho đậu hũ và thịt heo cùng nhau trong nước mắm caramel đến khi nước sốt sánh lại."
   },
   {
     "name_vi": "Bò nướng",
@@ -1426,17 +1717,22 @@
     "fat_g": 12.7,
     "ingredients": [
       {
-        "name": "Thịt bò (beef)",
-        "amount": "250g"
+        "name_vi": "Thịt bò",
+        "name_en": "beef",
+        "amount_vi": "250g",
+        "amount_en": "250g"
       },
       {
-        "name": "Sả, tỏi (lemongrass, garlic marinade)",
-        "amount": "to taste"
+        "name_vi": "Sả, tỏi",
+        "name_en": "lemongrass, garlic marinade",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Marinate beef in lemongrass and garlic, grill to desired doneness.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000102 (\"Bò nướng\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000102 (\"Bò nướng\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Ướp thịt bò với sả và tỏi, nướng chín theo độ ưa thích."
   },
   {
     "name_vi": "Cá trê nướng",
@@ -1454,19 +1750,24 @@
     "fat_g": 22.9,
     "ingredients": [
       {
-        "name": "Cá trê (catfish)",
-        "amount": "300g"
+        "name_vi": "Cá trê",
+        "name_en": "catfish",
+        "amount_vi": "300g",
+        "amount_en": "300g"
       },
       {
-        "name": "Nghệ, sả (turmeric, lemongrass marinade)",
-        "amount": "to taste"
+        "name_vi": "Nghệ, sả",
+        "name_en": "turmeric, lemongrass marinade",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Marinate catfish with turmeric and lemongrass, grill until charred and cooked through.",
     "allergen_tags": [
       "fish"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000103 (\"Cá trê nướng\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000103 (\"Cá trê nướng\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Ướp cá trê với nghệ và sả, nướng đến khi cháy cạnh và chín đều."
   },
   {
     "name_vi": "Gà nướng",
@@ -1484,17 +1785,22 @@
     "fat_g": 19.5,
     "ingredients": [
       {
-        "name": "Thịt gà (chicken pieces)",
-        "amount": "250g"
+        "name_vi": "Thịt gà",
+        "name_en": "chicken pieces",
+        "amount_vi": "250g",
+        "amount_en": "250g"
       },
       {
-        "name": "Mật ong, tỏi (honey, garlic marinade)",
-        "amount": "to taste"
+        "name_vi": "Mật ong, tỏi",
+        "name_en": "honey, garlic marinade",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Marinate chicken and grill until cooked through and lightly charred.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000105 (\"Gà nướng\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000105 (\"Gà nướng\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Ướp gà rồi nướng đến khi chín đều và hơi cháy cạnh."
   },
   {
     "name_vi": "Thịt bò kho",
@@ -1511,21 +1817,28 @@
     "fat_g": 31.4,
     "ingredients": [
       {
-        "name": "Thịt bò (beef chunks)",
-        "amount": "250g"
+        "name_vi": "Thịt bò",
+        "name_en": "beef chunks",
+        "amount_vi": "250g",
+        "amount_en": "250g"
       },
       {
-        "name": "Cà rốt (carrot)",
-        "amount": "100g"
+        "name_vi": "Cà rốt",
+        "name_en": "carrot",
+        "amount_vi": "100g",
+        "amount_en": "100g"
       },
       {
-        "name": "Cơm (rice)",
-        "amount": "150g"
+        "name_vi": "Cơm",
+        "name_en": "rice",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       }
     ],
     "instructions": "Braise beef and carrot in a five-spice caramel broth until tender. Serve with rice.",
     "allergen_tags": [],
-    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000053 (\"Thịt bò kho\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09. Carbohydrate was blank in the NIN record and was estimated from the stated energy minus protein/fat (~1g) before adding the standard rice serving."
+    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000053 (\"Thịt bò kho\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09. Carbohydrate was blank in the NIN record and was estimated from the stated energy minus protein/fat (~1g) before adding the standard rice serving.",
+    "instructions_vi": "Kho thịt bò và cà rốt trong nước sốt caramel ngũ vị đến khi mềm. Ăn cùng cơm."
   },
   {
     "name_vi": "Ốc om chuối đậu",
@@ -1541,16 +1854,22 @@
     "fat_g": 41.3,
     "ingredients": [
       {
-        "name": "Ốc (snails)",
-        "amount": "300g"
+        "name_vi": "Ốc",
+        "name_en": "snails",
+        "amount_vi": "300g",
+        "amount_en": "300g"
       },
       {
-        "name": "Chuối xanh (green banana)",
-        "amount": "150g"
+        "name_vi": "Chuối xanh",
+        "name_en": "green banana",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Đậu hũ (tofu)",
-        "amount": "100g"
+        "name_vi": "Đậu hũ",
+        "name_en": "tofu",
+        "amount_vi": "100g",
+        "amount_en": "100g"
       }
     ],
     "instructions": "Braise snails with green banana, tofu, and turmeric until the sauce thickens.",
@@ -1558,7 +1877,8 @@
       "shellfish",
       "soy"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000052 (\"Ốc om chuối đậu\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000052 (\"Ốc om chuối đậu\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Om ốc với chuối xanh, đậu hũ và nghệ đến khi nước sốt sánh lại."
   },
   {
     "name_vi": "Rau cải xoong xào tỏi",
@@ -1576,21 +1896,28 @@
     "carb_g": 45.6,
     "ingredients": [
       {
-        "name": "Rau cải xoong (watercress)",
-        "amount": "250g"
+        "name_vi": "Rau cải xoong",
+        "name_en": "watercress",
+        "amount_vi": "250g",
+        "amount_en": "250g"
       },
       {
-        "name": "Tỏi (garlic)",
-        "amount": "2 cloves"
+        "name_vi": "Tỏi",
+        "name_en": "garlic",
+        "amount_vi": "2 tép",
+        "amount_en": "2 cloves"
       },
       {
-        "name": "Cơm (rice)",
-        "amount": "150g"
+        "name_vi": "Cơm",
+        "name_en": "rice",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       }
     ],
     "instructions": "Stir-fry watercress with garlic in oil. Serve with rice.",
     "allergen_tags": [],
-    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000177 (\"Rau cải xoong xào tỏi\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09."
+    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000177 (\"Rau cải xoong xào tỏi\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09.",
+    "instructions_vi": "Xào rau cải xoong với tỏi trong dầu ăn. Ăn cùng cơm."
   },
   {
     "name_vi": "Su hào xào",
@@ -1608,21 +1935,28 @@
     "carb_g": 48.1,
     "ingredients": [
       {
-        "name": "Su hào (kohlrabi)",
-        "amount": "250g"
+        "name_vi": "Su hào",
+        "name_en": "kohlrabi",
+        "amount_vi": "250g",
+        "amount_en": "250g"
       },
       {
-        "name": "Tỏi (garlic)",
-        "amount": "2 cloves"
+        "name_vi": "Tỏi",
+        "name_en": "garlic",
+        "amount_vi": "2 tép",
+        "amount_en": "2 cloves"
       },
       {
-        "name": "Cơm (rice)",
-        "amount": "150g"
+        "name_vi": "Cơm",
+        "name_en": "rice",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       }
     ],
     "instructions": "Stir-fry sliced kohlrabi with garlic in oil. Serve with rice.",
     "allergen_tags": [],
-    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000180 (\"Su hào xào\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09."
+    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000180 (\"Su hào xào\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09.",
+    "instructions_vi": "Xào su hào thái lát với tỏi trong dầu ăn. Ăn cùng cơm."
   },
   {
     "name_vi": "Đậu cove xào",
@@ -1640,21 +1974,28 @@
     "carb_g": 53.7,
     "ingredients": [
       {
-        "name": "Đậu cove (green beans)",
-        "amount": "200g"
+        "name_vi": "Đậu cove",
+        "name_en": "green beans",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Tỏi (garlic)",
-        "amount": "2 cloves"
+        "name_vi": "Tỏi",
+        "name_en": "garlic",
+        "amount_vi": "2 tép",
+        "amount_en": "2 cloves"
       },
       {
-        "name": "Cơm (rice)",
-        "amount": "150g"
+        "name_vi": "Cơm",
+        "name_en": "rice",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       }
     ],
     "instructions": "Stir-fry green beans with garlic in oil. Serve with rice.",
     "allergen_tags": [],
-    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000159 (\"Đậu cove xào\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09."
+    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000159 (\"Đậu cove xào\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09.",
+    "instructions_vi": "Xào đậu cove với tỏi trong dầu ăn. Ăn cùng cơm."
   },
   {
     "name_vi": "Gan xào giá",
@@ -1670,21 +2011,28 @@
     "carb_g": 60.1,
     "ingredients": [
       {
-        "name": "Gan lợn (pork liver)",
-        "amount": "200g"
+        "name_vi": "Gan lợn",
+        "name_en": "pork liver",
+        "amount_vi": "200g",
+        "amount_en": "200g"
       },
       {
-        "name": "Giá đỗ (bean sprouts)",
-        "amount": "150g"
+        "name_vi": "Giá đỗ",
+        "name_en": "bean sprouts",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Cơm (rice)",
-        "amount": "150g"
+        "name_vi": "Cơm",
+        "name_en": "rice",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       }
     ],
     "instructions": "Stir-fry sliced liver until just cooked, add bean sprouts, stir-fry briefly. Serve with rice.",
     "allergen_tags": [],
-    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000161 (\"Gan xào giá\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09."
+    "source": "Composite: dish component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000161 (\"Gan xào giá\"), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09.",
+    "instructions_vi": "Xào gan thái lát vừa chín tới, cho giá đỗ vào xào nhanh tay. Ăn cùng cơm."
   },
   {
     "name_vi": "Chuối tiêu",
@@ -1702,13 +2050,16 @@
     "fat_g": 0.2,
     "ingredients": [
       {
-        "name": "Chuối tiêu (lady finger banana)",
-        "amount": "1 medium"
+        "name_vi": "Chuối tiêu",
+        "name_en": "lady finger banana",
+        "amount_vi": "1 quả cỡ vừa",
+        "amount_en": "1 medium"
       }
     ],
     "instructions": "Peel and eat fresh.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000401 (\"Chuối tiêu\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000401 (\"Chuối tiêu\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Bóc vỏ và ăn tươi."
   },
   {
     "name_vi": "Bưởi",
@@ -1727,13 +2078,16 @@
     "fat_g": 0,
     "ingredients": [
       {
-        "name": "Bưởi (pomelo)",
-        "amount": "4-5 segments (~150g)"
+        "name_vi": "Bưởi",
+        "name_en": "pomelo",
+        "amount_vi": "4-5 múi (~150g)",
+        "amount_en": "4-5 segments (~150g)"
       }
     ],
     "instructions": "Peel and separate into segments.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000397 (\"Bưởi\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Fat was blank in the NIN record and was estimated as near-zero from the stated energy minus protein/carb."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000397 (\"Bưởi\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Fat was blank in the NIN record and was estimated as near-zero from the stated energy minus protein/carb.",
+    "instructions_vi": "Bóc vỏ và tách múi."
   },
   {
     "name_vi": "Dưa hấu",
@@ -1752,13 +2106,16 @@
     "fat_g": 0.2,
     "ingredients": [
       {
-        "name": "Dưa hấu (watermelon)",
-        "amount": "1 wedge (~150g)"
+        "name_vi": "Dưa hấu",
+        "name_en": "watermelon",
+        "amount_vi": "1 miếng (~150g)",
+        "amount_en": "1 wedge (~150g)"
       }
     ],
     "instructions": "Slice and serve chilled.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000402 (\"Dưa hấu\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000402 (\"Dưa hấu\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Thái miếng và ăn lạnh."
   },
   {
     "name_vi": "Ổi",
@@ -1777,13 +2134,16 @@
     "fat_g": 0,
     "ingredients": [
       {
-        "name": "Ổi (guava)",
-        "amount": "1 medium"
+        "name_vi": "Ổi",
+        "name_en": "guava",
+        "amount_vi": "1 quả cỡ vừa",
+        "amount_en": "1 medium"
       }
     ],
     "instructions": "Wash and eat fresh, sliced.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000417 (\"Ổi\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Fat was blank in the NIN record and was estimated as near-zero from the stated energy minus protein/carb."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000417 (\"Ổi\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Fat was blank in the NIN record and was estimated as near-zero from the stated energy minus protein/carb.",
+    "instructions_vi": "Rửa sạch và ăn tươi, thái lát."
   },
   {
     "name_vi": "Chè sen",
@@ -1801,17 +2161,22 @@
     "fat_g": 0,
     "ingredients": [
       {
-        "name": "Hạt sen (lotus seeds)",
-        "amount": "80g"
+        "name_vi": "Hạt sen",
+        "name_en": "lotus seeds",
+        "amount_vi": "80g",
+        "amount_en": "80g"
       },
       {
-        "name": "Đường phèn (rock sugar)",
-        "amount": "to taste"
+        "name_vi": "Đường phèn",
+        "name_en": "rock sugar",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Simmer lotus seeds until soft, sweeten with rock sugar.",
     "allergen_tags": [],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000369 (\"Chè sen\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000369 (\"Chè sen\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Ninh hạt sen đến khi mềm, cho đường phèn vào nấu tan."
   },
   {
     "name_vi": "Sữa đậu nành",
@@ -1829,15 +2194,18 @@
     "fat_g": 2.2,
     "ingredients": [
       {
-        "name": "Sữa đậu nành (soy milk)",
-        "amount": "250ml"
+        "name_vi": "Sữa đậu nành",
+        "name_en": "soy milk",
+        "amount_vi": "250ml",
+        "amount_en": "250ml"
       }
     ],
     "instructions": "Serve chilled or warm.",
     "allergen_tags": [
       "soy"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000390 (\"Sữa đậu nành\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000390 (\"Sữa đậu nành\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Dùng lạnh hoặc nóng."
   },
   {
     "name_vi": "Sữa chua không đường",
@@ -1855,15 +2223,18 @@
     "fat_g": 3.7,
     "ingredients": [
       {
-        "name": "Sữa chua không đường (unsweetened yogurt)",
-        "amount": "100g"
+        "name_vi": "Sữa chua không đường",
+        "name_en": "unsweetened yogurt",
+        "amount_vi": "100g",
+        "amount_en": "100g"
       }
     ],
     "instructions": "Serve chilled.",
     "allergen_tags": [
       "dairy"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000387 (\"Sữa chua không đường TH True Yogurt\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000387 (\"Sữa chua không đường TH True Yogurt\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Dùng lạnh."
   },
   {
     "name_vi": "Phô mai tam giác",
@@ -1881,15 +2252,18 @@
     "fat_g": 4.8,
     "ingredients": [
       {
-        "name": "Phô mai tam giác (spreadable cheese wedge)",
-        "amount": "1 wedge (~20g)"
+        "name_vi": "Phô mai tam giác",
+        "name_en": "spreadable cheese wedge",
+        "amount_vi": "1 miếng (~20g)",
+        "amount_en": "1 wedge (~20g)"
       }
     ],
     "instructions": "Serve as-is.",
     "allergen_tags": [
       "dairy"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000396 (\"Phô mai tam giác\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Carbohydrate was blank in the NIN record and was estimated as near-zero from the stated energy minus protein/fat."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000396 (\"Phô mai tam giác\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Carbohydrate was blank in the NIN record and was estimated as near-zero from the stated energy minus protein/fat.",
+    "instructions_vi": "Dùng trực tiếp."
   },
   {
     "name_vi": "Đậu phụ rán",
@@ -1908,19 +2282,24 @@
     "fat_g": 11.3,
     "ingredients": [
       {
-        "name": "Đậu hũ (tofu)",
-        "amount": "150g"
+        "name_vi": "Đậu hũ",
+        "name_en": "tofu",
+        "amount_vi": "150g",
+        "amount_en": "150g"
       },
       {
-        "name": "Nước tương (soy sauce dip)",
-        "amount": "to taste"
+        "name_vi": "Nước tương",
+        "name_en": "soy sauce dip",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Pan-fry tofu cubes until golden. Serve with soy dipping sauce.",
     "allergen_tags": [
       "soy"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000124 (\"Đậu phụ rán\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000124 (\"Đậu phụ rán\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Chiên đậu hũ vàng đều. Ăn cùng nước tương chấm."
   },
   {
     "name_vi": "Trứng vịt luộc",
@@ -1938,15 +2317,18 @@
     "fat_g": 8.1,
     "ingredients": [
       {
-        "name": "Trứng vịt (duck egg)",
-        "amount": "1"
+        "name_vi": "Trứng vịt",
+        "name_en": "duck egg",
+        "amount_vi": "1",
+        "amount_en": "1"
       }
     ],
     "instructions": "Boil until fully set.",
     "allergen_tags": [
       "egg"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000380 (\"Trứng vịt luộc\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000380 (\"Trứng vịt luộc\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Luộc đến khi chín hẳn."
   },
   {
     "name_vi": "Trứng chim cút luộc",
@@ -1964,15 +2346,18 @@
     "fat_g": 1.1,
     "ingredients": [
       {
-        "name": "Trứng chim cút (quail eggs)",
-        "amount": "4-5"
+        "name_vi": "Trứng chim cút",
+        "name_en": "quail eggs",
+        "amount_vi": "4-5 quả",
+        "amount_en": "4-5"
       }
     ],
     "instructions": "Boil until fully set, peel.",
     "allergen_tags": [
       "egg"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000374 (\"Trứng chim cút luộc\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Carbohydrate was blank in the NIN record and was estimated as near-zero from the stated energy minus protein/fat."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000374 (\"Trứng chim cút luộc\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Carbohydrate was blank in the NIN record and was estimated as near-zero from the stated energy minus protein/fat.",
+    "instructions_vi": "Luộc đến khi chín hẳn, bóc vỏ."
   },
   {
     "name_vi": "Ốc đĩa luộc mắm",
@@ -1989,12 +2374,16 @@
     "fat_g": 1.1,
     "ingredients": [
       {
-        "name": "Ốc (snails)",
-        "amount": "300g"
+        "name_vi": "Ốc",
+        "name_en": "snails",
+        "amount_vi": "300g",
+        "amount_en": "300g"
       },
       {
-        "name": "Nước mắm gừng (ginger-fish-sauce dip)",
-        "amount": "to taste"
+        "name_vi": "Nước mắm gừng",
+        "name_en": "ginger-fish-sauce dip",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Boil snails until cooked. Serve with ginger-fish-sauce dip.",
@@ -2002,7 +2391,8 @@
       "shellfish",
       "fish"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-211014 (\"Ốc đĩa luộc mắm\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-211014 (\"Ốc đĩa luộc mắm\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Luộc ốc đến khi chín. Ăn cùng nước mắm gừng."
   },
   {
     "name_vi": "Hàu nướng mọi",
@@ -2019,18 +2409,23 @@
     "fat_g": 5.3,
     "ingredients": [
       {
-        "name": "Hàu (oysters)",
-        "amount": "10 pieces"
+        "name_vi": "Hàu",
+        "name_en": "oysters",
+        "amount_vi": "10 pieces",
+        "amount_en": "10 pieces"
       },
       {
-        "name": "Mỡ hành (scallion oil)",
-        "amount": "to taste"
+        "name_vi": "Mỡ hành",
+        "name_en": "scallion oil",
+        "amount_vi": "vừa đủ",
+        "amount_en": "to taste"
       }
     ],
     "instructions": "Grill oysters on the half shell until just cooked. Top with scallion oil.",
     "allergen_tags": [
       "shellfish"
     ],
-    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-211016 (\"Hàu nướng mọi (10 con)\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN."
+    "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code HAP-211016 (\"Hàu nướng mọi (10 con)\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
+    "instructions_vi": "Nướng hàu còn nguyên vỏ đến khi vừa chín tới. Rắc mỡ hành lên trên."
   }
 ]

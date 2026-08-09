@@ -29,11 +29,12 @@ export type RecipeForGeneration = {
 
 export type MealSlot = { day: number; mealType: MealType; recipeId: string };
 
+// Message is a stable machine code ("NO_ELIGIBLE_RECIPES:<mealType>"), not
+// English prose — the client parses it and renders localized text from the
+// i18n dictionary, since the server has no notion of the user's UI language.
 export class NoEligibleRecipesError extends Error {
   constructor(mealType: MealType) {
-    super(
-      `No ${mealType} recipes are free of your listed allergies. Update your allergies or check back once the catalog grows.`,
-    );
+    super(`NO_ELIGIBLE_RECIPES:${mealType}`);
     this.name = "NoEligibleRecipesError";
   }
 }

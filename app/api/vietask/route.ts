@@ -2,14 +2,15 @@ import { z } from "zod";
 import { asc, eq } from "drizzle-orm";
 import type { ModelMessage } from "ai";
 import { db } from "@/server/db";
-import { chatSessions, chatMessages } from "@/server/db/schema";
+import { chatSessions, chatMessages, profiles } from "@/server/db/schema";
 import { createClient } from "@/lib/supabase/server";
 import { generateWithFallback } from "@/server/ai/provider";
-import { VIETASK_SYSTEM_PROMPT } from "@/server/ai/system-prompt";
+import { buildVietAskSystemPrompt, buildUserProfileContext } from "@/server/ai/system-prompt";
 
 const requestSchema = z.object({
   sessionId: z.string().uuid(),
   message: z.string().min(1).max(4000),
+  language: z.enum(["en", "vi"]).default("en"),
 });
 
 function sseEvent(data: unknown): Uint8Array {
@@ -21,12 +22,19 @@ export async function POST(req: Request) {
   if (!parsed.success) {
     return new Response(JSON.stringify({ error: "Invalid request" }), { status: 400 });
   }
-  const { sessionId, message } = parsed.data;
+  const { sessionId, message, language } = parsed.data;
 
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  // Fetched fresh on every request (not cached on the session) so an edit to
+  // the user's profile takes effect on their very next message.
+  const [profile] = user
+    ? await db.select().from(profiles).where(eq(profiles.id, user.id)).limit(1)
+    : [];
+  const userContext = buildUserProfileContext(profile);
 
   const [existingSession] = await db
     .select()
@@ -66,7 +74,7 @@ export async function POST(req: Request) {
     async start(controller) {
       let fullText = "";
       try {
-        for await (const chunk of generateWithFallback(modelMessages, VIETASK_SYSTEM_PROMPT)) {
+        for await (const chunk of generateWithFallback(modelMessages, buildVietAskSystemPrompt(language, userContext))) {
           fullText += chunk;
           controller.enqueue(sseEvent({ text: chunk }));
         }

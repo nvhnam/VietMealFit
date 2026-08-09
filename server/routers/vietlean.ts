@@ -17,7 +17,9 @@ export const vietleanRouter = createTRPCRouter({
       const recommendations = await ctx.db
         .select({
           foodCategory: phaseFoodRecommendations.foodCategory,
+          foodCategoryVi: phaseFoodRecommendations.foodCategoryVi,
           recommendation: phaseFoodRecommendations.recommendation,
+          recommendationVi: phaseFoodRecommendations.recommendationVi,
         })
         .from(phaseFoodRecommendations)
         .where(eq(phaseFoodRecommendations.phase, input.phase));

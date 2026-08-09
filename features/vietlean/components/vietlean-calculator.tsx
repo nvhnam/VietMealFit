@@ -4,6 +4,7 @@ import { useState } from "react";
 import { skipToken, useQuery } from "@tanstack/react-query";
 import { Calculator } from "lucide-react";
 import { useTRPC } from "@/lib/trpc/client";
+import { useI18n } from "@/features/i18n";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,14 +19,11 @@ import {
 } from "@/components/ui/select";
 import type { LeanPhase } from "@/features/vietlean/calculate";
 
-const PHASE_LABELS: Record<LeanPhase, string> = {
-  bulking: "Bulking",
-  lean: "Lean / maintenance",
-  cutting: "Cutting",
-};
+const PHASE_VALUES: LeanPhase[] = ["bulking", "lean", "cutting"];
 
 export function VietLeanCalculator() {
   const trpc = useTRPC();
+  const { t, language } = useI18n();
   const [weightInput, setWeightInput] = useState("70");
   const [phase, setPhase] = useState<LeanPhase>("lean");
   const [submitted, setSubmitted] = useState<{ weightKg: number; phase: LeanPhase } | null>(null);
@@ -36,11 +34,7 @@ export function VietLeanCalculator() {
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-6">
-      <PageHeader
-        icon={Calculator}
-        title="VietLean"
-        description="Calculate your daily calorie and macro targets for a bulking, lean, or cutting phase."
-      />
+      <PageHeader icon={Calculator} title={t.vietlean.title} description={t.vietlean.description} />
       <Card className="p-6">
         <form
           className="flex flex-wrap items-end gap-4"
@@ -52,7 +46,7 @@ export function VietLeanCalculator() {
           }}
         >
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="weight">Weight (kg)</Label>
+            <Label htmlFor="weight">{t.vietlean.weightKg}</Label>
             <Input
               id="weight"
               type="number"
@@ -65,34 +59,34 @@ export function VietLeanCalculator() {
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="phase">Phase</Label>
+            <Label htmlFor="phase">{t.vietlean.phase}</Label>
             <Select value={phase} onValueChange={(v) => v && setPhase(v as LeanPhase)}>
               <SelectTrigger id="phase" className="w-48">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {(Object.keys(PHASE_LABELS) as LeanPhase[]).map((p) => (
+                {PHASE_VALUES.map((p) => (
                   <SelectItem key={p} value={p}>
-                    {PHASE_LABELS[p]}
+                    {t.vietlean.phaseOption[p]}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
           <Button type="submit" disabled={isLoading}>
-            {isLoading ? "Calculating..." : "Calculate"}
+            {isLoading ? t.vietlean.calculating : t.vietlean.calculate}
           </Button>
         </form>
       </Card>
 
       {isError && (
-        <p className="text-sm text-destructive">{error?.message ?? "Something went wrong."}</p>
+        <p className="text-sm text-destructive">{error?.message ?? t.vietlean.somethingWentWrong}</p>
       )}
 
       {data && (
         <>
           <Card className="p-6">
-            <h2 className="mb-3 font-semibold">Daily targets</h2>
+            <h2 className="mb-3 font-semibold">{t.vietlean.dailyTargetsHeading}</h2>
             <div className="grid grid-cols-2 gap-4 text-center sm:grid-cols-4">
               <div>
                 <div className="font-mono text-2xl font-bold tabular-nums">{data.calorieTarget}</div>
@@ -102,32 +96,39 @@ export function VietLeanCalculator() {
                 <div className="font-mono text-2xl font-bold tabular-nums" style={{ color: "var(--chart-1)" }}>
                   {data.proteinG}g
                 </div>
-                <div className="text-xs text-muted-foreground">Protein</div>
+                <div className="text-xs text-muted-foreground">{t.common.macro.protein}</div>
               </div>
               <div>
                 <div className="font-mono text-2xl font-bold tabular-nums" style={{ color: "var(--chart-2)" }}>
                   {data.carbG}g
                 </div>
-                <div className="text-xs text-muted-foreground">Carbs</div>
+                <div className="text-xs text-muted-foreground">{t.common.macro.carbs}</div>
               </div>
               <div>
                 <div className="font-mono text-2xl font-bold tabular-nums" style={{ color: "var(--chart-3)" }}>
                   {data.fatG}g
                 </div>
-                <div className="text-xs text-muted-foreground">Fat</div>
+                <div className="text-xs text-muted-foreground">{t.common.macro.fat}</div>
               </div>
             </div>
           </Card>
 
           <Card className="p-6">
-            <h2 className="mb-3 font-semibold">Food category guidance — {PHASE_LABELS[phase]}</h2>
+            <h2 className="mb-3 font-semibold">
+              {t.vietlean.foodGuidanceHeading(t.vietlean.phaseOption[phase])}
+            </h2>
             <dl className="flex flex-col gap-3">
-              {data.recommendations.map((r) => (
-                <div key={r.foodCategory}>
-                  <dt className="text-sm font-medium">{r.foodCategory}</dt>
-                  <dd className="text-sm text-muted-foreground">{r.recommendation}</dd>
-                </div>
-              ))}
+              {data.recommendations.map((r) => {
+                const category = language === "vi" ? (r.foodCategoryVi ?? r.foodCategory) : r.foodCategory;
+                const recommendation =
+                  language === "vi" ? (r.recommendationVi ?? r.recommendation) : r.recommendation;
+                return (
+                  <div key={r.foodCategory}>
+                    <dt className="text-sm font-medium">{category}</dt>
+                    <dd className="text-sm text-muted-foreground">{recommendation}</dd>
+                  </div>
+                );
+              })}
             </dl>
           </Card>
         </>

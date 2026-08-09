@@ -68,6 +68,7 @@ export const vietsearchRouter = createTRPCRouter({
         carbohydrateG: scale(item.carbohydrateG),
         fatG: scale(item.fatG),
         sourceCitation: item.sourceCitation,
+        sourceCitationEn: item.sourceCitationEn,
       };
     }),
 });

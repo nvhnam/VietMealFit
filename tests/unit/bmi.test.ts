@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { bmiBadgeVariant, bmiCategory, computeBmi } from "@/features/shared/bmi";
-import { recommendation } from "@/features/vietfit/components/vietfit-bmi-recommendation";
+import { recommendation } from "@/features/vietfit/bmi-recommendation-text";
+import { en } from "@/features/i18n/messages/en";
 
 describe("computeBmi", () => {
   it("computes standard BMI from height (cm) and weight (kg)", () => {
@@ -44,18 +45,18 @@ describe("bmiBadgeVariant", () => {
 
 describe("VietFit recommendation copy", () => {
   it("gives different advice per BMI category", () => {
-    const under = recommendation("Underweight", "muscle_gain");
-    const normal = recommendation("Normal", "muscle_gain");
-    const over = recommendation("Overweight", "muscle_gain");
-    const obese = recommendation("Obese", "muscle_gain");
+    const under = recommendation("Underweight", "muscle_gain", en);
+    const normal = recommendation("Normal", "muscle_gain", en);
+    const over = recommendation("Overweight", "muscle_gain", en);
+    const obese = recommendation("Obese", "muscle_gain", en);
 
     expect(under).not.toBe(normal);
     expect(over).toBe(obese); // both share the "manage weight" branch
     expect(under).not.toBe(over);
   });
 
-  it("formats the goal with spaces instead of underscores", () => {
-    expect(recommendation("Normal", "weight_loss")).toContain("weight loss");
-    expect(recommendation("Normal", "weight_loss")).not.toContain("weight_loss");
+  it("formats the goal using the translated dictionary label, not a raw underscore replace", () => {
+    expect(recommendation("Normal", "weight_loss", en)).toContain("Weight loss");
+    expect(recommendation("Normal", "weight_loss", en)).not.toContain("weight_loss");
   });
 });

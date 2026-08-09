@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { signOutAction } from "@/features/auth/actions";
+import { getServerLanguage } from "@/features/i18n/get-server-language";
+import { en } from "@/features/i18n/messages/en";
+import { vi } from "@/features/i18n/messages/vi";
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
 
@@ -9,11 +12,13 @@ export async function AccountMenu() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  const language = await getServerLanguage();
+  const t = language === "vi" ? vi : en;
 
   if (!user) {
     return (
       <Link href="/account/sign-in" className={buttonVariants({ variant: "outline", size: "sm" })}>
-        Sign in
+        {t.auth.signInButton}
       </Link>
     );
   }
@@ -22,11 +27,11 @@ export async function AccountMenu() {
     <div className="flex items-center gap-2">
       <span className="hidden text-sm text-muted-foreground sm:inline">{user.email}</span>
       <Link href="/account/profile" className={buttonVariants({ variant: "outline", size: "sm" })}>
-        Profile
+        {t.auth.profileLink}
       </Link>
       <form action={signOutAction}>
         <Button type="submit" variant="outline" size="sm">
-          Sign out
+          {t.auth.signOut}
         </Button>
       </form>
     </div>

@@ -84,8 +84,11 @@ export const recipes = pgTable("recipes", {
   proteinG: numeric("protein_g", { precision: 6, scale: 2 }).notNull(),
   carbG: numeric("carb_g", { precision: 6, scale: 2 }).notNull(),
   fatG: numeric("fat_g", { precision: 6, scale: 2 }).notNull(),
+  // Array of { name_vi, name_en, amount_vi, amount_en } — jsonb, so this
+  // shape isn't schema-enforced; see data/seed/recipes.json for the source.
   ingredients: jsonb("ingredients").notNull(),
-  instructions: text("instructions").notNull(),
+  instructions: text("instructions").notNull(), // English
+  instructionsVi: text("instructions_vi"), // Vietnamese; nullable during backfill
   allergenTags: text("allergen_tags").array().notNull().default(sql`'{}'::text[]`),
   source: text("source"),
   ...timestamps,
@@ -130,14 +133,18 @@ export const mealPlanItemsRelations = relations(mealPlanItems, ({ one }) => ({
 
 export const exercises = pgTable("exercises", {
   id: uuid("id").primaryKey().defaultRandom(),
-  name: text("name").notNull(),
+  name: text("name").notNull(), // English; kept as-is for backward compat, see nameEn
+  nameVi: text("name_vi"),
+  nameEn: text("name_en"),
   muscleGroups: text("muscle_groups").array().notNull().default(sql`'{}'::text[]`),
   equipment: text("equipment"),
   difficulty: difficultyEnum("difficulty").notNull().default("beginner"),
   defaultSets: smallint("default_sets").notNull(),
-  repScheme: text("rep_scheme").notNull(),
+  repScheme: text("rep_scheme").notNull(), // English, e.g. "10-15 reps"
+  repSchemeVi: text("rep_scheme_vi"), // e.g. "10-15 lần"
   videoUrl: text("video_url"),
-  instructions: text("instructions").notNull(),
+  instructions: text("instructions").notNull(), // English
+  instructionsVi: text("instructions_vi"),
   limitationTags: text("limitation_tags").array().notNull().default(sql`'{}'::text[]`),
   ...timestamps,
 });
@@ -184,8 +191,10 @@ export const exercisePlanItemsRelations = relations(exercisePlanItems, ({ one })
 export const phaseFoodRecommendations = pgTable("phase_food_recommendations", {
   id: uuid("id").primaryKey().defaultRandom(),
   phase: leanPhaseEnum("phase").notNull(),
-  foodCategory: text("food_category").notNull(),
-  recommendation: text("recommendation").notNull(),
+  foodCategory: text("food_category").notNull(), // English
+  foodCategoryVi: text("food_category_vi"),
+  recommendation: text("recommendation").notNull(), // English
+  recommendationVi: text("recommendation_vi"),
 });
 
 // ---------------------------------------------------------------------------
@@ -209,6 +218,11 @@ export const nutritionItems = pgTable("nutrition_items", {
   sourceCitation: text("source_citation")
     .notNull()
     .default("Bảng thành phần thực phẩm Việt Nam, Bộ Y Tế – Viện Dinh dưỡng, 2007"),
+  // English gloss of sourceCitation, shown in English UI mode. Citations
+  // otherwise stay in their original language — see features/i18n plan.
+  sourceCitationEn: text("source_citation_en").default(
+    "Vietnam Food Composition Table, Ministry of Health – National Institute of Nutrition, 2007",
+  ),
   ...timestamps,
 });
 
@@ -224,6 +238,11 @@ export const forumThreads = pgTable("forum_threads", {
   title: text("title").notNull(),
   description: text("description"),
   content: text("content").notNull(),
+  // Not auto-detected or enforced — reserved for future author-declared
+  // language tagging/filtering. User content is not machine-translated
+  // (see features/i18n plan §8); the UI instead discloses that content
+  // appears in its original language.
+  language: text("language"),
   likeCount: integer("like_count").notNull().default(0), // denormalized, kept in sync by app logic
   ...timestamps,
 });
@@ -237,6 +256,7 @@ export const forumComments = pgTable("forum_comments", {
     .notNull()
     .references(() => profiles.id, { onDelete: "cascade" }),
   content: text("content").notNull(),
+  language: text("language"),
   ...timestamps,
 });
 
@@ -325,6 +345,7 @@ export const libraryResources = pgTable("library_resources", {
   title: text("title").notNull(),
   description: text("description"),
   category: text("category"),
+  language: text("language"), // see forumThreads.language comment
   storagePath: text("storage_path").notNull(), // R2 object key (§2.6)
   filename: text("filename").notNull(),
   mime: text("mime").notNull(),

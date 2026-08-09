@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import Link from "next/link";
 import { signUpAction, type AuthActionState } from "@/features/auth/actions";
+import { useI18n } from "@/features/i18n";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,21 +13,22 @@ const initialState: AuthActionState = { error: null };
 
 export function SignUpForm() {
   const [state, formAction, pending] = useActionState(signUpAction, initialState);
+  const { t } = useI18n();
 
   return (
     <Card className="mx-auto max-w-sm p-6">
-      <h1 className="mb-4 text-xl font-semibold">Create an account</h1>
+      <h1 className="mb-4 text-xl font-semibold">{t.auth.signUpHeading}</h1>
       <form action={formAction} className="flex flex-col gap-4">
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="displayName">Display name</Label>
+          <Label htmlFor="displayName">{t.auth.displayName}</Label>
           <Input id="displayName" name="displayName" required autoComplete="name" />
         </div>
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t.auth.email}</Label>
           <Input id="email" name="email" type="email" required autoComplete="email" />
         </div>
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">{t.auth.password}</Label>
           <Input
             id="password"
             name="password"
@@ -39,13 +41,13 @@ export function SignUpForm() {
         {state.error && <p className="text-sm text-destructive">{state.error}</p>}
         {state.message && <p className="text-sm text-muted-foreground">{state.message}</p>}
         <Button type="submit" disabled={pending}>
-          {pending ? "Creating account..." : "Sign up"}
+          {pending ? t.auth.creatingAccount : t.auth.signUpButton}
         </Button>
       </form>
       <p className="mt-4 text-center text-sm text-muted-foreground">
-        Already have an account?{" "}
+        {t.auth.alreadyHaveAccount}{" "}
         <Link href="/account/sign-in" className="text-primary underline-offset-4 hover:underline">
-          Sign in
+          {t.auth.signInButton}
         </Link>
       </p>
     </Card>

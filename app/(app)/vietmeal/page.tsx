@@ -9,7 +9,7 @@ export default async function VietMealPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return <SignInRequired what="generate a meal plan" />;
+    return <SignInRequired what="vietmeal-plan" />;
   }
 
   return <VietMealPageClient />;

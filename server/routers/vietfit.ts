@@ -41,6 +41,8 @@ export const vietfitRouter = createTRPCRouter({
       .select({
         id: exercises.id,
         name: exercises.name,
+        nameVi: exercises.nameVi,
+        nameEn: exercises.nameEn,
         difficulty: exercises.difficulty,
         muscleGroups: exercises.muscleGroups,
         limitationTags: exercises.limitationTags,

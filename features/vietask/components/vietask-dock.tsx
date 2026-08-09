@@ -6,12 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useExperienceMode } from "@/features/experience-mode";
+import { useI18n } from "@/features/i18n";
 import { useVietAskChat } from "@/features/vietask/use-vietask-chat";
 import { cn } from "@/lib/utils";
 
 /** Floating VietAsk dock (plan §1.8) — Advanced mode only, first-party AI replacing the paper's Chatling embed. */
 export function VietAskDock() {
   const { mode } = useExperienceMode();
+  const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const { messages, sendMessage, isStreaming, error } = useVietAskChat();
@@ -28,15 +30,13 @@ export function VietAskDock() {
       {open && (
         <Card className="animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-2 mb-2 flex h-96 w-80 flex-col p-0 shadow-xl duration-200 sm:w-96">
           <div className="rounded-t-xl border-b bg-primary/5 px-4 py-3">
-            <h2 className="text-sm font-semibold text-foreground">VietAsk</h2>
-            <p className="text-xs text-muted-foreground">Ask about navigating the app or general fitness questions.</p>
+            <h2 className="text-sm font-semibold text-foreground">{t.vietask.title}</h2>
+            <p className="text-xs text-muted-foreground">{t.vietask.subtitle}</p>
           </div>
 
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3">
             {messages.length === 0 && (
-              <p className="text-sm text-muted-foreground">
-                Try: &ldquo;How do I generate a meal plan?&rdquo; or &ldquo;What should I eat before a workout?&rdquo;
-              </p>
+              <p className="text-sm text-muted-foreground">{t.vietask.exampleQuestions}</p>
             )}
             <div className="flex flex-col gap-3">
               {messages.map((m) => (
@@ -68,11 +68,11 @@ export function VietAskDock() {
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask VietAsk..."
+              placeholder={t.vietask.inputPlaceholder}
               disabled={isStreaming}
               className="flex-1"
             />
-            <Button type="submit" size="icon" disabled={isStreaming || !input.trim()} aria-label="Send">
+            <Button type="submit" size="icon" disabled={isStreaming || !input.trim()} aria-label={t.vietask.send}>
               <Send className="size-4" />
             </Button>
           </form>
@@ -82,7 +82,7 @@ export function VietAskDock() {
         size="icon"
         className="h-12 w-12 rounded-full shadow-lg"
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Close VietAsk" : "Open VietAsk"}
+        aria-label={open ? t.vietask.close : t.vietask.open}
       >
         {open ? <X /> : <MessageCircle />}
       </Button>

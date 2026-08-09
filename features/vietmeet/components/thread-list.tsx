@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { MessageSquare, Heart, Users } from "lucide-react";
 import { useTRPC } from "@/lib/trpc/client";
 import { useDebouncedValue } from "@/lib/use-debounced-value";
+import { useI18n } from "@/features/i18n";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -21,6 +22,7 @@ import { CreateThreadDialog } from "./create-thread-dialog";
 
 export function ThreadList() {
   const trpc = useTRPC();
+  const { t } = useI18n();
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<"newest" | "oldest">("newest");
   const debouncedSearch = useDebouncedValue(search, 300);
@@ -33,14 +35,14 @@ export function ThreadList() {
     <div className="mx-auto flex max-w-3xl flex-col gap-4">
       <PageHeader
         icon={Users}
-        title="VietMeet"
-        description="A shared forum to ask questions, share progress, and connect with others."
+        title={t.vietmeet.title}
+        description={t.vietmeet.description}
         action={<CreateThreadDialog />}
       />
 
       <div className="flex gap-2">
         <Input
-          placeholder="Search threads..."
+          placeholder={t.vietmeet.searchThreads}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="flex-1"
@@ -50,8 +52,8 @@ export function ThreadList() {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="newest">Newest first</SelectItem>
-            <SelectItem value="oldest">Oldest first</SelectItem>
+            <SelectItem value="newest">{t.vietmeet.newestFirst}</SelectItem>
+            <SelectItem value="oldest">{t.vietmeet.oldestFirst}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -64,9 +66,7 @@ export function ThreadList() {
       )}
 
       {!isLoading && threads?.length === 0 && (
-        <p className="text-sm text-muted-foreground">
-          No threads yet{search ? ` matching "${search}"` : ""}. Be the first to post.
-        </p>
+        <p className="text-sm text-muted-foreground">{t.vietmeet.noThreadsYet(search)}</p>
       )}
 
       <div className="flex flex-col gap-3">

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useTRPC } from "@/lib/trpc/client";
+import { useI18n } from "@/features/i18n";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -95,12 +96,13 @@ export function ProfileForm() {
 function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null }) {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
+  const { t } = useI18n();
   const [form, setForm] = useState<FormState>(() => formFromProfile(initialProfile));
 
   const upsert = useMutation(
     trpc.profiles.upsert.mutationOptions({
       onSuccess: () => {
-        toast.success("Profile saved");
+        toast.success(t.profile.profileSaved);
         queryClient.invalidateQueries({ queryKey: trpc.profiles.get.queryKey() });
       },
       onError: (err) => toast.error(err.message),
@@ -109,7 +111,7 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
 
   return (
     <Card className="mx-auto max-w-lg p-6">
-      <h1 className="mb-4 text-xl font-semibold">Your profile</h1>
+      <h1 className="mb-4 text-xl font-semibold">{t.profile.heading}</h1>
       <form
         className="grid grid-cols-1 gap-4 sm:grid-cols-2"
         onSubmit={(e) => {
@@ -129,7 +131,7 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
         }}
       >
         <div className="col-span-2 flex flex-col gap-1.5">
-          <Label htmlFor="displayName">Display name</Label>
+          <Label htmlFor="displayName">{t.profile.displayName}</Label>
           <Input
             id="displayName"
             required
@@ -138,7 +140,7 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
           />
         </div>
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="gender">Gender</Label>
+          <Label htmlFor="gender">{t.profile.gender}</Label>
           <Input
             id="gender"
             value={form.gender}
@@ -146,7 +148,7 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
           />
         </div>
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="age">Age</Label>
+          <Label htmlFor="age">{t.profile.age}</Label>
           <Input
             id="age"
             type="number"
@@ -155,7 +157,7 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
           />
         </div>
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="heightCm">Height (cm)</Label>
+          <Label htmlFor="heightCm">{t.profile.heightCm}</Label>
           <Input
             id="heightCm"
             type="number"
@@ -164,7 +166,7 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
           />
         </div>
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="weightKg">Weight (kg)</Label>
+          <Label htmlFor="weightKg">{t.profile.weightKg}</Label>
           <Input
             id="weightKg"
             type="number"
@@ -173,25 +175,25 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
           />
         </div>
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="experienceLevel">Experience level</Label>
+          <Label htmlFor="experienceLevel">{t.profile.experienceLevel}</Label>
           <Input
             id="experienceLevel"
-            placeholder="beginner / intermediate / advanced"
+            placeholder={t.profile.experienceLevelPlaceholder}
             value={form.experienceLevel}
             onChange={(e) => setForm({ ...form, experienceLevel: e.target.value })}
           />
         </div>
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="dietaryPreference">Dietary preference</Label>
+          <Label htmlFor="dietaryPreference">{t.profile.dietaryPreference}</Label>
           <Input
             id="dietaryPreference"
-            placeholder="anything / keto / vegan / ..."
+            placeholder={t.profile.dietaryPreferencePlaceholder}
             value={form.dietaryPreference}
             onChange={(e) => setForm({ ...form, dietaryPreference: e.target.value })}
           />
         </div>
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="calorieGoal">Calorie goal</Label>
+          <Label htmlFor="calorieGoal">{t.profile.calorieGoal}</Label>
           <Input
             id="calorieGoal"
             type="number"
@@ -200,7 +202,7 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
           />
         </div>
         <div className="col-span-2 flex flex-col gap-1.5">
-          <Label htmlFor="allergies">Allergies (comma-separated)</Label>
+          <Label htmlFor="allergies">{t.profile.allergies}</Label>
           <Input
             id="allergies"
             value={form.allergies}
@@ -208,7 +210,7 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
           />
         </div>
         <div className="col-span-2 flex flex-col gap-1.5">
-          <Label htmlFor="fitnessGoals">Fitness goals (comma-separated)</Label>
+          <Label htmlFor="fitnessGoals">{t.profile.fitnessGoals}</Label>
           <Input
             id="fitnessGoals"
             value={form.fitnessGoals}
@@ -216,7 +218,7 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
           />
         </div>
         <Button type="submit" className="col-span-2" disabled={upsert.isPending}>
-          {upsert.isPending ? "Saving..." : "Save profile"}
+          {upsert.isPending ? t.profile.savingProfile : t.profile.saveProfile}
         </Button>
       </form>
     </Card>

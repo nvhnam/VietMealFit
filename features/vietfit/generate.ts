@@ -27,6 +27,8 @@ export type BmiCategory = "Underweight" | "Normal" | "Overweight" | "Obese";
 export type ExerciseForGeneration = {
   id: string;
   name: string;
+  nameVi?: string | null;
+  nameEn?: string | null;
   difficulty: Difficulty;
   muscleGroups: string[];
   limitationTags: string[];
@@ -34,11 +36,12 @@ export type ExerciseForGeneration = {
 
 export type ExerciseSlot = { day: number; order: number; exerciseId: string };
 
+// Message is a stable machine code, not English prose — the client renders
+// localized text from the i18n dictionary instead (see NoEligibleRecipesError
+// in features/vietmeal/generate.ts for the same pattern).
 export class NoEligibleExercisesError extends Error {
   constructor() {
-    super(
-      "No exercises are free of your listed physical limitations. Update them or check back once the catalog grows.",
-    );
+    super("NO_ELIGIBLE_EXERCISES");
     this.name = "NoEligibleExercisesError";
   }
 }
@@ -107,10 +110,16 @@ export function generateWeekSchedule(
 
   if (opts.preferredCardioQuery?.trim()) {
     const query = opts.preferredCardioQuery.trim().toLowerCase();
-    // Name match first (the user's actual preference); if nothing matches
-    // by name, fall back to "any cardio exercise" rather than ignoring the
-    // request outright.
-    const nameMatches = pool.filter((e) => e.name.toLowerCase().includes(query));
+    // Name match first (the user's actual preference); checks name/nameVi/
+    // nameEn so a Vietnamese-typed query (e.g. "nhảy dây") matches regardless
+    // of UI language, not just the English name. If nothing matches by name,
+    // fall back to "any cardio exercise" rather than ignoring the request outright.
+    const nameMatches = pool.filter(
+      (e) =>
+        e.name.toLowerCase().includes(query) ||
+        (e.nameVi?.toLowerCase().includes(query) ?? false) ||
+        (e.nameEn?.toLowerCase().includes(query) ?? false),
+    );
     const anyCardio = pool.filter((e) => e.muscleGroups.some((m) => m.toLowerCase().includes("cardio")));
     const preferred = nameMatches.length > 0 ? nameMatches : anyCardio;
     if (preferred.length > 0) {

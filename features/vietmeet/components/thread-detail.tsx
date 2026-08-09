@@ -8,6 +8,7 @@ import { ArrowLeft, Heart, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { useTRPC } from "@/lib/trpc/client";
 import { useUser } from "@/lib/supabase/use-user";
+import { useI18n } from "@/features/i18n";
 import { getForumAttachmentUrl } from "@/features/vietmeet/upload-attachment";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,7 @@ export function ThreadDetail({ threadId }: { threadId: string }) {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { user } = useUser();
+  const { t } = useI18n();
   const [commentText, setCommentText] = useState("");
 
   const { data: thread, isLoading } = useQuery(trpc.vietmeet.getThread.queryOptions({ id: threadId }));
@@ -42,7 +44,7 @@ export function ThreadDetail({ threadId }: { threadId: string }) {
   const deleteThread = useMutation(
     trpc.vietmeet.deleteThread.mutationOptions({
       onSuccess: () => {
-        toast.success("Thread deleted");
+        toast.success(t.vietmeet.threadDeleted);
         queryClient.invalidateQueries({ queryKey: trpc.vietmeet.listThreads.queryKey() });
         router.push("/vietmeet");
       },
@@ -62,7 +64,7 @@ export function ThreadDetail({ threadId }: { threadId: string }) {
   }
 
   if (!thread) {
-    return <p className="text-center text-sm text-muted-foreground">Thread not found.</p>;
+    return <p className="text-center text-sm text-muted-foreground">{t.vietmeet.threadNotFound}</p>;
   }
 
   const canModifyThread = user && (user.id === thread.author.id);
@@ -74,19 +76,19 @@ export function ThreadDetail({ threadId }: { threadId: string }) {
         className="flex w-fit items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
         <ArrowLeft className="size-3.5" aria-hidden="true" />
-        Back to VietMeet
+        {t.vietmeet.backToVietMeet}
       </Link>
       <Card className="p-6">
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-xl font-semibold">{thread.title}</h1>
-            <p className="mt-1 text-xs text-muted-foreground">by {thread.author.displayName}</p>
+            <p className="mt-1 text-xs text-muted-foreground">{t.vietmeet.byAuthor(thread.author.displayName)}</p>
           </div>
           {canModifyThread && (
             <Button
               variant="ghost"
               size="icon"
-              aria-label="Delete thread"
+              aria-label={t.vietmeet.deleteThread}
               onClick={() => deleteThread.mutate({ id: thread.id })}
             >
               <Trash2 className="size-4" />
@@ -94,6 +96,7 @@ export function ThreadDetail({ threadId }: { threadId: string }) {
           )}
         </div>
         <p className="mt-4 whitespace-pre-wrap text-sm">{thread.content}</p>
+        <p className="mt-2 text-xs italic text-muted-foreground/70">{t.vietmeet.originalLanguageBadge}</p>
 
         {thread.attachments.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
@@ -122,7 +125,7 @@ export function ThreadDetail({ threadId }: { threadId: string }) {
       </Card>
 
       <div className="flex flex-col gap-3">
-        <h2 className="text-sm font-semibold">{thread.comments.length} comments</h2>
+        <h2 className="text-sm font-semibold">{t.vietmeet.commentsCount(thread.comments.length)}</h2>
         {thread.comments.map((comment) => {
           const canModifyComment = user && user.id === comment.author.id;
           return (
@@ -133,7 +136,7 @@ export function ThreadDetail({ threadId }: { threadId: string }) {
                   <Button
                     variant="ghost"
                     size="icon-sm"
-                    aria-label="Delete comment"
+                    aria-label={t.vietmeet.deleteComment}
                     onClick={() => deleteComment.mutate({ id: comment.id })}
                   >
                     <Trash2 className="size-3.5" />
@@ -169,17 +172,17 @@ export function ThreadDetail({ threadId }: { threadId: string }) {
           }}
         >
           <Textarea
-            placeholder="Write a comment..."
+            placeholder={t.vietmeet.writeComment}
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
             rows={3}
           />
           <Button type="submit" disabled={addComment.isPending || !commentText.trim()} className="self-end">
-            {addComment.isPending ? "Posting..." : "Comment"}
+            {addComment.isPending ? t.vietmeet.posting : t.vietmeet.comment}
           </Button>
         </form>
       ) : (
-        <p className="text-center text-sm text-muted-foreground">Sign in to comment.</p>
+        <p className="text-center text-sm text-muted-foreground">{t.vietmeet.signInToComment}</p>
       )}
     </div>
   );

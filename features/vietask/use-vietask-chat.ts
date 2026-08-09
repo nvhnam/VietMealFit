@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTRPC } from "@/lib/trpc/client";
+import { useI18n } from "@/features/i18n";
 
 export type ChatMessage = { id: string; role: "user" | "assistant"; content: string };
 
@@ -13,6 +14,7 @@ export type ChatMessage = { id: string; role: "user" | "assistant"; content: str
  */
 export function useVietAskChat() {
   const trpc = useTRPC();
+  const { language, t } = useI18n();
   const [sessionId] = useState(() => crypto.randomUUID());
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
@@ -46,7 +48,7 @@ export function useVietAskChat() {
         const res = await fetch("/api/vietask", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ sessionId, message: trimmed }),
+          body: JSON.stringify({ sessionId, message: trimmed, language }),
         });
         if (!res.body) throw new Error("No response body");
 
@@ -80,12 +82,12 @@ export function useVietAskChat() {
           }
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to reach VietAsk.");
+        setError(err instanceof Error ? err.message : t.vietask.errorFailedToReach);
       } finally {
         setIsStreaming(false);
       }
     },
-    [sessionId, isStreaming],
+    [sessionId, isStreaming, language, t],
   );
 
   return { messages, sendMessage, isStreaming, error };

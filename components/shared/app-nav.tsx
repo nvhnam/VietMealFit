@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useExperienceMode } from "@/features/experience-mode";
+import { useI18n } from "@/features/i18n";
 
 const CORE_LINKS: { href: string; label: string; icon: LucideIcon }[] = [
   { href: "/vietmeal", label: "VietMeal", icon: UtensilsCrossed },
@@ -29,12 +30,13 @@ const ADVANCED_LINKS: { href: string; label: string; icon: LucideIcon }[] = [
 export function AppNav() {
   const pathname = usePathname();
   const { mode } = useExperienceMode();
+  const { t } = useI18n();
   const links = mode === "advanced" ? [...CORE_LINKS, ...ADVANCED_LINKS] : CORE_LINKS;
 
   return (
     <nav
       className="flex items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      aria-label="Modules"
+      aria-label={t.common.modulesNavLabel}
     >
       {links.map((link) => {
         const active = pathname.startsWith(link.href);

@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useTRPC } from "@/lib/trpc/client";
 import { useUser } from "@/lib/supabase/use-user";
+import { useI18n } from "@/features/i18n";
 import { uploadForumAttachment, type UploadedAttachment } from "@/features/vietmeet/upload-attachment";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,6 +23,7 @@ export function CreateThreadDialog() {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const { user } = useUser();
+  const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -32,7 +34,7 @@ export function CreateThreadDialog() {
   const create = useMutation(
     trpc.vietmeet.createThread.mutationOptions({
       onSuccess: () => {
-        toast.success("Thread posted");
+        toast.success(t.vietmeet.threadPosted);
         queryClient.invalidateQueries({ queryKey: trpc.vietmeet.listThreads.queryKey() });
         setOpen(false);
         setTitle("");
@@ -48,10 +50,10 @@ export function CreateThreadDialog() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className={buttonVariants({ size: "sm" })}>New thread</DialogTrigger>
+      <DialogTrigger className={buttonVariants({ size: "sm" })}>{t.vietmeet.newThread}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Start a new thread</DialogTitle>
+          <DialogTitle>{t.vietmeet.startNewThread}</DialogTitle>
         </DialogHeader>
         <form
           className="flex flex-col gap-3"
@@ -73,11 +75,11 @@ export function CreateThreadDialog() {
           }}
         >
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="thread-title">Title</Label>
+            <Label htmlFor="thread-title">{t.vietmeet.titleLabel}</Label>
             <Input id="thread-title" required value={title} onChange={(e) => setTitle(e.target.value)} />
           </div>
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="thread-description">Short description — optional</Label>
+            <Label htmlFor="thread-description">{t.vietmeet.shortDescriptionOptional}</Label>
             <Input
               id="thread-description"
               value={description}
@@ -85,7 +87,7 @@ export function CreateThreadDialog() {
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="thread-content">Content</Label>
+            <Label htmlFor="thread-content">{t.vietmeet.content}</Label>
             <Textarea
               id="thread-content"
               required
@@ -95,7 +97,7 @@ export function CreateThreadDialog() {
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="thread-image">Attach an image — optional</Label>
+            <Label htmlFor="thread-image">{t.vietmeet.attachImageOptional}</Label>
             <Input
               id="thread-image"
               type="file"
@@ -104,7 +106,7 @@ export function CreateThreadDialog() {
             />
           </div>
           <Button type="submit" disabled={create.isPending || uploading}>
-            {uploading ? "Uploading..." : create.isPending ? "Posting..." : "Post thread"}
+            {uploading ? t.vietmeet.uploading : create.isPending ? t.vietmeet.posting : t.vietmeet.postThread}
           </Button>
         </form>
       </DialogContent>
