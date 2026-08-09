@@ -103,4 +103,55 @@ describe("generateWeekSchedule", () => {
   it("throws for an entirely empty exercise pool", () => {
     expect(() => generateWeekSchedule([], {})).toThrow(NoEligibleExercisesError);
   });
+
+  it("prioritizes cardio-tagged exercises when bmiCategory is Overweight or Obese", () => {
+    const exercises: ExerciseForGeneration[] = [
+      exercise({ id: "squat", difficulty: "beginner", muscleGroups: ["quadriceps"] }),
+      exercise({ id: "burpee", difficulty: "beginner", muscleGroups: ["cardio", "full_body"] }),
+    ];
+    for (const bmiCategory of ["Overweight", "Obese"] as const) {
+      const slots = generateWeekSchedule(exercises, { bmiCategory });
+      const mondaySlots = slots.filter((s) => s.day === 0).sort((a, b) => a.order - b.order);
+      expect(mondaySlots[0].exerciseId).toBe("burpee");
+    }
+  });
+
+  it("deprioritizes cardio-tagged exercises when bmiCategory is Underweight", () => {
+    const exercises: ExerciseForGeneration[] = [
+      exercise({ id: "squat", difficulty: "beginner", muscleGroups: ["quadriceps"] }),
+      exercise({ id: "burpee", difficulty: "beginner", muscleGroups: ["cardio", "full_body"] }),
+    ];
+    const slots = generateWeekSchedule(exercises, { bmiCategory: "Underweight" });
+    const mondaySlots = slots.filter((s) => s.day === 0).sort((a, b) => a.order - b.order);
+    expect(mondaySlots[0].exerciseId).toBe("squat");
+  });
+
+  it("applies no cardio-lean nudge for a Normal bmiCategory or when omitted", () => {
+    const exercises: ExerciseForGeneration[] = [
+      exercise({ id: "squat", difficulty: "beginner", muscleGroups: ["quadriceps"] }),
+      exercise({ id: "burpee", difficulty: "beginner", muscleGroups: ["cardio", "full_body"] }),
+    ];
+    const withNormal = generateWeekSchedule(exercises, { bmiCategory: "Normal" });
+    const withoutBmi = generateWeekSchedule(exercises, {});
+    const firstId = (slots: typeof withNormal) =>
+      slots
+        .filter((s) => s.day === 0)
+        .sort((a, b) => a.order - b.order)[0].exerciseId;
+    expect(firstId(withNormal)).toBe(firstId(withoutBmi));
+  });
+
+  it("lets an explicit cardio query win over the implicit BMI lean", () => {
+    const exercises: ExerciseForGeneration[] = [
+      exercise({ id: "squat", difficulty: "beginner", name: "Squat", muscleGroups: ["quadriceps"] }),
+      exercise({ id: "jump-rope", difficulty: "beginner", name: "Jump Rope", muscleGroups: ["cardio"] }),
+    ];
+    // Underweight leans away from cardio, but the user explicitly asked for
+    // jump rope — the explicit request must still take the top slot.
+    const slots = generateWeekSchedule(exercises, {
+      bmiCategory: "Underweight",
+      preferredCardioQuery: "jump rope",
+    });
+    const mondaySlots = slots.filter((s) => s.day === 0).sort((a, b) => a.order - b.order);
+    expect(mondaySlots[0].exerciseId).toBe("jump-rope");
+  });
 });

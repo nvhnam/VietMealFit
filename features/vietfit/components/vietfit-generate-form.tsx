@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { PageHeader } from "@/components/shared/page-header";
 import {
   Select,
@@ -21,6 +22,18 @@ import {
 const EXPERIENCE_OPTIONS = ["beginner", "intermediate", "advanced"] as const;
 const GOAL_OPTIONS = ["weight_loss", "muscle_gain", "general_fitness", "endurance"];
 
+// Closed vocabulary, not free text: must stay in sync with the
+// limitation_tags actually present in data/seed/exercises.json. A free-text
+// field here would silently fail closed on any spelling/synonym the seed
+// data doesn't happen to use (e.g. "knee pain" vs "knee_pain") — a real
+// safety gap for a hard-exclusion limitation filter, not just a UX nicety.
+const LIMITATION_OPTIONS = [
+  { value: "knee_pain", label: "Knee pain" },
+  { value: "lower_back_pain", label: "Lower back pain" },
+  { value: "shoulder_injury", label: "Shoulder injury" },
+  { value: "wrist_pain", label: "Wrist pain" },
+];
+
 export function VietFitGenerateForm({ hasExistingPlan }: { hasExistingPlan: boolean }) {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
@@ -29,7 +42,7 @@ export function VietFitGenerateForm({ hasExistingPlan }: { hasExistingPlan: bool
   const [heightCm, setHeightCm] = useState("170");
   const [weightKg, setWeightKg] = useState("65");
   const [experienceLevel, setExperienceLevel] = useState<(typeof EXPERIENCE_OPTIONS)[number]>("beginner");
-  const [limitations, setLimitations] = useState("");
+  const [limitations, setLimitations] = useState<string[]>([]);
   const [goal, setGoal] = useState(GOAL_OPTIONS[0]);
   const [preferredCardioQuery, setPreferredCardioQuery] = useState("");
 
@@ -64,10 +77,7 @@ export function VietFitGenerateForm({ hasExistingPlan }: { hasExistingPlan: bool
             heightCm: height,
             weightKg: weight,
             experienceLevel,
-            limitations: limitations
-              .split(",")
-              .map((s) => s.trim())
-              .filter(Boolean),
+            limitations,
             goal,
             preferredCardioQuery: preferredCardioQuery || undefined,
           });
@@ -135,13 +145,25 @@ export function VietFitGenerateForm({ hasExistingPlan }: { hasExistingPlan: bool
           </Select>
         </div>
         <div className="col-span-2 flex flex-col gap-1.5">
-          <Label htmlFor="limitations">Physical limitations (comma-separated)</Label>
-          <Input
-            id="limitations"
-            value={limitations}
-            onChange={(e) => setLimitations(e.target.value)}
-            placeholder="knee_pain, shoulder_injury, ..."
-          />
+          <Label>Physical limitations</Label>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            {LIMITATION_OPTIONS.map((opt) => (
+              <div key={opt.value} className="flex items-center gap-2">
+                <Checkbox
+                  id={`limitation-${opt.value}`}
+                  checked={limitations.includes(opt.value)}
+                  onCheckedChange={(v) =>
+                    setLimitations((prev) =>
+                      v === true ? [...prev, opt.value] : prev.filter((l) => l !== opt.value),
+                    )
+                  }
+                />
+                <Label htmlFor={`limitation-${opt.value}`} className="font-normal">
+                  {opt.label}
+                </Label>
+              </div>
+            ))}
+          </div>
         </div>
         <div className="col-span-2 flex flex-col gap-1.5">
           <Label htmlFor="preferredCardioQuery">Preferred cardio — optional</Label>

@@ -8,14 +8,23 @@
  * an allergen match (a safety constraint) cannot — if every recipe for a
  * meal type conflicts with the user's allergies, generation fails loudly
  * rather than silently serving something the user is allergic to.
+ *
+ * BMI (from the user's declared height/weight) is a further soft nudge,
+ * same tier as preferHighProtein: it reorders the already-safe, already
+ * diet-filtered pool toward lighter or heartier recipes, it never excludes
+ * anything. Mirrors the advice already shown on the BMI card (underweight
+ * -> lean toward more calorie-dense options; overweight/obese -> lean
+ * toward lighter ones); "Normal" applies no nudge.
  */
 export type MealType = "breakfast" | "lunch" | "dinner";
+export type BmiCategory = "Underweight" | "Normal" | "Overweight" | "Obese";
 
 export type RecipeForGeneration = {
   id: string;
   mealType: MealType;
   dietTags: string[];
   allergenTags: string[];
+  calories: number;
 };
 
 export type MealSlot = { day: number; mealType: MealType; recipeId: string };
@@ -44,9 +53,32 @@ function isAllergenFree(recipe: RecipeForGeneration, allergies: string[]): boole
 const MEAL_TYPES: MealType[] = ["breakfast", "lunch", "dinner"];
 const DAYS_IN_WEEK = 7;
 
+// Splits `pool` by the median calorie count within it and moves the
+// requested half to the front, preserving relative order within each half
+// — same "boost, don't exclude" shape as the preferHighProtein reorder.
+function boostByCalorieTier(pool: RecipeForGeneration[], tier: "lighter" | "heartier"): RecipeForGeneration[] {
+  if (pool.length < 2) return pool;
+  const sortedCalories = pool.map((r) => r.calories).sort((a, b) => a - b);
+  const mid = Math.floor(sortedCalories.length / 2);
+  const median =
+    sortedCalories.length % 2 !== 0 ? sortedCalories[mid] : (sortedCalories[mid - 1] + sortedCalories[mid]) / 2;
+
+  const preferred =
+    tier === "lighter" ? pool.filter((r) => r.calories <= median) : pool.filter((r) => r.calories >= median);
+  if (preferred.length === 0 || preferred.length === pool.length) return pool;
+
+  const rest = pool.filter((r) => !preferred.includes(r));
+  return [...preferred, ...rest];
+}
+
 export function generateWeekPlan(
   recipes: RecipeForGeneration[],
-  opts: { dietaryPreference?: string | null; allergies?: string[]; preferHighProtein?: boolean },
+  opts: {
+    dietaryPreference?: string | null;
+    allergies?: string[];
+    preferHighProtein?: boolean;
+    bmiCategory?: BmiCategory | null;
+  },
 ): MealSlot[] {
   const allergies = opts.allergies ?? [];
   const slots: MealSlot[] = [];
@@ -66,6 +98,15 @@ export function generateWeekPlan(
         const rest = pool.filter((r) => !highProtein.includes(r));
         pool = [...highProtein, ...rest];
       }
+    }
+
+    // Applied after preferHighProtein, so calorie tier becomes the primary
+    // sort key and the high-protein preference becomes a secondary one
+    // within each tier — both still shape the outcome, neither is excluded.
+    if (opts.bmiCategory === "Overweight" || opts.bmiCategory === "Obese") {
+      pool = boostByCalorieTier(pool, "lighter");
+    } else if (opts.bmiCategory === "Underweight") {
+      pool = boostByCalorieTier(pool, "heartier");
     }
 
     for (let day = 0; day < DAYS_IN_WEEK; day++) {

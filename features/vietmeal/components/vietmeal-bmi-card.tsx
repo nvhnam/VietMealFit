@@ -24,7 +24,7 @@ export function VietMealBmiCard() {
         <p className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
           <span className="font-mono tabular-nums text-foreground">BMI {bmi.toFixed(1)}</span>
           <Badge variant={bmiBadgeVariant(bmi)}>{bmiCategory(bmi)}</Badge>
-          <span>— informational only, not a diagnosis.</span>
+          <span>— nudges recipe ordering for this plan, not a diagnosis.</span>
         </p>
       ) : (
         <p className="text-sm text-muted-foreground">

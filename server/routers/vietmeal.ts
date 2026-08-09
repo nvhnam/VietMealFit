@@ -4,6 +4,7 @@ import { mealPlans, mealPlanItems, recipes } from "@/server/db/schema";
 import { createTRPCRouter, protectedProcedure } from "@/server/trpc/init";
 import { upsertProfile } from "@/server/lib/upsert-profile";
 import { generateWeekPlan, currentWeekStart, type MealType } from "@/features/vietmeal/generate";
+import { bmiCategory, computeBmi } from "@/features/shared/bmi";
 import { TRPCError } from "@trpc/server";
 
 const generateInput = z.object({
@@ -40,6 +41,7 @@ export const vietmealRouter = createTRPCRouter({
         mealType: recipes.mealType,
         dietTags: recipes.dietTags,
         allergenTags: recipes.allergenTags,
+        calories: recipes.calories,
       })
       .from(recipes)
       .where(inArray(recipes.mealType, ["breakfast", "lunch", "dinner"]));
@@ -51,12 +53,17 @@ export const vietmealRouter = createTRPCRouter({
       (r): r is typeof r & { mealType: MealType } => r.mealType !== "snack",
     );
 
+    // Height is optional on this form — BMI-based nudging only applies when
+    // it's available; weight alone isn't enough to compute BMI.
+    const bmi = input.heightCm ? computeBmi(input.heightCm, input.weightKg) : null;
+
     let slots;
     try {
       slots = generateWeekPlan(weekRecipes, {
         dietaryPreference: input.dietaryPreference,
         allergies: input.allergies,
         preferHighProtein: input.preferHighProtein,
+        bmiCategory: bmi ? bmiCategory(bmi) : null,
       });
     } catch (err) {
       throw new TRPCError({ code: "BAD_REQUEST", message: (err as Error).message });

@@ -12,8 +12,17 @@
  * plan would be bad general fitness guidance, not just an engineering
  * shortcut. Days-per-week and their spacing are simple, defensible
  * defaults, not derived from any specific training methodology.
+ *
+ * BMI (from the user's declared height/weight) is a further soft nudge,
+ * same tier as preferredCardioQuery: it reorders the already-safe,
+ * already-difficulty-filtered pool toward or away from cardio-tagged
+ * exercises, it never excludes anything. Mirrors the advice already shown
+ * on the BMI card (underweight -> favor strength work over cardio;
+ * overweight/obese -> favor more cardio for a calorie deficit); "Normal"
+ * applies no nudge.
  */
 export type Difficulty = "beginner" | "intermediate" | "advanced";
+export type BmiCategory = "Underweight" | "Normal" | "Overweight" | "Obese";
 
 export type ExerciseForGeneration = {
   id: string;
@@ -53,9 +62,28 @@ function isLimitationSafe(exercise: ExerciseForGeneration, limitations: string[]
   return !exercise.limitationTags.some((tag) => lower.has(tag.toLowerCase()));
 }
 
+function isCardioTagged(exercise: ExerciseForGeneration): boolean {
+  return exercise.muscleGroups.some((m) => m.toLowerCase().includes("cardio"));
+}
+
+// Moves cardio-tagged (or non-cardio) exercises to the front, preserving
+// relative order within each half — same "boost, don't exclude" shape as
+// the preferredCardioQuery reorder below.
+function boostByCardioLean(pool: ExerciseForGeneration[], lean: "toward" | "away"): ExerciseForGeneration[] {
+  const cardio = pool.filter(isCardioTagged);
+  const nonCardio = pool.filter((e) => !isCardioTagged(e));
+  if (cardio.length === 0 || nonCardio.length === 0) return pool;
+  return lean === "toward" ? [...cardio, ...nonCardio] : [...nonCardio, ...cardio];
+}
+
 export function generateWeekSchedule(
   exercises: ExerciseForGeneration[],
-  opts: { experienceLevel?: Difficulty; limitations?: string[]; preferredCardioQuery?: string },
+  opts: {
+    experienceLevel?: Difficulty;
+    limitations?: string[];
+    preferredCardioQuery?: string;
+    bmiCategory?: BmiCategory | null;
+  },
 ): ExerciseSlot[] {
   const limitations = opts.limitations ?? [];
   const experienceLevel = opts.experienceLevel ?? "beginner";
@@ -68,6 +96,14 @@ export function generateWeekSchedule(
   const maxRank = DIFFICULTY_RANK[experienceLevel];
   const byDifficulty = safePool.filter((e) => DIFFICULTY_RANK[e.difficulty] <= maxRank);
   let pool = byDifficulty.length > 0 ? byDifficulty : safePool;
+
+  // Applied before preferredCardioQuery, so an explicit cardio request
+  // still wins top billing over the implicit BMI-derived lean.
+  if (opts.bmiCategory === "Overweight" || opts.bmiCategory === "Obese") {
+    pool = boostByCardioLean(pool, "toward");
+  } else if (opts.bmiCategory === "Underweight") {
+    pool = boostByCardioLean(pool, "away");
+  }
 
   if (opts.preferredCardioQuery?.trim()) {
     const query = opts.preferredCardioQuery.trim().toLowerCase();

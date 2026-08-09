@@ -21,6 +21,21 @@ import {
 
 const DIET_OPTIONS = ["anything", "vegan", "vegetarian", "pescatarian", "keto"];
 
+// Closed vocabulary, not free text: must stay in sync with the
+// allergen_tags actually present in data/seed/recipes.json. A free-text
+// field here would silently fail closed on any spelling/synonym the seed
+// data doesn't happen to use (e.g. "peanuts" vs "peanut") — a real safety
+// gap for a hard-exclusion allergy filter, not just a UX nicety.
+const ALLERGEN_OPTIONS = [
+  { value: "peanut", label: "Peanut" },
+  { value: "shellfish", label: "Shellfish" },
+  { value: "dairy", label: "Dairy" },
+  { value: "egg", label: "Egg" },
+  { value: "gluten", label: "Gluten" },
+  { value: "soy", label: "Soy" },
+  { value: "fish", label: "Fish" },
+];
+
 export function VietMealGenerateForm({ hasExistingPlan }: { hasExistingPlan: boolean }) {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
@@ -28,7 +43,7 @@ export function VietMealGenerateForm({ hasExistingPlan }: { hasExistingPlan: boo
   const [heightCm, setHeightCm] = useState("");
   const [calorieGoal, setCalorieGoal] = useState("");
   const [dietaryPreference, setDietaryPreference] = useState("anything");
-  const [allergies, setAllergies] = useState("");
+  const [allergies, setAllergies] = useState<string[]>([]);
   const [preferHighProtein, setPreferHighProtein] = useState(false);
 
   const generate = useMutation(
@@ -60,10 +75,7 @@ export function VietMealGenerateForm({ hasExistingPlan }: { hasExistingPlan: boo
             heightCm: heightCm.trim() ? Number(heightCm) : undefined,
             calorieGoal: calorieGoal.trim() ? Number(calorieGoal) : undefined,
             dietaryPreference,
-            allergies: allergies
-              .split(",")
-              .map((s) => s.trim())
-              .filter(Boolean),
+            allergies,
             preferHighProtein,
           });
         }}
@@ -112,13 +124,25 @@ export function VietMealGenerateForm({ hasExistingPlan }: { hasExistingPlan: boo
           </Select>
         </div>
         <div className="col-span-2 flex flex-col gap-1.5">
-          <Label htmlFor="allergies">Allergies (comma-separated)</Label>
-          <Input
-            id="allergies"
-            value={allergies}
-            onChange={(e) => setAllergies(e.target.value)}
-            placeholder="peanut, shellfish, ..."
-          />
+          <Label>Allergies</Label>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            {ALLERGEN_OPTIONS.map((opt) => (
+              <div key={opt.value} className="flex items-center gap-2">
+                <Checkbox
+                  id={`allergy-${opt.value}`}
+                  checked={allergies.includes(opt.value)}
+                  onCheckedChange={(v) =>
+                    setAllergies((prev) =>
+                      v === true ? [...prev, opt.value] : prev.filter((a) => a !== opt.value),
+                    )
+                  }
+                />
+                <Label htmlFor={`allergy-${opt.value}`} className="font-normal">
+                  {opt.label}
+                </Label>
+              </div>
+            ))}
+          </div>
         </div>
         <div className="col-span-2 flex items-center gap-2">
           <Checkbox

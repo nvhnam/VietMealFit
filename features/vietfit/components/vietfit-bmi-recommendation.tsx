@@ -34,7 +34,7 @@ export function VietFitBmiRecommendation({ plan }: { plan: ExercisePlanWithItems
           <p className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
             <span className="font-mono tabular-nums text-foreground">BMI {bmi.toFixed(1)}</span>
             <Badge variant={bmiBadgeVariant(bmi)}>{bmiCategory(bmi)}</Badge>
-            <span>— informational only, not a diagnosis.</span>
+            <span>— nudges exercise ordering below, not a diagnosis.</span>
           </p>
           <p className="mt-2 text-sm">{recommendation(bmiCategory(bmi), plan.goal)}</p>
         </>

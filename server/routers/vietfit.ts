@@ -4,6 +4,7 @@ import { exercisePlans, exercisePlanItems, exercises } from "@/server/db/schema"
 import { createTRPCRouter, protectedProcedure } from "@/server/trpc/init";
 import { upsertProfile } from "@/server/lib/upsert-profile";
 import { generateWeekSchedule, type Difficulty } from "@/features/vietfit/generate";
+import { bmiCategory, computeBmi } from "@/features/shared/bmi";
 import { TRPCError } from "@trpc/server";
 
 const difficultySchema = z.enum(["beginner", "intermediate", "advanced"]);
@@ -48,12 +49,15 @@ export const vietfitRouter = createTRPCRouter({
       })
       .from(exercises);
 
+    const bmi = computeBmi(input.heightCm, input.weightKg);
+
     let slots;
     try {
       slots = generateWeekSchedule(allExercises, {
         experienceLevel: input.experienceLevel as Difficulty,
         limitations: input.limitations,
         preferredCardioQuery: input.preferredCardioQuery,
+        bmiCategory: bmiCategory(bmi),
       });
     } catch (err) {
       throw new TRPCError({ code: "BAD_REQUEST", message: (err as Error).message });

@@ -7,7 +7,7 @@ import {
 } from "@/features/vietmeal/generate";
 
 function recipe(overrides: Partial<RecipeForGeneration> & Pick<RecipeForGeneration, "id" | "mealType">): RecipeForGeneration {
-  return { dietTags: [], allergenTags: [], ...overrides };
+  return { dietTags: [], allergenTags: [], calories: 400, ...overrides };
 }
 
 describe("generateWeekPlan", () => {
@@ -103,6 +103,61 @@ describe("generateWeekPlan", () => {
   it("throws for a meal type with zero recipes at all", () => {
     const recipes: RecipeForGeneration[] = [recipe({ id: "l1", mealType: "lunch" })];
     expect(() => generateWeekPlan(recipes, {})).toThrow(NoEligibleRecipesError);
+  });
+
+  it("prioritizes lower-calorie recipes when bmiCategory is Overweight or Obese", () => {
+    const recipes: RecipeForGeneration[] = [
+      recipe({ id: "light", mealType: "breakfast", calories: 250 }),
+      recipe({ id: "heavy", mealType: "breakfast", calories: 700 }),
+      recipe({ id: "l1", mealType: "lunch" }),
+      recipe({ id: "d1", mealType: "dinner" }),
+    ];
+    for (const bmiCategory of ["Overweight", "Obese"] as const) {
+      const slots = generateWeekPlan(recipes, { bmiCategory });
+      const breakfastSlots = slots.filter((s) => s.mealType === "breakfast").sort((a, b) => a.day - b.day);
+      expect(breakfastSlots[0].recipeId).toBe("light");
+    }
+  });
+
+  it("prioritizes higher-calorie recipes when bmiCategory is Underweight", () => {
+    const recipes: RecipeForGeneration[] = [
+      recipe({ id: "light", mealType: "breakfast", calories: 250 }),
+      recipe({ id: "heavy", mealType: "breakfast", calories: 700 }),
+      recipe({ id: "l1", mealType: "lunch" }),
+      recipe({ id: "d1", mealType: "dinner" }),
+    ];
+    const slots = generateWeekPlan(recipes, { bmiCategory: "Underweight" });
+    const breakfastSlots = slots.filter((s) => s.mealType === "breakfast").sort((a, b) => a.day - b.day);
+    expect(breakfastSlots[0].recipeId).toBe("heavy");
+  });
+
+  it("applies no calorie-tier nudge for a Normal bmiCategory or when omitted", () => {
+    const recipes: RecipeForGeneration[] = [
+      recipe({ id: "light", mealType: "breakfast", calories: 250 }),
+      recipe({ id: "heavy", mealType: "breakfast", calories: 700 }),
+      recipe({ id: "l1", mealType: "lunch" }),
+      recipe({ id: "d1", mealType: "dinner" }),
+    ];
+    const withNormal = generateWeekPlan(recipes, { bmiCategory: "Normal" });
+    const withoutBmi = generateWeekPlan(recipes, {});
+    const firstIds = (slots: typeof withNormal) =>
+      slots
+        .filter((s) => s.mealType === "breakfast")
+        .sort((a, b) => a.day - b.day)
+        .map((s) => s.recipeId);
+    expect(firstIds(withNormal)).toEqual(firstIds(withoutBmi));
+  });
+
+  it("does not exclude any allergy-safe recipe when a BMI nudge is applied", () => {
+    const recipes: RecipeForGeneration[] = [
+      recipe({ id: "light", mealType: "breakfast", calories: 250 }),
+      recipe({ id: "heavy", mealType: "breakfast", calories: 700 }),
+      recipe({ id: "l1", mealType: "lunch" }),
+      recipe({ id: "d1", mealType: "dinner" }),
+    ];
+    const slots = generateWeekPlan(recipes, { bmiCategory: "Obese" });
+    const breakfastRecipeIds = new Set(slots.filter((s) => s.mealType === "breakfast").map((s) => s.recipeId));
+    expect(breakfastRecipeIds).toEqual(new Set(["light", "heavy"]));
   });
 });
 

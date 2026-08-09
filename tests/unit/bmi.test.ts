@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { bmiBadgeVariant, bmiCategory } from "@/features/shared/bmi";
+import { bmiBadgeVariant, bmiCategory, computeBmi } from "@/features/shared/bmi";
 import { recommendation } from "@/features/vietfit/components/vietfit-bmi-recommendation";
+
+describe("computeBmi", () => {
+  it("computes standard BMI from height (cm) and weight (kg)", () => {
+    // 70kg at 175cm -> 70 / 1.75^2 = 22.857...
+    expect(computeBmi(175, 70)).toBeCloseTo(22.857, 2);
+  });
+});
 
 describe("bmiCategory", () => {
   it("classifies standard WHO BMI thresholds", () => {
