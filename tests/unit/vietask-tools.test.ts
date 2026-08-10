@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { filterSafeRecipeCandidates } from "@/server/ai/vietask-tools";
+import { filterSafeRecipeCandidates, computeCalorieMacroTarget } from "@/server/ai/vietask-tools";
+import { calculateVietLean } from "@/features/vietlean/calculate";
 
 type Candidate = { id: string; dietTags: string[]; allergenTags: string[] };
 
@@ -49,5 +50,35 @@ describe("filterSafeRecipeCandidates", () => {
     ];
     const result = filterSafeRecipeCandidates(candidates, [], null);
     expect(result.map((r) => r.id).sort()).toEqual(["a", "b"]);
+  });
+});
+
+describe("computeCalorieMacroTarget", () => {
+  it("matches calculateVietLean exactly for a known weight/phase (the whole point: chat can't disagree with VietLean's own page)", () => {
+    const result = computeCalorieMacroTarget(70, "cutting");
+    expect(result).toEqual({ found: true, weightKg: 70, phase: "cutting", ...calculateVietLean(70, "cutting") });
+  });
+
+  it("asks for weight rather than assuming one when weight is unknown (anonymous user, or no profile weight, or model didn't supply one)", () => {
+    const result = computeCalorieMacroTarget(null, "bulking");
+    expect(result.found).toBe(false);
+    if (!result.found) expect(result.message).toMatch(/weight/i);
+  });
+
+  it("reports an invalid weight rather than throwing (defensive backstop for a bad profile-sourced value that bypassed the tool's own zod range check)", () => {
+    expect(() => computeCalorieMacroTarget(0, "lean")).not.toThrow();
+    expect(() => computeCalorieMacroTarget(-5, "lean")).not.toThrow();
+    expect(() => computeCalorieMacroTarget(NaN, "lean")).not.toThrow();
+    expect(computeCalorieMacroTarget(0, "lean").found).toBe(false);
+    expect(computeCalorieMacroTarget(NaN, "lean").found).toBe(false);
+  });
+
+  it("produces different, internally consistent results per phase for the same weight (no cross-phase confusion)", () => {
+    const bulking = computeCalorieMacroTarget(80, "bulking");
+    const cutting = computeCalorieMacroTarget(80, "cutting");
+    expect(bulking.found && cutting.found).toBe(true);
+    if (bulking.found && cutting.found) {
+      expect(bulking.calorieTarget).toBeGreaterThan(cutting.calorieTarget);
+    }
   });
 });

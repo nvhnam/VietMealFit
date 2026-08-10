@@ -39,6 +39,7 @@ export async function POST(req: Request) {
   const tools = buildVietAskTools({
     allergies: profile?.allergies ?? [],
     dietaryPreference: profile?.dietaryPreference ?? null,
+    weightKg: profile?.weightKg ? Number(profile.weightKg) : null,
   });
 
   const [existingSession] = await db

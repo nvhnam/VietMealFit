@@ -40,14 +40,16 @@ export async function* generateWithFallback(
       const google = createGoogleGenerativeAI({ apiKey });
       // stopWhen controls the agentic tool loop: without it, streamText stops
       // after a single step, so a tool call would never get a chance to
-      // produce a following text answer. 4 = headroom for both VietAsk tools
-      // being called once each plus the final text step, not an unbounded loop.
+      // produce a following text answer. 6 = headroom for all three VietAsk
+      // tools being called once each (e.g. "what should I eat and how many
+      // calories total" can reasonably call search_meal_ideas AND
+      // get_calorie_macro_target) plus the final text step, not an unbounded loop.
       const result = streamText({
         model: google(MODEL_ID),
         system: systemPrompt,
         messages,
         tools,
-        stopWhen: stepCountIs(4),
+        stopWhen: stepCountIs(6),
       });
 
       for await (const chunk of result.textStream) {

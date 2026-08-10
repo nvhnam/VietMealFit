@@ -5,6 +5,7 @@ import { and, eq, ilike, or } from "drizzle-orm";
 import { db } from "@/server/db";
 import { nutritionItems, recipes } from "@/server/db/schema";
 import { isAllergenFree, isDietCompatible } from "@/features/vietmeal/generate";
+import { calculateVietLean, type LeanPhase } from "@/features/vietlean/calculate";
 
 // Fisher-Yates — used to vary search_meal_ideas' results across separate
 // tool calls (e.g. two "suggest a breakfast" turns in the same session)
@@ -36,6 +37,57 @@ export function filterSafeRecipeCandidates<T extends { dietTags: string[]; aller
 }
 
 const MEAL_TYPES = ["breakfast", "lunch", "dinner", "snack"] as const;
+const LEAN_PHASES = ["bulking", "lean", "cutting"] as const;
+
+type CalorieMacroTargetResult =
+  | {
+      found: true;
+      weightKg: number;
+      phase: LeanPhase;
+      calorieTarget: number;
+      proteinG: number;
+      fatG: number;
+      carbG: number;
+    }
+  | { found: false; message: string };
+
+/**
+ * Wraps calculateVietLean (features/vietlean/calculate.ts) — the exact same
+ * formula VietLean's own calculator page uses — so a daily calorie/macro
+ * target stated in chat can never disagree with what VietLean itself would
+ * compute for the same weight/phase. Pure and exported for direct unit
+ * testing, same shape as filterSafeRecipeCandidates above.
+ *
+ * weightKg is nullable (not just validated-positive) because the caller
+ * covers three real cases: an anonymous user with no profile, a signed-in
+ * user who's never entered a weight, and a signed-in user whose weight the
+ * model wasn't given as an explicit tool argument. All three mean "unknown,"
+ * not "invalid" — the distinction matters because the tool's job on "unknown"
+ * is to make the model ask the user, not silently assume a default weight.
+ */
+export function computeCalorieMacroTarget(weightKg: number | null, phase: LeanPhase): CalorieMacroTargetResult {
+  if (weightKg === null) {
+    return {
+      found: false,
+      message:
+        "No weight on file or provided. Ask the user for their weight in kg before calculating a target — don't assume one.",
+    };
+  }
+
+  try {
+    const result = calculateVietLean(weightKg, phase);
+    return { found: true, weightKg, phase, ...result };
+  } catch {
+    // calculateVietLean throws on non-positive/non-finite weight. The tool's
+    // own inputSchema already range-checks a model-supplied weight (20-400),
+    // but a profile-sourced weightKg reaches here unvalidated, so this stays
+    // as a defensive backstop rather than becoming unreachable dead code.
+    return {
+      found: false,
+      message: `"${weightKg}kg" isn't a usable weight for this calculation. Ask the user to confirm their weight.`,
+    };
+  }
+}
 
 /**
  * Builds VietAsk's grounding tools, bound to one request's signed-in user
@@ -46,9 +98,11 @@ const MEAL_TYPES = ["breakfast", "lunch", "dinner", "snack"] as const;
 export function buildVietAskTools({
   allergies,
   dietaryPreference,
+  weightKg,
 }: {
   allergies: string[];
   dietaryPreference: string | null;
+  weightKg: number | null;
 }): ToolSet {
   return {
     lookup_food_nutrition: tool({
@@ -157,6 +211,24 @@ export function buildVietAskTools({
             })),
         };
       },
+    }),
+
+    get_calorie_macro_target: tool({
+      description:
+        "Calculate a daily calorie and protein/fat/carb target for a bulking, lean/maintenance, or cutting phase — the exact same formula VietLean's calculator page uses. Call this before stating any daily calorie or macro target; never compute or estimate one yourself, and state the returned figures exactly rather than adjusting them.",
+      inputSchema: z.object({
+        weightKg: z
+          .number()
+          .min(20)
+          .max(400)
+          .optional()
+          .describe("User's weight in kg, from what they've said in this conversation. Omit to use their saved profile weight, if any."),
+        phase: z
+          .enum(LEAN_PHASES)
+          .describe("bulking = gaining weight/muscle, lean = maintenance, cutting = losing weight/fat"),
+      }),
+      execute: async ({ weightKg: paramWeightKg, phase }) =>
+        computeCalorieMacroTarget(paramWeightKg ?? weightKg, phase),
     }),
   };
 }
