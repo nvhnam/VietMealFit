@@ -1,6 +1,6 @@
 import "server-only";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
-import { streamText, type ModelMessage } from "ai";
+import { streamText, stepCountIs, type ModelMessage, type ToolSet } from "ai";
 
 // Provider-abstraction layer (plan §2.10, D4): the model/provider is a
 // config value here, not something callers need to know about. Default is
@@ -30,6 +30,7 @@ if (API_KEYS.length === 0) {
 export async function* generateWithFallback(
   messages: ModelMessage[],
   systemPrompt: string,
+  tools?: ToolSet,
 ): AsyncGenerator<string, void, unknown> {
   let lastError: unknown;
 
@@ -37,7 +38,17 @@ export async function* generateWithFallback(
     let yieldedAny = false;
     try {
       const google = createGoogleGenerativeAI({ apiKey });
-      const result = streamText({ model: google(MODEL_ID), system: systemPrompt, messages });
+      // stopWhen controls the agentic tool loop: without it, streamText stops
+      // after a single step, so a tool call would never get a chance to
+      // produce a following text answer. 4 = headroom for both VietAsk tools
+      // being called once each plus the final text step, not an unbounded loop.
+      const result = streamText({
+        model: google(MODEL_ID),
+        system: systemPrompt,
+        messages,
+        tools,
+        stopWhen: stepCountIs(4),
+      });
 
       for await (const chunk of result.textStream) {
         yieldedAny = true;

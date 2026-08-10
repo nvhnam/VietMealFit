@@ -6,6 +6,7 @@ import { chatSessions, chatMessages, profiles } from "@/server/db/schema";
 import { createClient } from "@/lib/supabase/server";
 import { generateWithFallback } from "@/server/ai/provider";
 import { buildVietAskSystemPrompt, buildUserProfileContext } from "@/server/ai/system-prompt";
+import { buildVietAskTools } from "@/server/ai/vietask-tools";
 
 const requestSchema = z.object({
   sessionId: z.string().uuid(),
@@ -35,6 +36,10 @@ export async function POST(req: Request) {
     ? await db.select().from(profiles).where(eq(profiles.id, user.id)).limit(1)
     : [];
   const userContext = buildUserProfileContext(profile);
+  const tools = buildVietAskTools({
+    allergies: profile?.allergies ?? [],
+    dietaryPreference: profile?.dietaryPreference ?? null,
+  });
 
   const [existingSession] = await db
     .select()
@@ -74,7 +79,11 @@ export async function POST(req: Request) {
     async start(controller) {
       let fullText = "";
       try {
-        for await (const chunk of generateWithFallback(modelMessages, buildVietAskSystemPrompt(language, userContext))) {
+        for await (const chunk of generateWithFallback(
+          modelMessages,
+          buildVietAskSystemPrompt(language, userContext),
+          tools,
+        )) {
           fullText += chunk;
           controller.enqueue(sseEvent({ text: chunk }));
         }

@@ -39,13 +39,19 @@ export class NoEligibleRecipesError extends Error {
   }
 }
 
-function isDietCompatible(recipe: RecipeForGeneration, dietaryPreference?: string | null): boolean {
+// Structural (not RecipeForGeneration-typed) parameters: both are reused by
+// VietAsk's search_meal_ideas tool (server/ai/vietask-tools.ts) against
+// recipe rows that include "snack" as a mealType, which RecipeForGeneration's
+// breakfast|lunch|dinner union deliberately excludes — only dietTags/
+// allergenTags are actually read here, so widening to just those fields
+// keeps this reusable without a type mismatch or a second implementation.
+export function isDietCompatible(recipe: { dietTags: string[] }, dietaryPreference?: string | null): boolean {
   if (!dietaryPreference || dietaryPreference.trim().toLowerCase() === "anything") return true;
   const want = dietaryPreference.trim().toLowerCase();
   return recipe.dietTags.some((t) => t.toLowerCase() === want);
 }
 
-function isAllergenFree(recipe: RecipeForGeneration, allergies: string[]): boolean {
+export function isAllergenFree(recipe: { allergenTags: string[] }, allergies: string[]): boolean {
   if (allergies.length === 0) return true;
   const lowerAllergies = new Set(allergies.map((a) => a.toLowerCase()));
   return !recipe.allergenTags.some((tag) => lowerAllergies.has(tag.toLowerCase()));
