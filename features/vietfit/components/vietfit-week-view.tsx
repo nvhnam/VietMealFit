@@ -12,6 +12,7 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ExerciseVideoEmbed } from "./exercise-video-embed";
 
 type RouterOutputs = inferRouterOutputs<AppRouter>;
 export type ExercisePlanWithItems = NonNullable<RouterOutputs["vietfit"]["getCurrentPlan"]>;
@@ -112,18 +113,10 @@ export function VietFitWeekView({ plan }: { plan: ExercisePlanWithItems }) {
                         </Badge>
                       ))}
                     </div>
-                    {item.exercise.videoUrl ? (
-                      <a
-                        href={item.exercise.videoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-primary underline-offset-4 hover:underline"
-                      >
-                        {t.vietfit.watchVideo}
-                      </a>
-                    ) : (
-                      <p className="text-sm text-muted-foreground">{t.vietfit.videoNotYetAdded}</p>
-                    )}
+                    <ExerciseVideoEmbed
+                      videoUrl={item.exercise.videoUrl}
+                      exerciseName={language === "vi" ? (item.exercise.nameVi ?? item.exercise.name) : item.exercise.name}
+                    />
                   </div>
                 )}
               </div>
