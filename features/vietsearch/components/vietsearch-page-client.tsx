@@ -4,6 +4,7 @@ import { useState } from "react";
 import { skipToken, useQuery } from "@tanstack/react-query";
 import { Search } from "lucide-react";
 import { useTRPC } from "@/lib/trpc/client";
+import { useI18n } from "@/features/i18n";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -24,6 +25,7 @@ const MIN_GRAMS = 100;
 
 export function VietSearchPageClient() {
   const trpc = useTRPC();
+  const { t } = useI18n();
   const [category, setCategory] = useState<string | undefined>(undefined);
   const [selected, setSelected] = useState<IngredientOption | null>(null);
   const [gramsInput, setGramsInput] = useState(String(MIN_GRAMS));
@@ -43,15 +45,11 @@ export function VietSearchPageClient() {
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-6">
-      <PageHeader
-        icon={Search}
-        title="VietSearch"
-        description="Look up nutrition facts for Vietnamese food ingredients, scaled to any gram amount."
-      />
+      <PageHeader icon={Search} title={t.vietsearch.title} description={t.vietsearch.description} />
       <Card className="p-6">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
-            <Label>Category — optional filter</Label>
+            <Label>{t.vietsearch.categoryLabel}</Label>
             <Select
               value={category ?? "__all__"}
               onValueChange={(v) => {
@@ -64,7 +62,7 @@ export function VietSearchPageClient() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="__all__">All categories</SelectItem>
+                <SelectItem value="__all__">{t.vietsearch.allCategories}</SelectItem>
                 {categories?.map((c) => (
                   <SelectItem key={c} value={c}>
                     {c}
@@ -75,12 +73,12 @@ export function VietSearchPageClient() {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label>Ingredient</Label>
+            <Label>{t.vietsearch.ingredientLabel}</Label>
             <IngredientCombobox value={selected} onSelect={setSelected} category={category} />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="grams">Grams (minimum {MIN_GRAMS})</Label>
+            <Label htmlFor="grams">{t.vietsearch.gramsLabel(MIN_GRAMS)}</Label>
             <Input
               id="grams"
               type="number"
@@ -90,7 +88,7 @@ export function VietSearchPageClient() {
               aria-invalid={showGramsError}
             />
             {showGramsError && (
-              <p className="text-xs text-destructive">Enter at least {MIN_GRAMS} grams.</p>
+              <p className="text-xs text-destructive">{t.vietsearch.gramsError(MIN_GRAMS)}</p>
             )}
           </div>
 
@@ -98,7 +96,7 @@ export function VietSearchPageClient() {
             disabled={!selected || !gramsValid}
             onClick={() => selected && setSubmitted({ id: selected.id, grams: gramsValue })}
           >
-            Look up nutrition
+            {t.vietsearch.lookupButton}
           </Button>
         </div>
       </Card>
@@ -116,9 +114,7 @@ export function VietSearchPageClient() {
       )}
 
       {isError && (
-        <p className="text-sm text-destructive">
-          Something went wrong loading nutrition data. Try again.
-        </p>
+        <p className="text-sm text-destructive">{t.vietsearch.errorLoadingNutrition}</p>
       )}
 
       {!isResultLoading && submitted && result && <VietSearchResults result={result} />}

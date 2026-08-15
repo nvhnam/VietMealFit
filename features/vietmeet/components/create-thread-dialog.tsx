@@ -65,7 +65,7 @@ export function CreateThreadDialog() {
               try {
                 attachments = [await uploadForumAttachment(file, user.id)];
               } catch (err) {
-                toast.error(err instanceof Error ? err.message : "Upload failed");
+                toast.error(err instanceof Error ? err.message : t.vietmeet.uploadFailed);
                 setUploading(false);
                 return;
               }

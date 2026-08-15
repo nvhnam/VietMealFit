@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ChevronsUpDown } from "lucide-react";
 import { skipToken, useQuery } from "@tanstack/react-query";
 import { useTRPC } from "@/lib/trpc/client";
+import { useI18n } from "@/features/i18n";
 import { useDebouncedValue } from "@/lib/use-debounced-value";
 import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -26,6 +27,7 @@ export function IngredientCombobox({
   category?: string;
 }) {
   const trpc = useTRPC();
+  const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebouncedValue(query, 250);
@@ -46,7 +48,7 @@ export function IngredientCombobox({
         )}
       >
         <span className={cn(!value && "text-muted-foreground")}>
-          {value ? value.nameVi : "Select an ingredient..."}
+          {value ? value.nameVi : t.vietsearch.selectIngredientPlaceholder}
         </span>
         <ChevronsUpDown className="size-4 shrink-0 opacity-50" />
       </PopoverTrigger>
@@ -55,18 +57,16 @@ export function IngredientCombobox({
             not cmdk's built-in client-side fuzzy filter over static children. */}
         <Command shouldFilter={false} className="rounded-lg">
           <CommandInput
-            placeholder="Search by Vietnamese or English name..."
+            placeholder={t.vietsearch.searchPlaceholder}
             value={query}
             onValueChange={setQuery}
           />
           <CommandList>
             {isFetching && (
-              <div className="py-6 text-center text-sm text-muted-foreground">Searching...</div>
+              <div className="py-6 text-center text-sm text-muted-foreground">{t.vietsearch.searchingLabel}</div>
             )}
             {!isFetching && results?.length === 0 && (
-              <CommandEmpty>
-                No ingredients found{query ? ` for "${query}"` : ""}. Try a different name.
-              </CommandEmpty>
+              <CommandEmpty>{t.vietsearch.noIngredientsFound(query)}</CommandEmpty>
             )}
             {!isFetching && results && results.length > 0 && (
               <CommandGroup>
