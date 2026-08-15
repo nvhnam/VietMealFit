@@ -194,6 +194,7 @@ export const vi: Messages = {
     calculating: "Đang tính...",
     somethingWentWrong: "Đã có lỗi xảy ra.",
     dailyTargetsHeading: "Mục tiêu hằng ngày",
+    macroChartHeading: "Phân bổ macro",
     foodGuidanceHeading: (phaseLabel: string) => `Hướng dẫn nhóm thực phẩm — ${phaseLabel}`,
   },
   vietsearch: {

@@ -192,6 +192,7 @@ export const en = {
     calculating: "Calculating...",
     somethingWentWrong: "Something went wrong.",
     dailyTargetsHeading: "Daily targets",
+    macroChartHeading: "Macro split",
     foodGuidanceHeading: (phaseLabel: string) => `Food category guidance — ${phaseLabel}`,
   },
   vietsearch: {

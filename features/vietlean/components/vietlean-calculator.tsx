@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import type { LeanPhase } from "@/features/vietlean/calculate";
+import { VietLeanMacroChart } from "./vietlean-macro-chart";
 
 const PHASE_VALUES: LeanPhase[] = ["bulking", "lean", "cutting"];
 
@@ -112,6 +113,8 @@ export function VietLeanCalculator() {
               </div>
             </div>
           </Card>
+
+          <VietLeanMacroChart proteinG={data.proteinG} carbG={data.carbG} fatG={data.fatG} />
 
           <Card className="p-6">
             <h2 className="mb-3 font-semibold">
