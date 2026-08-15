@@ -15,6 +15,13 @@
       "when": 1786294414772,
       "tag": "0001_flimsy_makkari",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1786799189430,
+      "tag": "0002_burly_skin",
+      "breakpoints": true
     }
   ]
 }

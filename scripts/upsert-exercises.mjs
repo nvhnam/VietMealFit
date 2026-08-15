@@ -53,6 +53,8 @@ for (const e of exercisesData) {
           rep_scheme_vi = ${e.rep_scheme_vi ?? null},
           instructions = ${e.instructions},
           instructions_vi = ${e.instructions_vi ?? null},
+          video_url = ${e.video_url ?? null},
+          video_url_vi = ${e.video_url_vi ?? null},
           limitation_tags = ${e.limitation_tags}
         where id = ${existingId}
       `,
@@ -62,11 +64,11 @@ for (const e of exercisesData) {
     await withRetry(
       () => sql`
         insert into exercises
-          (name, name_vi, name_en, muscle_groups, equipment, difficulty, default_sets, rep_scheme, rep_scheme_vi, instructions, instructions_vi, limitation_tags)
+          (name, name_vi, name_en, muscle_groups, equipment, difficulty, default_sets, rep_scheme, rep_scheme_vi, instructions, instructions_vi, video_url, video_url_vi, limitation_tags)
         values (
           ${e.name}, ${e.name_vi ?? null}, ${e.name_en ?? null}, ${e.muscle_groups}, ${e.equipment},
           ${e.difficulty}, ${e.default_sets}, ${e.rep_scheme}, ${e.rep_scheme_vi ?? null},
-          ${e.instructions}, ${e.instructions_vi ?? null}, ${e.limitation_tags}
+          ${e.instructions}, ${e.instructions_vi ?? null}, ${e.video_url ?? null}, ${e.video_url_vi ?? null}, ${e.limitation_tags}
         )
       `,
     );

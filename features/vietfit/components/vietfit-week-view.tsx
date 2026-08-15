@@ -115,6 +115,7 @@ export function VietFitWeekView({ plan }: { plan: ExercisePlanWithItems }) {
                     </div>
                     <ExerciseVideoEmbed
                       videoUrl={item.exercise.videoUrl}
+                      videoUrlVi={item.exercise.videoUrlVi}
                       exerciseName={language === "vi" ? (item.exercise.nameVi ?? item.exercise.name) : item.exercise.name}
                     />
                   </div>

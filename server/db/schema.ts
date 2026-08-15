@@ -143,6 +143,7 @@ export const exercises = pgTable("exercises", {
   repScheme: text("rep_scheme").notNull(), // English, e.g. "10-15 reps"
   repSchemeVi: text("rep_scheme_vi"), // e.g. "10-15 lần"
   videoUrl: text("video_url"),
+  videoUrlVi: text("video_url_vi"),
   instructions: text("instructions").notNull(), // English
   instructionsVi: text("instructions_vi"),
   limitationTags: text("limitation_tags").array().notNull().default(sql`'{}'::text[]`),
