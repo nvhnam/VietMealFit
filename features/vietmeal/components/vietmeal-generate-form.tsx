@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { UtensilsCrossed } from "lucide-react";
@@ -36,6 +36,12 @@ export function VietMealGenerateForm({ hasExistingPlan }: { hasExistingPlan: boo
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const { t } = useI18n();
+  // `items` is what makes <SelectValue> render the translated label instead of
+  // the raw stored value; the options render from this same map so the trigger
+  // and the list cannot drift apart.
+  const dietItems: Record<string, ReactNode> = Object.fromEntries(
+    DIET_VALUES.map((v) => [v, t.vietmeal.dietOption[v]]),
+  );
   const [weightKg, setWeightKg] = useState("65");
   const [heightCm, setHeightCm] = useState("");
   const [calorieGoal, setCalorieGoal] = useState("");
@@ -113,14 +119,18 @@ export function VietMealGenerateForm({ hasExistingPlan }: { hasExistingPlan: boo
         </div>
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="dietaryPreference">{t.vietmeal.dietaryPreference}</Label>
-          <Select value={dietaryPreference} onValueChange={(v) => v && setDietaryPreference(v)}>
-            <SelectTrigger id="dietaryPreference">
+          <Select
+            items={dietItems}
+            value={dietaryPreference}
+            onValueChange={(v) => v && setDietaryPreference(v)}
+          >
+            <SelectTrigger id="dietaryPreference" className="w-full">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {DIET_VALUES.map((value) => (
+              {Object.entries(dietItems).map(([value, label]) => (
                 <SelectItem key={value} value={value}>
-                  {t.vietmeal.dietOption[value]}
+                  {label}
                 </SelectItem>
               ))}
             </SelectContent>

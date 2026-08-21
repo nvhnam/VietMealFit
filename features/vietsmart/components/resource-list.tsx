@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Download, FileText, Library, Trash2 } from "lucide-react";
 import { toast } from "sonner";
@@ -42,6 +42,18 @@ export function ResourceList() {
   const debouncedSearch = useDebouncedValue(search, 300);
 
   const { data: categories } = useQuery(trpc.vietsmart.getCategories.queryOptions());
+
+  // `items` is what makes <SelectValue> render the label rather than the raw
+  // value — without it the trigger literally reads "__all__".
+  const categoryItems: Record<string, ReactNode> = {
+    __all__: t.vietsmart.allCategories,
+    ...Object.fromEntries((categories ?? []).map((c) => [c, c])),
+  };
+  const sortItems: Record<string, ReactNode> = {
+    newest: t.vietsmart.newestFirst,
+    oldest: t.vietsmart.oldestFirst,
+    popular: t.vietsmart.mostDownloaded,
+  };
   const { data: resources, isLoading } = useQuery(
     trpc.vietsmart.listResources.queryOptions({ search: debouncedSearch || undefined, category, sort }),
   );
@@ -74,6 +86,7 @@ export function ResourceList() {
           className="flex-1"
         />
         <Select
+          items={categoryItems}
           value={category ?? "__all__"}
           onValueChange={(v) => v && setCategory(v === "__all__" ? undefined : v)}
         >
@@ -81,22 +94,23 @@ export function ResourceList() {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="__all__">{t.vietsmart.allCategories}</SelectItem>
-            {categories?.map((c) => (
-              <SelectItem key={c} value={c}>
-                {c}
+            {Object.entries(categoryItems).map(([value, label]) => (
+              <SelectItem key={value} value={value}>
+                {label}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
-        <Select value={sort} onValueChange={(v) => v && setSort(v as Sort)}>
+        <Select items={sortItems} value={sort} onValueChange={(v) => v && setSort(v as Sort)}>
           <SelectTrigger className="w-40">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="newest">{t.vietsmart.newestFirst}</SelectItem>
-            <SelectItem value="oldest">{t.vietsmart.oldestFirst}</SelectItem>
-            <SelectItem value="popular">{t.vietsmart.mostDownloaded}</SelectItem>
+            {Object.entries(sortItems).map(([value, label]) => (
+              <SelectItem key={value} value={value}>
+                {label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>

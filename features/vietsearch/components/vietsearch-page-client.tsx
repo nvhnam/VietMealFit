@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { skipToken, useQuery } from "@tanstack/react-query";
 import { Search } from "lucide-react";
 import { useTRPC } from "@/lib/trpc/client";
@@ -33,6 +33,13 @@ export function VietSearchPageClient() {
 
   const { data: categories } = useQuery(trpc.vietsearch.getCategories.queryOptions());
 
+  // `items` is what makes <SelectValue> render the label rather than the raw
+  // value — without it the trigger literally reads "__all__".
+  const categoryItems: Record<string, ReactNode> = {
+    __all__: t.vietsearch.allCategories,
+    ...Object.fromEntries((categories ?? []).map((c) => [c, c])),
+  };
+
   const gramsValue = Number(gramsInput);
   const gramsValid = Number.isFinite(gramsValue) && gramsValue >= MIN_GRAMS;
   const showGramsError = gramsInput.trim() !== "" && !gramsValid;
@@ -51,6 +58,7 @@ export function VietSearchPageClient() {
           <div className="flex flex-col gap-1.5">
             <Label>{t.vietsearch.categoryLabel}</Label>
             <Select
+              items={categoryItems}
               value={category ?? "__all__"}
               onValueChange={(v) => {
                 if (!v) return;
@@ -62,10 +70,9 @@ export function VietSearchPageClient() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="__all__">{t.vietsearch.allCategories}</SelectItem>
-                {categories?.map((c) => (
-                  <SelectItem key={c} value={c}>
-                    {c}
+                {Object.entries(categoryItems).map(([value, label]) => (
+                  <SelectItem key={value} value={value}>
+                    {label}
                   </SelectItem>
                 ))}
               </SelectContent>

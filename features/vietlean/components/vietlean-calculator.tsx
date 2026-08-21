@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { skipToken, useQuery } from "@tanstack/react-query";
 import { Calculator } from "lucide-react";
 import { useTRPC } from "@/lib/trpc/client";
@@ -25,6 +25,12 @@ const PHASE_VALUES: LeanPhase[] = ["bulking", "lean", "cutting"];
 export function VietLeanCalculator() {
   const trpc = useTRPC();
   const { t, language } = useI18n();
+  // `items` is what makes <SelectValue> render the translated label instead of
+  // the raw stored value; the options render from this same map so the trigger
+  // and the list cannot drift apart.
+  const phaseItems: Record<string, ReactNode> = Object.fromEntries(
+    PHASE_VALUES.map((p) => [p, t.vietlean.phaseOption[p]]),
+  );
   const [weightInput, setWeightInput] = useState("70");
   const [phase, setPhase] = useState<LeanPhase>("lean");
   const [submitted, setSubmitted] = useState<{ weightKg: number; phase: LeanPhase } | null>(null);
@@ -61,14 +67,18 @@ export function VietLeanCalculator() {
           </div>
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="phase">{t.vietlean.phase}</Label>
-            <Select value={phase} onValueChange={(v) => v && setPhase(v as LeanPhase)}>
+            <Select
+              items={phaseItems}
+              value={phase}
+              onValueChange={(v) => v && setPhase(v as LeanPhase)}
+            >
               <SelectTrigger id="phase" className="w-48">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {PHASE_VALUES.map((p) => (
-                  <SelectItem key={p} value={p}>
-                    {t.vietlean.phaseOption[p]}
+                {Object.entries(phaseItems).map(([value, label]) => (
+                  <SelectItem key={value} value={value}>
+                    {label}
                   </SelectItem>
                 ))}
               </SelectContent>

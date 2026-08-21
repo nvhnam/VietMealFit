@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { MessageSquare, Heart, Users } from "lucide-react";
@@ -23,6 +23,13 @@ import { CreateThreadDialog } from "./create-thread-dialog";
 export function ThreadList() {
   const trpc = useTRPC();
   const { t } = useI18n();
+  // `items` is what makes <SelectValue> render the translated label instead of
+  // the raw stored value; the options render from this same map so the trigger
+  // and the list cannot drift apart.
+  const sortItems: Record<string, ReactNode> = {
+    newest: t.vietmeet.newestFirst,
+    oldest: t.vietmeet.oldestFirst,
+  };
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<"newest" | "oldest">("newest");
   const debouncedSearch = useDebouncedValue(search, 300);
@@ -47,13 +54,20 @@ export function ThreadList() {
           onChange={(e) => setSearch(e.target.value)}
           className="flex-1"
         />
-        <Select value={sort} onValueChange={(v) => v && setSort(v as "newest" | "oldest")}>
+        <Select
+          items={sortItems}
+          value={sort}
+          onValueChange={(v) => v && setSort(v as "newest" | "oldest")}
+        >
           <SelectTrigger className="w-40">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="newest">{t.vietmeet.newestFirst}</SelectItem>
-            <SelectItem value="oldest">{t.vietmeet.oldestFirst}</SelectItem>
+            {Object.entries(sortItems).map(([value, label]) => (
+              <SelectItem key={value} value={value}>
+                {label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
