@@ -202,6 +202,17 @@ export const en = {
     description: "Calculate your daily calorie and macro targets for a bulking, lean, or cutting phase.",
     weightKg: "Weight (kg)",
     phase: "Phase",
+    heightCm: "Height (cm)",
+    age: "Age",
+    gender: "Gender",
+    activityLevel: "Activity level",
+    activityOption: {
+      sedentary: "Sedentary — little or no exercise",
+      light: "Lightly active — 1-3 days/week",
+      moderate: "Moderately active — 3-5 days/week",
+      active: "Very active — 6-7 days/week",
+      very_active: "Extra active — physical job or twice-daily training",
+    },
     phaseOption: {
       bulking: "Bulking",
       lean: "Lean / maintenance",
@@ -211,6 +222,13 @@ export const en = {
     calculating: "Calculating...",
     somethingWentWrong: "Something went wrong.",
     dailyTargetsHeading: "Daily targets",
+    restingLabel: "Resting (BMR)",
+    maintenanceLabel: "Maintenance (TDEE)",
+    energyBreakdownHeading: "Energy estimate",
+    bmrFloorNote:
+      "This phase's deficit would fall below your resting metabolic rate, so the target has been raised to match it.",
+    formulaNote:
+      "Calories use the Mifflin-St Jeor equation (BMR × activity), then a per-phase adjustment. Estimates only — not medical advice.",
     macroChartHeading: "Macro split",
     foodGuidanceHeading: (phaseLabel: string) => `Food category guidance — ${phaseLabel}`,
   },

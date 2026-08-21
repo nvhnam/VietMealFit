@@ -204,6 +204,17 @@ export const vi: Messages = {
       "Tính lượng calo và dinh dưỡng mục tiêu hằng ngày cho giai đoạn tăng cơ, duy trì hoặc giảm cân.",
     weightKg: "Cân nặng (kg)",
     phase: "Giai đoạn",
+    heightCm: "Chiều cao (cm)",
+    age: "Tuổi",
+    gender: "Giới tính",
+    activityLevel: "Mức độ vận động",
+    activityOption: {
+      sedentary: "Ít vận động — hầu như không tập",
+      light: "Vận động nhẹ — 1-3 buổi/tuần",
+      moderate: "Vận động vừa — 3-5 buổi/tuần",
+      active: "Vận động nhiều — 6-7 buổi/tuần",
+      very_active: "Vận động rất nhiều — lao động nặng hoặc tập 2 buổi/ngày",
+    },
     phaseOption: {
       bulking: "Tăng cơ",
       lean: "Duy trì",
@@ -213,6 +224,13 @@ export const vi: Messages = {
     calculating: "Đang tính...",
     somethingWentWrong: "Đã có lỗi xảy ra.",
     dailyTargetsHeading: "Mục tiêu hằng ngày",
+    restingLabel: "Chuyển hóa cơ bản (BMR)",
+    maintenanceLabel: "Mức duy trì (TDEE)",
+    energyBreakdownHeading: "Ước tính năng lượng",
+    bmrFloorNote:
+      "Mức thâm hụt của giai đoạn này sẽ thấp hơn chuyển hóa cơ bản, nên mục tiêu đã được nâng lên bằng mức đó.",
+    formulaNote:
+      "Lượng calo được tính theo công thức Mifflin-St Jeor (BMR × mức vận động), sau đó điều chỉnh theo giai đoạn. Đây chỉ là ước tính — không phải lời khuyên y tế.",
     macroChartHeading: "Phân bổ macro",
     foodGuidanceHeading: (phaseLabel: string) => `Hướng dẫn nhóm thực phẩm — ${phaseLabel}`,
   },

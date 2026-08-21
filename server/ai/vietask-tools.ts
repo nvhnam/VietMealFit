@@ -5,7 +5,13 @@ import { and, eq, ilike, or } from "drizzle-orm";
 import { db } from "@/server/db";
 import { nutritionItems, recipes } from "@/server/db/schema";
 import { isAllergenFree, isDietCompatible } from "@/features/vietmeal/generate";
-import { calculateVietLean, type LeanPhase } from "@/features/vietlean/calculate";
+import {
+  ACTIVITY_VALUES,
+  calculateVietLean,
+  type ActivityLevel,
+  type LeanPhase,
+} from "@/features/vietlean/calculate";
+import { isGender, normalizeGender, type Gender } from "@/features/shared/gender";
 
 // Fisher-Yates — used to vary search_meal_ideas' results across separate
 // tool calls (e.g. two "suggest a breakfast" turns in the same session)
@@ -38,53 +44,112 @@ export function filterSafeRecipeCandidates<T extends { dietTags: string[]; aller
 
 const MEAL_TYPES = ["breakfast", "lunch", "dinner", "snack"] as const;
 const LEAN_PHASES = ["bulking", "lean", "cutting"] as const;
+const SEXES = ["male", "female"] as const;
 
 type CalorieMacroTargetResult =
   | {
       found: true;
+      sex: Gender;
+      age: number;
+      heightCm: number;
       weightKg: number;
+      activityLevel: ActivityLevel;
       phase: LeanPhase;
+      bmr: number;
+      tdee: number;
       calorieTarget: number;
       proteinG: number;
       fatG: number;
       carbG: number;
+      flooredAtBmr: boolean;
     }
   | { found: false; message: string };
+
+/** Profile-sourced fallbacks for anything the model did not supply. */
+export type CalorieMacroTargetDefaults = {
+  gender: string | null;
+  age: number | null;
+  heightCm: number | null;
+  weightKg: number | null;
+};
 
 /**
  * Wraps calculateVietLean (features/vietlean/calculate.ts) — the exact same
  * formula VietLean's own calculator page uses — so a daily calorie/macro
  * target stated in chat can never disagree with what VietLean itself would
- * compute for the same weight/phase. Pure and exported for direct unit
- * testing, same shape as filterSafeRecipeCandidates above.
+ * compute for the same person. Pure and exported for direct unit testing,
+ * same shape as filterSafeRecipeCandidates above.
  *
- * weightKg is nullable (not just validated-positive) because the caller
- * covers three real cases: an anonymous user with no profile, a signed-in
- * user who's never entered a weight, and a signed-in user whose weight the
- * model wasn't given as an explicit tool argument. All three mean "unknown,"
- * not "invalid" — the distinction matters because the tool's job on "unknown"
- * is to make the model ask the user, not silently assume a default weight.
+ * Every input is resolved as "model-supplied, else profile, else unknown",
+ * and *any* unknown makes the whole call fail with a message naming what's
+ * missing. That is deliberate: Mifflin-St Jeor needs sex, age, height and
+ * weight, and quietly defaulting any of them would produce a confident number
+ * built on an invented premise. Activity level has no profile column at all,
+ * so it is always either stated by the user or asked for.
  */
-export function computeCalorieMacroTarget(weightKg: number | null, phase: LeanPhase): CalorieMacroTargetResult {
-  if (weightKg === null) {
+export function computeCalorieMacroTarget(
+  defaults: CalorieMacroTargetDefaults,
+  params: {
+    sex?: Gender;
+    age?: number;
+    heightCm?: number;
+    weightKg?: number;
+    activityLevel?: ActivityLevel;
+    phase: LeanPhase;
+  },
+): CalorieMacroTargetResult {
+  // A profile's gender column is free-form legacy text for older rows, and
+  // Mifflin-St Jeor only defines coefficients for two groups — so anything
+  // that doesn't normalise cleanly counts as unknown and gets asked about.
+  const profileSex = normalizeGender(defaults.gender);
+  const sex = params.sex ?? (isGender(profileSex) ? profileSex : null);
+  const age = params.age ?? defaults.age;
+  const heightCm = params.heightCm ?? defaults.heightCm;
+  const weightKg = params.weightKg ?? defaults.weightKg;
+  const activityLevel = params.activityLevel ?? null;
+
+  const missing: string[] = [];
+  if (sex === null) missing.push("sex (male or female — the equation only defines these two)");
+  if (age === null) missing.push("age in years");
+  if (heightCm === null) missing.push("height in cm");
+  if (weightKg === null) missing.push("weight in kg");
+  if (activityLevel === null) missing.push("activity level");
+
+  if (missing.length > 0) {
     return {
       found: false,
-      message:
-        "No weight on file or provided. Ask the user for their weight in kg before calculating a target — don't assume one.",
+      message: `Missing: ${missing.join(", ")}. Ask the user for these before calculating a target — don't assume any of them.`,
     };
   }
 
   try {
-    const result = calculateVietLean(weightKg, phase);
-    return { found: true, weightKg, phase, ...result };
+    const result = calculateVietLean({
+      sex: sex!,
+      age: age!,
+      heightCm: heightCm!,
+      weightKg: weightKg!,
+      activityLevel: activityLevel!,
+      phase: params.phase,
+    });
+    return {
+      found: true,
+      sex: sex!,
+      age: age!,
+      heightCm: heightCm!,
+      weightKg: weightKg!,
+      activityLevel: activityLevel!,
+      phase: params.phase,
+      ...result,
+    };
   } catch {
-    // calculateVietLean throws on non-positive/non-finite weight. The tool's
-    // own inputSchema already range-checks a model-supplied weight (20-400),
-    // but a profile-sourced weightKg reaches here unvalidated, so this stays
-    // as a defensive backstop rather than becoming unreachable dead code.
+    // calculateVietLean throws on non-positive/non-finite measurements. The
+    // tool's own inputSchema range-checks model-supplied values, but
+    // profile-sourced ones reach here unvalidated, so this stays as a
+    // defensive backstop rather than becoming unreachable dead code.
     return {
       found: false,
-      message: `"${weightKg}kg" isn't a usable weight for this calculation. Ask the user to confirm their weight.`,
+      message:
+        "Those measurements aren't usable for this calculation. Ask the user to confirm their age, height and weight.",
     };
   }
 }
@@ -98,11 +163,11 @@ export function computeCalorieMacroTarget(weightKg: number | null, phase: LeanPh
 export function buildVietAskTools({
   allergies,
   dietaryPreference,
-  weightKg,
+  profile,
 }: {
   allergies: string[];
   dietaryPreference: string | null;
-  weightKg: number | null;
+  profile: CalorieMacroTargetDefaults;
 }): ToolSet {
   return {
     lookup_food_nutrition: tool({
@@ -217,18 +282,38 @@ export function buildVietAskTools({
       description:
         "Calculate a daily calorie and protein/fat/carb target for a bulking, lean/maintenance, or cutting phase — the exact same formula VietLean's calculator page uses. Call this before stating any daily calorie or macro target; never compute or estimate one yourself, and state the returned figures exactly rather than adjusting them.",
       inputSchema: z.object({
+        sex: z
+          .enum(SEXES)
+          .optional()
+          .describe("Only what the user has stated. Omit to use their saved profile value, if any."),
+        age: z
+          .number()
+          .int()
+          .min(1)
+          .max(120)
+          .optional()
+          .describe("User's age in years, from this conversation. Omit to use their saved profile value, if any."),
+        heightCm: z
+          .number()
+          .min(50)
+          .max(300)
+          .optional()
+          .describe("User's height in cm, from this conversation. Omit to use their saved profile value, if any."),
         weightKg: z
           .number()
           .min(20)
           .max(400)
           .optional()
           .describe("User's weight in kg, from what they've said in this conversation. Omit to use their saved profile weight, if any."),
+        activityLevel: z
+          .enum(ACTIVITY_VALUES as [ActivityLevel, ...ActivityLevel[]])
+          .optional()
+          .describe("sedentary = little/no exercise, light = 1-3 days/week, moderate = 3-5, active = 6-7, very_active = physical job or twice-daily training. There is no saved profile value for this — omit it unless the user has told you, and ask them rather than guessing."),
         phase: z
           .enum(LEAN_PHASES)
           .describe("bulking = gaining weight/muscle, lean = maintenance, cutting = losing weight/fat"),
       }),
-      execute: async ({ weightKg: paramWeightKg, phase }) =>
-        computeCalorieMacroTarget(paramWeightKg ?? weightKg, phase),
+      execute: async ({ phase, ...supplied }) => computeCalorieMacroTarget(profile, { ...supplied, phase }),
     }),
   };
 }
