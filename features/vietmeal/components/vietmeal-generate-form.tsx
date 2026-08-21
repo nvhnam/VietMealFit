@@ -19,18 +19,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+// Shared with the profile form, which writes the same profile columns.
+import { ALLERGEN_VALUES, DIET_VALUES } from "@/features/shared/vocabularies";
 
-// Values are a closed vocabulary compared byte-for-byte against
-// recipes.diet_tags in features/vietmeal/generate.ts — must stay in English
-// regardless of UI language. Only the displayed label is translated.
-const DIET_VALUES = ["anything", "vegan", "vegetarian", "pescatarian", "keto"] as const;
-
-// Closed vocabulary, not free text: must stay in sync with the
-// allergen_tags actually present in data/seed/recipes.json. A free-text
-// field here would silently fail closed on any spelling/synonym the seed
-// data doesn't happen to use (e.g. "peanuts" vs "peanut") — a real safety
-// gap for a hard-exclusion allergy filter, not just a UX nicety.
-const ALLERGEN_VALUES = ["peanut", "shellfish", "dairy", "egg", "gluten", "soy", "fish"] as const;
 
 export function VietMealGenerateForm({ hasExistingPlan }: { hasExistingPlan: boolean }) {
   const trpc = useTRPC();

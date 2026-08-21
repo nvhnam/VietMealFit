@@ -24,12 +24,9 @@ import {
   GENDER_VALUES,
   genderToWire,
 } from "@/features/shared/gender";
+// Shared with the profile form, which writes the same profile columns.
+import { EXPERIENCE_VALUES, GOAL_VALUES } from "@/features/shared/vocabularies";
 
-// Values are a closed vocabulary matched against DIFFICULTY_RANK in
-// features/vietfit/generate.ts and stored as the Postgres difficulty enum —
-// must stay in English regardless of UI language. Only the label is translated.
-const EXPERIENCE_VALUES = ["beginner", "intermediate", "advanced"] as const;
-const GOAL_VALUES = ["weight_loss", "muscle_gain", "general_fitness", "endurance"] as const;
 
 // Closed vocabulary, not free text: must stay in sync with the
 // limitation_tags actually present in data/seed/exercises.json. A free-text

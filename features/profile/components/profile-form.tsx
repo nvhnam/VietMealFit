@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Select,
@@ -24,6 +25,15 @@ import {
   isGender,
   normalizeGender,
 } from "@/features/shared/gender";
+import {
+  ALLERGEN_VALUES,
+  DIET_VALUES,
+  EXPERIENCE_VALUES,
+  GOAL_VALUES,
+  UNSPECIFIED,
+  normalizeChoice,
+  partitionKnown,
+} from "@/features/shared/vocabularies";
 import type { profiles } from "@/server/db/schema";
 
 type Profile = typeof profiles.$inferSelect;
@@ -36,8 +46,8 @@ type FormState = {
   weightKg: string;
   experienceLevel: string;
   dietaryPreference: string;
-  allergies: string; // comma-separated in the UI, array on the wire
-  fitnessGoals: string;
+  allergies: string[];
+  fitnessGoals: string[];
   calorieGoal: string;
 };
 
@@ -49,10 +59,12 @@ function formFromProfile(profile: Profile | null): FormState {
       age: "",
       heightCm: "",
       weightKg: "",
-      experienceLevel: "",
-      dietaryPreference: "",
-      allergies: "",
-      fitnessGoals: "",
+      experienceLevel: UNSPECIFIED,
+      // isDietCompatible() treats a null column and "anything" identically, so
+      // there is no separate unset state to preserve here.
+      dietaryPreference: "anything",
+      allergies: [],
+      fitnessGoals: [],
       calorieGoal: "",
     };
   }
@@ -62,12 +74,24 @@ function formFromProfile(profile: Profile | null): FormState {
     age: profile.age?.toString() ?? "",
     heightCm: profile.heightCm ?? "",
     weightKg: profile.weightKg ?? "",
-    experienceLevel: profile.experienceLevel ?? "",
-    dietaryPreference: profile.dietaryPreference ?? "",
-    allergies: (profile.allergies ?? []).join(", "),
-    fitnessGoals: (profile.fitnessGoals ?? []).join(", "),
+    experienceLevel: normalizeChoice(profile.experienceLevel, EXPERIENCE_VALUES),
+    dietaryPreference:
+      profile.dietaryPreference?.trim()
+        ? normalizeChoice(profile.dietaryPreference, DIET_VALUES)
+        : "anything",
+    // Canonicalised on load, not just for display: the checkbox for "peanut"
+    // compares against the stored string, so a legacy "Peanut" would render
+    // unchecked while still being a live allergy — and ticking it would then
+    // append a duplicate. Legacy values keep their own position after.
+    allergies: flattenPartition(profile.allergies ?? [], ALLERGEN_VALUES),
+    fitnessGoals: flattenPartition(profile.fitnessGoals ?? [], GOAL_VALUES),
     calorieGoal: profile.calorieGoal?.toString() ?? "",
   };
+}
+
+function flattenPartition(stored: readonly string[], known: readonly string[]): string[] {
+  const { known: canonical, legacy } = partitionKnown(stored, known);
+  return [...canonical, ...legacy];
 }
 
 function toNumberOrNull(value: string): number | null {
@@ -75,13 +99,6 @@ function toNumberOrNull(value: string): number | null {
   if (!trimmed) return null;
   const n = Number(trimmed);
   return Number.isFinite(n) ? n : null;
-}
-
-function toArray(value: string): string[] {
-  return value
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean);
 }
 
 export function ProfileForm() {
@@ -107,6 +124,52 @@ export function ProfileForm() {
   return <ProfileFormFields key={profile?.id ?? "new"} initialProfile={profile ?? null} />;
 }
 
+/** Checkbox group over a closed vocabulary, with any legacy free-text values appended. */
+function CheckboxGroup({
+  idPrefix,
+  values,
+  legacy,
+  selected,
+  onToggle,
+  label,
+}: {
+  idPrefix: string;
+  values: readonly string[];
+  legacy: readonly string[];
+  selected: readonly string[];
+  onToggle: (value: string, checked: boolean) => void;
+  label: (value: string) => ReactNode;
+}) {
+  return (
+    <div className="flex flex-wrap gap-x-4 gap-y-2">
+      {values.map((value) => (
+        <div key={value} className="flex items-center gap-2">
+          <Checkbox
+            id={`${idPrefix}-${value}`}
+            checked={selected.includes(value)}
+            onCheckedChange={(v) => onToggle(value, v === true)}
+          />
+          <Label htmlFor={`${idPrefix}-${value}`} className="font-normal">
+            {label(value)}
+          </Label>
+        </div>
+      ))}
+      {legacy.map((value) => (
+        <div key={value} className="flex items-center gap-2">
+          <Checkbox
+            id={`${idPrefix}-legacy-${value}`}
+            checked={selected.includes(value)}
+            onCheckedChange={(v) => onToggle(value, v === true)}
+          />
+          <Label htmlFor={`${idPrefix}-legacy-${value}`} className="font-normal italic">
+            {value}
+          </Label>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null }) {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
@@ -116,16 +179,45 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
   // Passing `items` is what makes <SelectValue> render the translated label
   // instead of the raw stored value. Rendering the options from this same map
   // keeps the trigger and the list from drifting apart.
+  //
+  // Each map may also carry one value this profile already holds that predates
+  // the closed vocabulary, kept selectable so it is not silently rewritten just
+  // by opening and saving the form.
   const genderItems: Record<string, ReactNode> = {
     [GENDER_UNSPECIFIED]: t.common.genderUnspecified,
     ...Object.fromEntries(GENDER_VALUES.map((v) => [v, t.common.genderOption[v]])),
-    // A value this profile already holds that predates the closed vocabulary.
-    // Kept selectable so it is not silently rewritten just by opening and
-    // saving the form.
     ...(form.gender !== GENDER_UNSPECIFIED && !isGender(form.gender)
       ? { [form.gender]: form.gender }
       : {}),
   };
+
+  // Labels are deliberately read from the VietFit/VietMeal dictionaries rather
+  // than copied into the profile's: these *are* those modules' vocabularies,
+  // and the profile is pre-filling their forms.
+  const experienceItems: Record<string, ReactNode> = {
+    [UNSPECIFIED]: t.profile.notSet,
+    ...Object.fromEntries(EXPERIENCE_VALUES.map((v) => [v, t.vietfit.experienceOption[v]])),
+    ...(form.experienceLevel !== UNSPECIFIED &&
+    !(EXPERIENCE_VALUES as readonly string[]).includes(form.experienceLevel)
+      ? { [form.experienceLevel]: form.experienceLevel }
+      : {}),
+  };
+
+  const dietItems: Record<string, ReactNode> = {
+    ...Object.fromEntries(DIET_VALUES.map((v) => [v, t.vietmeal.dietOption[v]])),
+    ...(!(DIET_VALUES as readonly string[]).includes(form.dietaryPreference)
+      ? { [form.dietaryPreference]: form.dietaryPreference }
+      : {}),
+  };
+
+  const allergyParts = partitionKnown(form.allergies, ALLERGEN_VALUES);
+  const goalParts = partitionKnown(form.fitnessGoals, GOAL_VALUES);
+
+  const toggle = (field: "allergies" | "fitnessGoals") => (value: string, checked: boolean) =>
+    setForm((prev) => ({
+      ...prev,
+      [field]: checked ? [...prev[field], value] : prev[field].filter((v) => v !== value),
+    }));
 
   const upsert = useMutation(
     trpc.profiles.upsert.mutationOptions({
@@ -150,10 +242,10 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
             age: toNumberOrNull(form.age),
             heightCm: toNumberOrNull(form.heightCm),
             weightKg: toNumberOrNull(form.weightKg),
-            experienceLevel: form.experienceLevel || null,
+            experienceLevel: form.experienceLevel === UNSPECIFIED ? null : form.experienceLevel,
             dietaryPreference: form.dietaryPreference || null,
-            allergies: toArray(form.allergies),
-            fitnessGoals: toArray(form.fitnessGoals),
+            allergies: form.allergies,
+            fitnessGoals: form.fitnessGoals,
             calorieGoal: toNumberOrNull(form.calorieGoal),
           });
         }}
@@ -215,45 +307,72 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
         </div>
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="experienceLevel">{t.profile.experienceLevel}</Label>
-          <Input
-            id="experienceLevel"
-            placeholder={t.profile.experienceLevelPlaceholder}
+          <Select
+            items={experienceItems}
             value={form.experienceLevel}
-            onChange={(e) => setForm({ ...form, experienceLevel: e.target.value })}
-          />
+            onValueChange={(v) => v && setForm({ ...form, experienceLevel: v as string })}
+          >
+            <SelectTrigger id="experienceLevel" className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {Object.entries(experienceItems).map(([value, label]) => (
+                <SelectItem key={value} value={value}>
+                  {label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="dietaryPreference">{t.profile.dietaryPreference}</Label>
-          <Input
-            id="dietaryPreference"
-            placeholder={t.profile.dietaryPreferencePlaceholder}
+          <Select
+            items={dietItems}
             value={form.dietaryPreference}
-            onChange={(e) => setForm({ ...form, dietaryPreference: e.target.value })}
-          />
+            onValueChange={(v) => v && setForm({ ...form, dietaryPreference: v as string })}
+          >
+            <SelectTrigger id="dietaryPreference" className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {Object.entries(dietItems).map(([value, label]) => (
+                <SelectItem key={value} value={value}>
+                  {label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="calorieGoal">{t.profile.calorieGoal}</Label>
+        <div className="col-span-2 flex flex-col gap-1.5">
+          <Label htmlFor="calorieGoal">{t.profile.calorieGoalOptional}</Label>
           <Input
             id="calorieGoal"
             type="number"
             value={form.calorieGoal}
             onChange={(e) => setForm({ ...form, calorieGoal: e.target.value })}
           />
+          <p className="text-xs text-muted-foreground">{t.profile.calorieGoalHint}</p>
         </div>
         <div className="col-span-2 flex flex-col gap-1.5">
-          <Label htmlFor="allergies">{t.profile.allergies}</Label>
-          <Input
-            id="allergies"
-            value={form.allergies}
-            onChange={(e) => setForm({ ...form, allergies: e.target.value })}
+          <Label>{t.profile.allergies}</Label>
+          <CheckboxGroup
+            idPrefix="profile-allergy"
+            values={ALLERGEN_VALUES}
+            legacy={allergyParts.legacy}
+            selected={form.allergies}
+            onToggle={toggle("allergies")}
+            label={(v) => t.vietmeal.allergenOption[v as (typeof ALLERGEN_VALUES)[number]]}
           />
         </div>
         <div className="col-span-2 flex flex-col gap-1.5">
-          <Label htmlFor="fitnessGoals">{t.profile.fitnessGoals}</Label>
-          <Input
-            id="fitnessGoals"
-            value={form.fitnessGoals}
-            onChange={(e) => setForm({ ...form, fitnessGoals: e.target.value })}
+          <Label>{t.profile.fitnessGoals}</Label>
+          <CheckboxGroup
+            idPrefix="profile-goal"
+            values={GOAL_VALUES}
+            legacy={goalParts.legacy}
+            selected={form.fitnessGoals}
+            onToggle={toggle("fitnessGoals")}
+            label={(v) => t.vietfit.goalOption[v as (typeof GOAL_VALUES)[number]]}
           />
         </div>
         <Button type="submit" className="col-span-2" disabled={upsert.isPending}>

@@ -1,3 +1,5 @@
+import { UNSPECIFIED } from "@/features/shared/vocabularies";
+
 /**
  * Shared closed vocabulary for the gender field, used by the profile form and
  * VietFit's generate form. Both previously exposed a bare free-text input, so
@@ -17,8 +19,11 @@ export type Gender = (typeof GENDER_VALUES)[number];
  * UI-only sentinel for "not answered". It goes to the wire as null, which is
  * what the nullable column has always meant — the field was never required and
  * making it so now would be a behaviour change, not a formatting one.
+ *
+ * Re-exported from the shared sentinel so the profile form's several nullable
+ * selects can't end up using two different magic strings.
  */
-export const GENDER_UNSPECIFIED = "unspecified";
+export const GENDER_UNSPECIFIED = UNSPECIFIED;
 
 export function isGender(value: string): value is Gender {
   return (GENDER_VALUES as readonly string[]).includes(value);
