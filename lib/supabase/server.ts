@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
  * Server Component / Route Handler / Server Action client — reads the
  * session from request cookies. Server Components can't write cookies, so
  * the setAll() call is wrapped in a try/catch: it silently no-ops there
- * (fine, since middleware.ts is what actually refreshes the session).
+ * (fine, since proxy.ts is what actually refreshes the session).
  */
 export async function createClient() {
   const cookieStore = await cookies();
@@ -25,7 +25,7 @@ export async function createClient() {
               cookieStore.set(name, value, options),
             );
           } catch {
-            // Called from a Server Component — no-op, middleware handles refresh.
+            // Called from a Server Component — no-op, proxy.ts handles refresh.
           }
         },
       },

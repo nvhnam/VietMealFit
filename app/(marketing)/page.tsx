@@ -1,11 +1,25 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { buttonVariants } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/shared/language-toggle";
 import { getServerLanguage } from "@/features/i18n/get-server-language";
 import { en } from "@/features/i18n/messages/en";
 import { vi } from "@/features/i18n/messages/vi";
 
-export default async function LandingPage() {
+export default async function LandingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string; error_code?: string }>;
+}) {
+  // Supabase falls back to the project's "Site URL" (this page) when it has no
+  // valid redirect_to to honour, appending its failure as query params. Nothing
+  // here can act on them, so hand them to the one page that can.
+  const { error, error_code: errorCode } = await searchParams;
+  const authError = errorCode ?? error;
+  if (authError) {
+    redirect(`/account/sign-in?authError=${encodeURIComponent(authError)}`);
+  }
+
   const language = await getServerLanguage();
   const t = language === "vi" ? vi : en;
 

@@ -14,6 +14,7 @@ your AI provider):
 |---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | |
+| `NEXT_PUBLIC_SITE_URL` | production origin, no trailing slash — see §1a. Optional on a plain `*.vercel.app` deploy, required once a custom domain is used |
 | `SUPABASE_SERVICE_ROLE_KEY` | server-only, never exposed to the client |
 | `DATABASE_URL` | Supavisor pooled connection string, port 5432, session mode |
 | `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME` | |
@@ -21,6 +22,44 @@ your AI provider):
 | `GEMINI_MODEL` | `gemini-2.5-flash` |
 | `GEMINI_API_KEYS` | comma-separated, rotated on rate-limit |
 | `ANTHROPIC_API_KEY` | optional paid upgrade path, not required |
+
+## 1a. Supabase auth redirect URLs (required — not just an env var)
+
+Supabase builds every emailed auth link (confirm signup, magic link, password
+recovery) as
+`<project>.supabase.co/auth/v1/verify?token=...&redirect_to=<X>`, and it decides
+`<X>` itself. Two things have to line up or users get bounced to the wrong host:
+
+1. **Site URL** (Supabase → Authentication → URL Configuration → Site URL) must
+   be the production origin, e.g. `https://vietmealfit.vercel.app`. This is the
+   fallback Supabase uses whenever it has no valid `redirect_to` — including
+   when it *rejects* a token, which is why an expired link lands here carrying
+   `?error=access_denied&error_code=otp_expired`. It ships defaulted to
+   `http://localhost:3000`; left at that default, production signups are
+   redirected to a machine that isn't serving the app.
+2. **Redirect URLs** (same screen, the allow-list) must include the callback
+   this app now sends:
+   - `https://vietmealfit.vercel.app/auth/callback` — production
+   - `http://localhost:3000/auth/callback` — local dev
+   - `https://*-nvhnam.vercel.app/auth/callback` — optional, only if you want
+     confirmation links to work from per-branch preview deployments
+
+   An `emailRedirectTo` that isn't on this list is **silently ignored** — no
+   error, Supabase just substitutes the Site URL. So adding `emailRedirectTo` in
+   code (`features/auth/actions.ts`) does nothing on its own; both halves are
+   needed.
+
+`app/auth/callback/route.ts` is what receives the verified link and trades it for
+a session cookie. It handles the PKCE `?code=` shape (what `@supabase/ssr` uses
+by default), the `?token_hash=&type=` shape (used if the email template is
+customised away from `{{ .ConfirmationURL }}`), and Supabase's own
+`?error=&error_code=` rejections — the last of which it forwards to
+`/account/sign-in?authError=...`, where the user is offered a resend form.
+
+Confirmation tokens are single-use and time-limited (Authentication → Providers
+→ Email → "Email OTP Expiration"). A token can therefore be dead on first human
+click if a mail scanner or link-preview fetcher opened it first; the resend form
+on the sign-in page is the recovery path for that.
 
 ## 2. GitHub Actions secrets
 

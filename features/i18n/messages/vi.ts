@@ -7,6 +7,8 @@ export const vi: Messages = {
     footerDisclaimer:
       "VietMealFit chỉ cung cấp thông tin dinh dưỡng và thể chất mang tính tham khảo — đây không phải là lời khuyên y tế. Hãy tham khảo ý kiến chuyên gia trước khi thay đổi chế độ ăn uống hoặc luyện tập đáng kể.",
     languageName: { en: "English", vi: "Tiếng Việt" },
+    languageSwitcherLabel: "Ngôn ngữ",
+    switchToLanguageLabel: (name: string) => `Chuyển sang ${name}`,
     modulesNavLabel: "Danh mục",
     dayLabelsShort: ["T2", "T3", "T4", "T5", "T6", "T7", "CN"],
     dayLabelsLong: [
@@ -61,6 +63,18 @@ export const vi: Messages = {
     alreadyHaveAccount: "Đã có tài khoản?",
     signOut: "Đăng xuất",
     profileLink: "Hồ sơ",
+    displayNameRequired: "Vui lòng nhập tên hiển thị.",
+    checkEmailToConfirm:
+      "Sắp xong — hãy kiểm tra email và nhấn vào liên kết xác nhận để kích hoạt tài khoản.",
+    linkInvalidTitle: "Liên kết xác nhận không hoạt động",
+    linkExpiredBody:
+      "Liên kết xác nhận chỉ dùng được một lần và sẽ hết hạn sau một thời gian. Nhập email của bạn bên dưới để nhận liên kết mới.",
+    linkGenericBody:
+      "Không thể hoàn tất liên kết xác nhận này. Nhập email của bạn bên dưới để nhận liên kết mới.",
+    resendButton: "Gửi lại email xác nhận",
+    resendPending: "Đang gửi...",
+    resendSent: "Đã gửi. Hãy kiểm tra hộp thư đến — và cả thư mục spam — để tìm liên kết mới.",
+    resendEmailRequired: "Vui lòng nhập địa chỉ email.",
   },
   profile: {
     heading: "Hồ sơ của bạn",

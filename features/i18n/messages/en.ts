@@ -5,6 +5,8 @@ export const en = {
     footerDisclaimer:
       "VietMealFit provides general fitness and nutrition information only — it is not medical advice. Consult a qualified professional before making significant diet or exercise changes.",
     languageName: { en: "English", vi: "Tiếng Việt" },
+    languageSwitcherLabel: "Language",
+    switchToLanguageLabel: (name: string) => `Switch to ${name}`,
     modulesNavLabel: "Modules",
     dayLabelsShort: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     dayLabelsLong: [
@@ -59,6 +61,18 @@ export const en = {
     alreadyHaveAccount: "Already have an account?",
     signOut: "Sign out",
     profileLink: "Profile",
+    displayNameRequired: "Display name is required.",
+    checkEmailToConfirm:
+      "Almost there — check your email and click the confirmation link to activate your account.",
+    linkInvalidTitle: "That confirmation link didn't work",
+    linkExpiredBody:
+      "Confirmation links are single-use and expire after a while. Enter your email below and we'll send a fresh one.",
+    linkGenericBody:
+      "We couldn't complete that confirmation link. Enter your email below to get a new one.",
+    resendButton: "Resend confirmation email",
+    resendPending: "Sending...",
+    resendSent: "Sent. Check your inbox — and your spam folder — for the new link.",
+    resendEmailRequired: "Enter your email address.",
   },
   profile: {
     heading: "Your profile",
