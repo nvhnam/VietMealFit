@@ -5,6 +5,7 @@ import { ChevronsUpDown } from "lucide-react";
 import { skipToken, useQuery } from "@tanstack/react-query";
 import { useTRPC } from "@/lib/trpc/client";
 import { useI18n } from "@/features/i18n";
+import { foodDisplayNames } from "@/features/vietsearch/display-name";
 import { useDebouncedValue } from "@/lib/use-debounced-value";
 import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -27,14 +28,14 @@ export function IngredientCombobox({
   category?: string;
 }) {
   const trpc = useTRPC();
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebouncedValue(query, 250);
 
   const { data: results, isFetching } = useQuery(
     trpc.vietsearch.search.queryOptions(
-      open ? { query: debouncedQuery || undefined, category } : skipToken,
+      open ? { query: debouncedQuery || undefined, category, language } : skipToken,
     ),
   );
 
@@ -48,7 +49,9 @@ export function IngredientCombobox({
         )}
       >
         <span className={cn(!value && "text-muted-foreground")}>
-          {value ? value.nameVi : t.vietsearch.selectIngredientPlaceholder}
+          {value
+            ? foodDisplayNames(value, language).primary
+            : t.vietsearch.selectIngredientPlaceholder}
         </span>
         <ChevronsUpDown className="size-4 shrink-0 opacity-50" />
       </PopoverTrigger>
@@ -70,24 +73,27 @@ export function IngredientCombobox({
             )}
             {!isFetching && results && results.length > 0 && (
               <CommandGroup>
-                {results.map((item) => (
-                  <CommandItem
-                    key={item.id}
-                    value={item.id}
-                    onSelect={() => {
-                      onSelect(item);
-                      setOpen(false);
-                    }}
-                    data-checked={value?.id === item.id}
-                  >
-                    <div className="flex flex-col">
-                      <span>{item.nameVi}</span>
-                      {item.nameEn && (
-                        <span className="text-xs text-muted-foreground">{item.nameEn}</span>
-                      )}
-                    </div>
-                  </CommandItem>
-                ))}
+                {results.map((item) => {
+                  const { primary, secondary } = foodDisplayNames(item, language);
+                  return (
+                    <CommandItem
+                      key={item.id}
+                      value={item.id}
+                      onSelect={() => {
+                        onSelect(item);
+                        setOpen(false);
+                      }}
+                      data-checked={value?.id === item.id}
+                    >
+                      <div className="flex flex-col">
+                        <span>{primary}</span>
+                        {secondary && (
+                          <span className="text-xs text-muted-foreground">{secondary}</span>
+                        )}
+                      </div>
+                    </CommandItem>
+                  );
+                })}
               </CommandGroup>
             )}
           </CommandList>

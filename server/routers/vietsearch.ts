@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { and, asc, eq, ilike, or } from "drizzle-orm";
+import { and, asc, eq, ilike, or, sql } from "drizzle-orm";
 import { nutritionItems } from "@/server/db/schema";
 import { createTRPCRouter, publicProcedure } from "@/server/trpc/init";
 
@@ -16,7 +16,13 @@ export const vietsearchRouter = createTRPCRouter({
   }),
 
   search: publicProcedure
-    .input(z.object({ query: z.string().max(200).optional(), category: z.string().max(100).optional() }))
+    .input(
+      z.object({
+        query: z.string().max(200).optional(),
+        category: z.string().max(100).optional(),
+        language: z.enum(["en", "vi"]).default("vi"),
+      }),
+    )
     .query(async ({ ctx, input }) => {
       const conditions = [];
       if (input.query?.trim()) {
@@ -37,7 +43,17 @@ export const vietsearchRouter = createTRPCRouter({
         })
         .from(nutritionItems)
         .where(conditions.length > 0 ? and(...conditions) : undefined)
-        .orderBy(asc(nutritionItems.nameVi))
+        // Alphabetise by the name the reader will actually see. This is not
+        // cosmetic: the LIMIT means the ordering decides *which* 30 rows come
+        // back, so ordering by nameVi in English mode returns a window that
+        // looks arbitrary. coalesce keeps the foods whose English name the 2007
+        // table never supplied (name_en IS NULL) sorted in place rather than
+        // dumped at the end.
+        .orderBy(
+          input.language === "en"
+            ? asc(sql`coalesce(${nutritionItems.nameEn}, ${nutritionItems.nameVi})`)
+            : asc(nutritionItems.nameVi),
+        )
         .limit(30);
     }),
 

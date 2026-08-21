@@ -4,6 +4,7 @@ import { Flame, Beef, Wheat, Droplet, BookOpen } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/features/i18n";
+import { foodDisplayNames } from "@/features/vietsearch/display-name";
 
 export type NutrientResult = {
   nameVi: string;
@@ -31,8 +32,9 @@ export function VietSearchResults({ result }: { result: NutrientResult }) {
     { key: "fatG" as const, label: t.common.macro.fat, unit: "g", icon: Droplet },
   ];
 
-  const primaryName = language === "vi" ? result.nameVi : (result.nameEn ?? result.nameVi);
-  const secondaryName = language === "vi" ? result.nameEn : result.nameVi;
+  // Shared with the ingredient combobox so the name you picked is the name you
+  // then see in the result, rather than the two components deciding separately.
+  const { primary: primaryName, secondary: secondaryName } = foodDisplayNames(result, language);
   // Citations are conventionally kept in their original language; in English
   // mode we show the English gloss (when available) alongside the original.
   const citation =
@@ -44,7 +46,7 @@ export function VietSearchResults({ result }: { result: NutrientResult }) {
     <Card className="p-6">
       <h2 className="font-semibold">
         {t.vietsearch.resultsForLabel(result.grams)} {primaryName}
-        {secondaryName && secondaryName !== primaryName && (
+        {secondaryName && (
           <span className="font-normal text-muted-foreground"> ({secondaryName})</span>
         )}
       </h2>
