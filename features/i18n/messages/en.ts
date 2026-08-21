@@ -262,6 +262,10 @@ export const en = {
     close: "Close VietAsk",
     open: "Open VietAsk",
     errorFailedToReach: "Failed to reach VietAsk.",
+    clearHistory: "Delete conversation",
+    clearConfirm: "Delete",
+    clearCancel: "Cancel",
+    historyCleared: "Conversation deleted",
   },
   vietmeet: {
     title: "VietMeet",

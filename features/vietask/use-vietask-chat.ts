@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTRPC } from "@/lib/trpc/client";
 import { useI18n } from "@/features/i18n";
 
@@ -14,8 +14,9 @@ export type ChatMessage = { id: string; role: "user" | "assistant"; content: str
  */
 export function useVietAskChat() {
   const trpc = useTRPC();
+  const queryClient = useQueryClient();
   const { language, t } = useI18n();
-  const [sessionId] = useState(() => crypto.randomUUID());
+  const [sessionId, setSessionId] = useState(() => crypto.randomUUID());
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,6 +32,31 @@ export function useVietAskChat() {
     hydratedRef.current = true;
     setMessages(latestSession.messages.map((m) => ({ id: m.id, role: m.role as "user" | "assistant", content: m.content })));
   }, [latestSession]);
+
+  const clearMutation = useMutation(
+    trpc.vietask.clearHistory.mutationOptions({
+      onSuccess: () => {
+        setMessages([]);
+        setError(null);
+        // A cleared conversation is a new conversation: the next message must
+        // not land back in the session that was just deleted.
+        setSessionId(crypto.randomUUID());
+        queryClient.invalidateQueries({ queryKey: trpc.vietask.getLatestSession.queryKey() });
+      },
+      onError: (err) => setError(err.message),
+    }),
+  );
+
+  const clearHistory = useCallback(() => {
+    if (clearMutation.isPending) return;
+    // Nothing will be left on the server to resume from, and the dock stays
+    // mounted across the delete, so the hydration effect must be blocked from
+    // re-running. Written here in the event handler rather than in the
+    // mutation's onSuccess: a ref cannot be touched from a callback built
+    // during render.
+    hydratedRef.current = true;
+    clearMutation.mutate({ sessionId });
+  }, [clearMutation, sessionId]);
 
   const sendMessage = useCallback(
     async (text: string) => {
@@ -90,5 +116,12 @@ export function useVietAskChat() {
     [sessionId, isStreaming, language, t],
   );
 
-  return { messages, sendMessage, isStreaming, error };
+  return {
+    messages,
+    sendMessage,
+    isStreaming,
+    error,
+    clearHistory,
+    isClearing: clearMutation.isPending,
+  };
 }

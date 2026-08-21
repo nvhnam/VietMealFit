@@ -263,6 +263,10 @@ export const vi: Messages = {
     close: "Đóng VietAsk",
     open: "Mở VietAsk",
     errorFailedToReach: "Không thể kết nối với VietAsk.",
+    clearHistory: "Xóa cuộc trò chuyện",
+    clearConfirm: "Xóa",
+    clearCancel: "Hủy",
+    historyCleared: "Đã xóa cuộc trò chuyện",
   },
   vietmeet: {
     title: "VietMeet",

@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { MessageCircle, X, Send } from "lucide-react";
+import { toast } from "sonner";
+import { MessageCircle, X, Send, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -16,8 +17,12 @@ export function VietAskDock() {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
-  const { messages, sendMessage, isStreaming, error } = useVietAskChat();
+  const { messages, sendMessage, isStreaming, error, clearHistory, isClearing } = useVietAskChat();
   const scrollRef = useRef<HTMLDivElement>(null);
+  // Two-step rather than a modal: deleting the whole conversation is
+  // irreversible, but a dialog over a 320px dock is heavier than the action
+  // warrants. Reset whenever the dock closes so it never reopens mid-confirm.
+  const [confirmingClear, setConfirmingClear] = useState(false);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -29,9 +34,43 @@ export function VietAskDock() {
     <div className="fixed bottom-4 right-4 z-50">
       {open && (
         <Card className="animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-2 mb-2 flex h-96 w-80 flex-col p-0 shadow-xl duration-200 sm:w-96">
-          <div className="rounded-t-xl border-b bg-primary/5 px-4 py-3">
-            <h2 className="text-sm font-semibold text-foreground">{t.vietask.title}</h2>
-            <p className="text-xs text-muted-foreground">{t.vietask.subtitle}</p>
+          <div className="flex items-start justify-between gap-2 rounded-t-xl border-b bg-primary/5 px-4 py-3">
+            <div className="min-w-0">
+              <h2 className="text-sm font-semibold text-foreground">{t.vietask.title}</h2>
+              <p className="text-xs text-muted-foreground">{t.vietask.subtitle}</p>
+            </div>
+            {messages.length > 0 &&
+              (confirmingClear ? (
+                <div className="flex shrink-0 items-center gap-1">
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    disabled={isClearing}
+                    onClick={() => {
+                      setConfirmingClear(false);
+                      clearHistory();
+                      toast.success(t.vietask.historyCleared);
+                    }}
+                  >
+                    {t.vietask.clearConfirm}
+                  </Button>
+                  <Button size="sm" variant="ghost" onClick={() => setConfirmingClear(false)}>
+                    {t.vietask.clearCancel}
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="size-8 shrink-0"
+                  disabled={isStreaming}
+                  onClick={() => setConfirmingClear(true)}
+                  aria-label={t.vietask.clearHistory}
+                  title={t.vietask.clearHistory}
+                >
+                  <Trash2 className="size-4" />
+                </Button>
+              ))}
           </div>
 
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3">
@@ -81,7 +120,12 @@ export function VietAskDock() {
       <Button
         size="icon"
         className="h-12 w-12 rounded-full shadow-lg"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() =>
+          setOpen((v) => {
+            if (v) setConfirmingClear(false);
+            return !v;
+          })
+        }
         aria-label={open ? t.vietask.close : t.vietask.open}
       >
         {open ? <X /> : <MessageCircle />}
