@@ -1,18 +1,13 @@
 "use client";
 
 import { useMemo } from "react";
-import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-import { Card } from "@/components/ui/card";
+import { MacroPieChart } from "@/components/shared/macro-pie-chart";
 import { useI18n } from "@/features/i18n";
 import type { MealPlanWithItems } from "./vietmeal-week-view";
 
-// Colors mapped to CSS custom properties (design tokens), not hardcoded hex —
-// keeps this chart restylable in the later ui-ux-pro-max pass (plan §6).
-const COLORS = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)"];
-
 export function VietMealMacroChart({ plan }: { plan: MealPlanWithItems }) {
   const { t } = useI18n();
-  const data = useMemo(() => {
+  const totals = useMemo(() => {
     let proteinG = 0;
     let carbG = 0;
     let fatG = 0;
@@ -21,28 +16,20 @@ export function VietMealMacroChart({ plan }: { plan: MealPlanWithItems }) {
       carbG += Number(item.recipe.carbG);
       fatG += Number(item.recipe.fatG);
     }
-    return [
-      { name: t.common.macro.protein, grams: Math.round(proteinG) },
-      { name: t.common.macro.carbs, grams: Math.round(carbG) },
-      { name: t.common.macro.fat, grams: Math.round(fatG) },
-    ];
-  }, [plan.items, t]);
+    return {
+      proteinG: Math.round(proteinG),
+      carbG: Math.round(carbG),
+      fatG: Math.round(fatG),
+    };
+  }, [plan.items]);
 
   return (
-    <Card className="p-6">
-      <h2 className="mb-2 font-semibold">{t.vietmeal.macroChartHeading}</h2>
-      <div className="h-64 w-full">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie data={data} dataKey="grams" nameKey="name" outerRadius={90} label>
-              {data.map((entry, i) => (
-                <Cell key={entry.name} fill={COLORS[i % COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip />
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
-    </Card>
+    <MacroPieChart
+      heading={t.vietmeal.macroChartHeading}
+      proteinLabel={t.common.macro.protein}
+      carbsLabel={t.common.macro.carbs}
+      fatLabel={t.common.macro.fat}
+      {...totals}
+    />
   );
 }
