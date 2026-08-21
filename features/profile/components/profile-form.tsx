@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useTRPC } from "@/lib/trpc/client";
@@ -10,6 +10,20 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  GENDER_UNSPECIFIED,
+  GENDER_VALUES,
+  genderToWire,
+  isGender,
+  normalizeGender,
+} from "@/features/shared/gender";
 import type { profiles } from "@/server/db/schema";
 
 type Profile = typeof profiles.$inferSelect;
@@ -31,7 +45,7 @@ function formFromProfile(profile: Profile | null): FormState {
   if (!profile) {
     return {
       displayName: "",
-      gender: "",
+      gender: GENDER_UNSPECIFIED,
       age: "",
       heightCm: "",
       weightKg: "",
@@ -44,7 +58,7 @@ function formFromProfile(profile: Profile | null): FormState {
   }
   return {
     displayName: profile.displayName ?? "",
-    gender: profile.gender ?? "",
+    gender: normalizeGender(profile.gender),
     age: profile.age?.toString() ?? "",
     heightCm: profile.heightCm ?? "",
     weightKg: profile.weightKg ?? "",
@@ -99,6 +113,20 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
   const { t } = useI18n();
   const [form, setForm] = useState<FormState>(() => formFromProfile(initialProfile));
 
+  // Passing `items` is what makes <SelectValue> render the translated label
+  // instead of the raw stored value. Rendering the options from this same map
+  // keeps the trigger and the list from drifting apart.
+  const genderItems: Record<string, ReactNode> = {
+    [GENDER_UNSPECIFIED]: t.common.genderUnspecified,
+    ...Object.fromEntries(GENDER_VALUES.map((v) => [v, t.common.genderOption[v]])),
+    // A value this profile already holds that predates the closed vocabulary.
+    // Kept selectable so it is not silently rewritten just by opening and
+    // saving the form.
+    ...(form.gender !== GENDER_UNSPECIFIED && !isGender(form.gender)
+      ? { [form.gender]: form.gender }
+      : {}),
+  };
+
   const upsert = useMutation(
     trpc.profiles.upsert.mutationOptions({
       onSuccess: () => {
@@ -118,7 +146,7 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
           e.preventDefault();
           upsert.mutate({
             displayName: form.displayName,
-            gender: form.gender || null,
+            gender: genderToWire(form.gender),
             age: toNumberOrNull(form.age),
             heightCm: toNumberOrNull(form.heightCm),
             weightKg: toNumberOrNull(form.weightKg),
@@ -141,11 +169,22 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
         </div>
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="gender">{t.profile.gender}</Label>
-          <Input
-            id="gender"
+          <Select
+            items={genderItems}
             value={form.gender}
-            onChange={(e) => setForm({ ...form, gender: e.target.value })}
-          />
+            onValueChange={(v) => v && setForm({ ...form, gender: v as string })}
+          >
+            <SelectTrigger id="gender" className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {Object.entries(genderItems).map(([value, label]) => (
+                <SelectItem key={value} value={value}>
+                  {label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="age">{t.profile.age}</Label>

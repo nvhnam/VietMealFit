@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Dumbbell } from "lucide-react";
@@ -19,6 +19,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  GENDER_UNSPECIFIED,
+  GENDER_VALUES,
+  genderToWire,
+} from "@/features/shared/gender";
 
 // Values are a closed vocabulary matched against DIFFICULTY_RANK in
 // features/vietfit/generate.ts and stored as the Postgres difficulty enum —
@@ -37,7 +42,7 @@ export function VietFitGenerateForm({ hasExistingPlan }: { hasExistingPlan: bool
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const { t } = useI18n();
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState<string>(GENDER_UNSPECIFIED);
   const [age, setAge] = useState("");
   const [heightCm, setHeightCm] = useState("170");
   const [weightKg, setWeightKg] = useState("65");
@@ -45,6 +50,20 @@ export function VietFitGenerateForm({ hasExistingPlan }: { hasExistingPlan: bool
   const [limitations, setLimitations] = useState<string[]>([]);
   const [goal, setGoal] = useState<(typeof GOAL_VALUES)[number]>(GOAL_VALUES[0]);
   const [preferredCardioQuery, setPreferredCardioQuery] = useState("");
+
+  // Passing `items` is what makes <SelectValue> render the translated label
+  // instead of the raw stored value ("weight_loss", "beginner"). Rendering the
+  // options from these same maps keeps the trigger and the list in sync.
+  const genderItems: Record<string, ReactNode> = {
+    [GENDER_UNSPECIFIED]: t.common.genderUnspecified,
+    ...Object.fromEntries(GENDER_VALUES.map((v) => [v, t.common.genderOption[v]])),
+  };
+  const experienceItems: Record<string, ReactNode> = Object.fromEntries(
+    EXPERIENCE_VALUES.map((v) => [v, t.vietfit.experienceOption[v]]),
+  );
+  const goalItems: Record<string, ReactNode> = Object.fromEntries(
+    GOAL_VALUES.map((v) => [v, t.vietfit.goalOption[v]]),
+  );
 
   const generate = useMutation(
     trpc.vietfit.generate.mutationOptions({
@@ -74,7 +93,7 @@ export function VietFitGenerateForm({ hasExistingPlan }: { hasExistingPlan: bool
           const weight = Number(weightKg);
           if (!Number.isFinite(height) || !Number.isFinite(weight)) return;
           generate.mutate({
-            gender: gender || undefined,
+            gender: genderToWire(gender) ?? undefined,
             age: age.trim() ? Number(age) : undefined,
             heightCm: height,
             weightKg: weight,
@@ -87,7 +106,22 @@ export function VietFitGenerateForm({ hasExistingPlan }: { hasExistingPlan: bool
       >
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="gender">{t.vietfit.gender}</Label>
-          <Input id="gender" value={gender} onChange={(e) => setGender(e.target.value)} />
+          <Select
+            items={genderItems}
+            value={gender}
+            onValueChange={(v) => v && setGender(v as string)}
+          >
+            <SelectTrigger id="gender" className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {Object.entries(genderItems).map(([value, label]) => (
+                <SelectItem key={value} value={value}>
+                  {label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="age">{t.vietfit.age}</Label>
@@ -116,16 +150,17 @@ export function VietFitGenerateForm({ hasExistingPlan }: { hasExistingPlan: bool
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="experienceLevel">{t.vietfit.experienceLevel}</Label>
           <Select
+            items={experienceItems}
             value={experienceLevel}
             onValueChange={(v) => v && setExperienceLevel(v as (typeof EXPERIENCE_VALUES)[number])}
           >
-            <SelectTrigger id="experienceLevel">
+            <SelectTrigger id="experienceLevel" className="w-full">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {EXPERIENCE_VALUES.map((value) => (
+              {Object.entries(experienceItems).map(([value, label]) => (
                 <SelectItem key={value} value={value}>
-                  {t.vietfit.experienceOption[value]}
+                  {label}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -133,14 +168,18 @@ export function VietFitGenerateForm({ hasExistingPlan }: { hasExistingPlan: bool
         </div>
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="goal">{t.vietfit.goal}</Label>
-          <Select value={goal} onValueChange={(v) => v && setGoal(v as (typeof GOAL_VALUES)[number])}>
-            <SelectTrigger id="goal">
+          <Select
+            items={goalItems}
+            value={goal}
+            onValueChange={(v) => v && setGoal(v as (typeof GOAL_VALUES)[number])}
+          >
+            <SelectTrigger id="goal" className="w-full">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {GOAL_VALUES.map((value) => (
+              {Object.entries(goalItems).map(([value, label]) => (
                 <SelectItem key={value} value={value}>
-                  {t.vietfit.goalOption[value]}
+                  {label}
                 </SelectItem>
               ))}
             </SelectContent>

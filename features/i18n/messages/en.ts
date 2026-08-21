@@ -6,6 +6,8 @@ export const en = {
       "VietMealFit provides general fitness and nutrition information only — it is not medical advice. Consult a qualified professional before making significant diet or exercise changes.",
     languageName: { en: "English", vi: "Tiếng Việt" },
     languageSwitcherLabel: "Language",
+    genderOption: { male: "Male", female: "Female" },
+    genderUnspecified: "Prefer not to say",
     switchToLanguageLabel: (name: string) => `Switch to ${name}`,
     modulesNavLabel: "Modules",
     dayLabelsShort: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],

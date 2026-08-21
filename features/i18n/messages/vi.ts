@@ -8,6 +8,8 @@ export const vi: Messages = {
       "VietMealFit chỉ cung cấp thông tin dinh dưỡng và thể chất mang tính tham khảo — đây không phải là lời khuyên y tế. Hãy tham khảo ý kiến chuyên gia trước khi thay đổi chế độ ăn uống hoặc luyện tập đáng kể.",
     languageName: { en: "English", vi: "Tiếng Việt" },
     languageSwitcherLabel: "Ngôn ngữ",
+    genderOption: { male: "Nam", female: "Nữ" },
+    genderUnspecified: "Không muốn nêu",
     switchToLanguageLabel: (name: string) => `Chuyển sang ${name}`,
     modulesNavLabel: "Danh mục",
     dayLabelsShort: ["T2", "T3", "T4", "T5", "T6", "T7", "CN"],
