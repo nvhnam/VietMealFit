@@ -67,6 +67,9 @@ export const vi: Messages = {
     checkEmailToConfirm:
       "Sắp xong — hãy kiểm tra email và nhấn vào liên kết xác nhận để kích hoạt tài khoản.",
     linkInvalidTitle: "Liên kết xác nhận không hoạt động",
+    notConfirmedTitle: "Tài khoản của bạn chưa được xác nhận",
+    notConfirmedBody:
+      "Chúng tôi đã gửi liên kết xác nhận qua email khi bạn đăng ký. Hãy gửi lại liên kết mới nếu bạn không tìm thấy hoặc liên kết cũ không còn dùng được.",
     linkExpiredBody:
       "Liên kết xác nhận chỉ dùng được một lần và sẽ hết hạn sau một thời gian. Nhập email của bạn bên dưới để nhận liên kết mới.",
     linkGenericBody:

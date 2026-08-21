@@ -65,6 +65,9 @@ export const en = {
     checkEmailToConfirm:
       "Almost there — check your email and click the confirmation link to activate your account.",
     linkInvalidTitle: "That confirmation link didn't work",
+    notConfirmedTitle: "Your account isn't confirmed yet",
+    notConfirmedBody:
+      "We emailed a confirmation link when you signed up. Send yourself a fresh one if you can't find it or it no longer works.",
     linkExpiredBody:
       "Confirmation links are single-use and expire after a while. Enter your email below and we'll send a fresh one.",
     linkGenericBody:

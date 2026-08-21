@@ -18,17 +18,27 @@ export function AuthLinkError({ code }: { code: string }) {
   const { t } = useI18n();
   const [state, formAction, pending] = useActionState(resendConfirmationAction, initialState);
 
-  // otp_expired covers both halves of Supabase's single-use token contract:
-  // genuinely past its expiry window, and already redeemed (including by an
-  // email scanner that fetched the link before the user did).
+  // Three distinct situations reach this component, and telling a user their
+  // link is broken when they never clicked one would just confuse them:
+  //  - they tried to sign in on an account that was never confirmed
+  //  - otp_expired — covers both halves of Supabase's single-use token
+  //    contract: past its expiry window, and already redeemed (including by an
+  //    email scanner that fetched the link before the user did)
+  //  - anything else the callback could not complete
+  const notConfirmed = code === "email_not_confirmed";
   const isExpired = code === "otp_expired" || code === "access_denied";
+
+  const title = notConfirmed ? t.auth.notConfirmedTitle : t.auth.linkInvalidTitle;
+  const body = notConfirmed
+    ? t.auth.notConfirmedBody
+    : isExpired
+      ? t.auth.linkExpiredBody
+      : t.auth.linkGenericBody;
 
   return (
     <div className="mx-auto mb-4 max-w-sm rounded-lg border border-destructive/30 bg-destructive/5 p-4">
-      <h2 className="text-sm font-semibold text-destructive">{t.auth.linkInvalidTitle}</h2>
-      <p className="mt-1 text-sm text-muted-foreground">
-        {isExpired ? t.auth.linkExpiredBody : t.auth.linkGenericBody}
-      </p>
+      <h2 className="text-sm font-semibold text-destructive">{title}</h2>
+      <p className="mt-1 text-sm text-muted-foreground">{body}</p>
 
       {state.message ? (
         <p className="mt-3 text-sm font-medium text-foreground">{state.message}</p>

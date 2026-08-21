@@ -8,7 +8,7 @@ import { getServerLanguage } from "@/features/i18n/get-server-language";
 import { en } from "@/features/i18n/messages/en";
 import { vi } from "@/features/i18n/messages/vi";
 
-export type AuthActionState = { error: string | null; message?: string };
+export type AuthActionState = { error: string | null; message?: string; code?: string };
 
 async function messages() {
   return (await getServerLanguage()) === "vi" ? vi : en;
@@ -24,7 +24,9 @@ export async function signInAction(
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
 
-  if (error) return { error: error.message };
+  // The code matters, not just the message: an unconfirmed account is the one
+  // sign-in failure the user can fix themselves, so the form offers a resend.
+  if (error) return { error: error.message, code: error.code };
 
   revalidatePath("/", "layout");
   redirect("/");
