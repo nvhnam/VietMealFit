@@ -267,6 +267,8 @@ export const vi: Messages = {
     clearConfirm: "Xóa",
     clearCancel: "Hủy",
     historyCleared: "Đã xóa cuộc trò chuyện",
+    expand: "Mở rộng toàn màn hình",
+    collapse: "Thu nhỏ về góc",
   },
   vietmeet: {
     title: "VietMeet",

@@ -266,6 +266,8 @@ export const en = {
     clearConfirm: "Delete",
     clearCancel: "Cancel",
     historyCleared: "Conversation deleted",
+    expand: "Expand to full screen",
+    collapse: "Shrink to corner",
   },
   vietmeet: {
     title: "VietMeet",
