@@ -11,6 +11,7 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { VietMealDownloadButton } from "./vietmeal-download-button";
 
 type RouterOutputs = inferRouterOutputs<AppRouter>;
 export type MealPlanWithItems = NonNullable<RouterOutputs["vietmeal"]["getCurrentPlan"]>;
@@ -51,15 +52,20 @@ export function VietMealWeekView({ plan }: { plan: MealPlanWithItems }) {
 
   return (
     <Card className="p-6">
-      <Tabs value={String(activeDay)} onValueChange={(v) => setActiveDay(Number(v))}>
-        <TabsList>
-          {t.common.dayLabelsShort.map((label, day) => (
-            <TabsTrigger key={day} value={String(day)}>
-              {label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-      </Tabs>
+      {/* The export sits with the plan it exports rather than in a row of its
+          own between sections, which cost a full band of vertical space. */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <Tabs value={String(activeDay)} onValueChange={(v) => setActiveDay(Number(v))}>
+          <TabsList>
+            {t.common.dayLabelsShort.map((label, day) => (
+              <TabsTrigger key={day} value={String(day)}>
+                {label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
+        <VietMealDownloadButton plan={plan} />
+      </div>
 
       <div className="mt-4 flex flex-col gap-4">
         {dayItems.map((item) => (

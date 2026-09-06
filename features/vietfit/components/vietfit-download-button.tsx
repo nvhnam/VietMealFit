@@ -1,5 +1,6 @@
 "use client";
 
+import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useI18n, type Messages, type Language } from "@/features/i18n";
 import type { ExercisePlanWithItems } from "./vietfit-week-view";
@@ -45,6 +46,7 @@ export function VietFitDownloadButton({ plan }: { plan: ExercisePlanWithItems })
         URL.revokeObjectURL(url);
       }}
     >
+      <Download aria-hidden="true" />
       {t.common.downloadAsText}
     </Button>
   );

@@ -6,7 +6,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { VietFitGenerateForm } from "./vietfit-generate-form";
 import { VietFitWeekView } from "./vietfit-week-view";
 import { VietFitBmiRecommendation } from "./vietfit-bmi-recommendation";
-import { VietFitDownloadButton } from "./vietfit-download-button";
 
 export function VietFitPageClient() {
   const trpc = useTRPC();
@@ -20,9 +19,6 @@ export function VietFitPageClient() {
 
       {plan && (
         <>
-          <div className="flex justify-end">
-            <VietFitDownloadButton plan={plan} />
-          </div>
           <VietFitBmiRecommendation plan={plan} />
           <VietFitWeekView plan={plan} />
         </>

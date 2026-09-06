@@ -12,6 +12,7 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { VietFitDownloadButton } from "./vietfit-download-button";
 import { ExerciseVideoEmbed } from "./exercise-video-embed";
 
 type RouterOutputs = inferRouterOutputs<AppRouter>;
@@ -47,15 +48,20 @@ export function VietFitWeekView({ plan }: { plan: ExercisePlanWithItems }) {
 
   return (
     <Card className="p-6">
-      <Tabs value={String(activeDay)} onValueChange={(v) => setActiveDay(Number(v))}>
-        <TabsList>
-          {t.common.dayLabelsShort.map((label, day) => (
-            <TabsTrigger key={day} value={String(day)}>
-              {label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-      </Tabs>
+      {/* The export sits with the plan it exports rather than in a row of its
+          own between sections, which cost a full band of vertical space. */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <Tabs value={String(activeDay)} onValueChange={(v) => setActiveDay(Number(v))}>
+          <TabsList>
+            {t.common.dayLabelsShort.map((label, day) => (
+              <TabsTrigger key={day} value={String(day)}>
+                {label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
+        <VietFitDownloadButton plan={plan} />
+      </div>
 
       <div className="mt-4 flex flex-col gap-4">
         {dayItems.length === 0 && (

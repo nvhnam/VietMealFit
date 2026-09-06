@@ -1,5 +1,6 @@
 "use client";
 
+import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useI18n, type Messages, type Language } from "@/features/i18n";
 import type { MealPlanWithItems } from "./vietmeal-week-view";
@@ -52,6 +53,7 @@ export function VietMealDownloadButton({ plan }: { plan: MealPlanWithItems }) {
         URL.revokeObjectURL(url);
       }}
     >
+      <Download aria-hidden="true" />
       {t.common.downloadAsText}
     </Button>
   );
