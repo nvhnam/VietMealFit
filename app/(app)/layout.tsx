@@ -31,18 +31,22 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         {t.common.skipToMainContent}
       </a>
       <header className="sticky top-0 z-40 border-b border-border/80 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/75">
-        <div className="mx-auto flex h-14 max-w-6xl items-center gap-4 px-4">
-          <Link href="/" className="flex shrink-0 items-center gap-2 font-semibold tracking-tight">
+        {/* Phone: the controls below are shrink-0 and eat ~259px of a 375px bar,
+            which left <AppNav> a 40px sliver for 633px of links. Wrapping the nav
+            onto its own full-width row gives it the whole viewport; from sm: up
+            everything returns to the original single 14-unit row. */}
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-2 gap-y-1 px-4 py-2 sm:h-14 sm:flex-nowrap sm:gap-4 sm:py-0">
+          <Link href="/" className="order-1 flex shrink-0 items-center gap-2 font-semibold tracking-tight">
             <span className="flex size-7 items-center justify-center rounded-full bg-primary text-primary-foreground">
               <Leaf className="size-4" aria-hidden="true" />
             </span>
             <span className="hidden sm:inline">{t.common.appName}</span>
           </Link>
           <AppNav />
-          <div className="ml-auto flex shrink-0 items-center gap-2">
+          <div className="order-2 ml-auto flex shrink-0 items-center gap-2 sm:order-3">
             <LanguageToggle />
             <ExperienceModeToggle />
-            <Suspense fallback={<Skeleton className="h-8 w-20" />}>
+            <Suspense fallback={<Skeleton className="size-7 rounded-[min(var(--radius-md),12px)]" />}>
               <AccountMenu />
             </Suspense>
           </div>

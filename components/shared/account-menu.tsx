@@ -1,11 +1,8 @@
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { signOutAction } from "@/features/auth/actions";
 import { getServerLanguage } from "@/features/i18n/get-server-language";
 import { en } from "@/features/i18n/messages/en";
 import { vi } from "@/features/i18n/messages/vi";
-import { Button } from "@/components/ui/button";
-import { buttonVariants } from "@/components/ui/button";
+import { AccountMenuContent } from "./account-menu-content";
 
 export async function AccountMenu() {
   const supabase = await createClient();
@@ -15,25 +12,16 @@ export async function AccountMenu() {
   const language = await getServerLanguage();
   const t = language === "vi" ? vi : en;
 
-  if (!user) {
-    return (
-      <Link href="/account/sign-in" className={buttonVariants({ variant: "outline", size: "sm" })}>
-        {t.auth.signInButton}
-      </Link>
-    );
-  }
-
   return (
-    <div className="flex items-center gap-2">
-      <span className="hidden text-sm text-muted-foreground sm:inline">{user.email}</span>
-      <Link href="/account/profile" className={buttonVariants({ variant: "outline", size: "sm" })}>
-        {t.auth.profileLink}
-      </Link>
-      <form action={signOutAction}>
-        <Button type="submit" variant="outline" size="sm">
-          {t.auth.signOut}
-        </Button>
-      </form>
-    </div>
+    <AccountMenuContent
+      signedIn={!!user}
+      email={user?.email ?? null}
+      labels={{
+        menu: t.auth.accountMenuLabel,
+        profile: t.auth.profileLink,
+        signIn: t.auth.signInButton,
+        signOut: t.auth.signOut,
+      }}
+    />
   );
 }

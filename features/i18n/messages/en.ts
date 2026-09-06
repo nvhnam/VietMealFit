@@ -63,6 +63,7 @@ export const en = {
     alreadyHaveAccount: "Already have an account?",
     signOut: "Sign out",
     profileLink: "Profile",
+    accountMenuLabel: "Account",
     displayNameRequired: "Display name is required.",
     checkEmailToConfirm:
       "Almost there — check your email and click the confirmation link to activate your account.",

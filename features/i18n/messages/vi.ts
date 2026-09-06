@@ -65,6 +65,7 @@ export const vi: Messages = {
     alreadyHaveAccount: "Đã có tài khoản?",
     signOut: "Đăng xuất",
     profileLink: "Hồ sơ",
+    accountMenuLabel: "Tài khoản",
     displayNameRequired: "Vui lòng nhập tên hiển thị.",
     checkEmailToConfirm:
       "Sắp xong — hãy kiểm tra email và nhấn vào liên kết xác nhận để kích hoạt tài khoản.",

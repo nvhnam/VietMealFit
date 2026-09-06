@@ -35,7 +35,7 @@ export function AppNav() {
 
   return (
     <nav
-      className="flex items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      className="order-3 flex w-full min-w-0 items-center gap-1 overflow-x-auto [scrollbar-width:none] sm:order-2 sm:w-auto sm:flex-1 [&::-webkit-scrollbar]:hidden"
       aria-label={t.common.modulesNavLabel}
     >
       {links.map((link) => {
