@@ -128,7 +128,7 @@ export function ResourceList() {
 
       <div className="flex flex-col gap-3">
         {resources?.map((r) => (
-          <Card key={r.id} className="flex items-start gap-3 p-4 transition-shadow duration-200 hover:shadow-md">
+          <Card key={r.id} className="flex-row items-start gap-3 p-4 transition-shadow duration-200 hover:shadow-md">
             <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
               <FileText className="size-4" aria-hidden="true" />
             </span>

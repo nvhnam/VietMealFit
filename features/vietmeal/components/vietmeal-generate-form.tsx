@@ -127,7 +127,7 @@ export function VietMealGenerateForm({ hasExistingPlan }: { hasExistingPlan: boo
             </SelectContent>
           </Select>
         </div>
-        <div className="col-span-2 flex flex-col gap-1.5">
+        <div className="sm:col-span-2 flex flex-col gap-1.5">
           <Label>{t.vietmeal.allergiesLabel}</Label>
           <div className="flex flex-wrap gap-x-4 gap-y-2">
             {ALLERGEN_VALUES.map((value) => (
@@ -148,7 +148,7 @@ export function VietMealGenerateForm({ hasExistingPlan }: { hasExistingPlan: boo
             ))}
           </div>
         </div>
-        <div className="col-span-2 flex items-center gap-2">
+        <div className="sm:col-span-2 flex items-center gap-2">
           <Checkbox
             id="preferHighProtein"
             checked={preferHighProtein}
@@ -156,7 +156,7 @@ export function VietMealGenerateForm({ hasExistingPlan }: { hasExistingPlan: boo
           />
           <Label htmlFor="preferHighProtein">{t.vietmeal.preferHighProtein}</Label>
         </div>
-        <Button type="submit" className="col-span-2" disabled={generate.isPending}>
+        <Button type="submit" className="sm:col-span-2" disabled={generate.isPending}>
           {generate.isPending
             ? t.vietmeal.generating
             : hasExistingPlan

@@ -215,7 +215,7 @@ export function VietAskDock() {
 
       <div className="fixed bottom-4 right-4 z-50">
         {open && !expanded && (
-          <Card className="animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-2 mb-2 flex h-96 w-80 flex-col p-0 shadow-xl duration-200 sm:w-96">
+          <Card className="animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-2 mb-2 flex h-96 w-80 max-w-[calc(100vw-2rem)] flex-col p-0 shadow-xl duration-200 sm:w-96">
             {panel}
           </Card>
         )}

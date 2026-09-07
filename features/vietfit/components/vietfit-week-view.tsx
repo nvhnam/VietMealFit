@@ -51,7 +51,13 @@ export function VietFitWeekView({ plan }: { plan: ExercisePlanWithItems }) {
       {/* The export sits with the plan it exports rather than in a row of its
           own between sections, which cost a full band of vertical space. */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <Tabs value={String(activeDay)} onValueChange={(v) => setActiveDay(Number(v))}>
+        {/* Seven day tabs do not fit a 320px card; let the strip scroll
+            instead of being clipped by the card's overflow-hidden. */}
+        <Tabs
+          className="min-w-0 max-w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          value={String(activeDay)}
+          onValueChange={(v) => setActiveDay(Number(v))}
+        >
           <TabsList>
             {t.common.dayLabelsShort.map((label, day) => (
               <TabsTrigger key={day} value={String(day)}>

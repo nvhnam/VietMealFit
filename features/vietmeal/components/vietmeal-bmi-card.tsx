@@ -31,7 +31,10 @@ export function VietMealBmiCard() {
       ) : (
         <p className="text-sm text-muted-foreground">{t.vietmeal.bmiCard.noHeight}</p>
       )}
-      <div className="mt-3 flex gap-2">
+      {/* Both CTA labels are long and buttons are whitespace-nowrap + shrink-0,
+          so without wrapping the second one is pushed outside the card and
+          clipped away by the card's overflow-hidden. */}
+      <div className="mt-3 flex flex-wrap gap-2">
         <Link href="/vietlean" className={buttonVariants({ variant: "outline", size: "sm" })}>
           {t.vietmeal.bmiCard.ctaVietLean}
         </Link>

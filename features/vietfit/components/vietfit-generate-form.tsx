@@ -182,7 +182,7 @@ export function VietFitGenerateForm({ hasExistingPlan }: { hasExistingPlan: bool
             </SelectContent>
           </Select>
         </div>
-        <div className="col-span-2 flex flex-col gap-1.5">
+        <div className="sm:col-span-2 flex flex-col gap-1.5">
           <Label>{t.vietfit.limitations}</Label>
           <div className="flex flex-wrap gap-x-4 gap-y-2">
             {LIMITATION_VALUES.map((value) => (
@@ -203,7 +203,7 @@ export function VietFitGenerateForm({ hasExistingPlan }: { hasExistingPlan: bool
             ))}
           </div>
         </div>
-        <div className="col-span-2 flex flex-col gap-1.5">
+        <div className="sm:col-span-2 flex flex-col gap-1.5">
           <Label htmlFor="preferredCardioQuery">{t.vietfit.preferredCardioOptional}</Label>
           <Input
             id="preferredCardioQuery"
@@ -212,7 +212,7 @@ export function VietFitGenerateForm({ hasExistingPlan }: { hasExistingPlan: bool
             placeholder={t.vietfit.preferredCardioPlaceholder}
           />
         </div>
-        <Button type="submit" className="col-span-2" disabled={generate.isPending}>
+        <Button type="submit" className="sm:col-span-2" disabled={generate.isPending}>
           {generate.isPending
             ? t.vietfit.generating
             : hasExistingPlan

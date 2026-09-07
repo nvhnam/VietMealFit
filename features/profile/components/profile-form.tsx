@@ -250,7 +250,7 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
           });
         }}
       >
-        <div className="col-span-2 flex flex-col gap-1.5">
+        <div className="sm:col-span-2 flex flex-col gap-1.5">
           <Label htmlFor="displayName">{t.profile.displayName}</Label>
           <Input
             id="displayName"
@@ -343,7 +343,7 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
             </SelectContent>
           </Select>
         </div>
-        <div className="col-span-2 flex flex-col gap-1.5">
+        <div className="sm:col-span-2 flex flex-col gap-1.5">
           <Label htmlFor="calorieGoal">{t.profile.calorieGoalOptional}</Label>
           <Input
             id="calorieGoal"
@@ -353,7 +353,7 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
           />
           <p className="text-xs text-muted-foreground">{t.profile.calorieGoalHint}</p>
         </div>
-        <div className="col-span-2 flex flex-col gap-1.5">
+        <div className="sm:col-span-2 flex flex-col gap-1.5">
           <Label>{t.profile.allergies}</Label>
           <CheckboxGroup
             idPrefix="profile-allergy"
@@ -364,7 +364,7 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
             label={(v) => t.vietmeal.allergenOption[v as (typeof ALLERGEN_VALUES)[number]]}
           />
         </div>
-        <div className="col-span-2 flex flex-col gap-1.5">
+        <div className="sm:col-span-2 flex flex-col gap-1.5">
           <Label>{t.profile.fitnessGoals}</Label>
           <CheckboxGroup
             idPrefix="profile-goal"
@@ -375,7 +375,7 @@ function ProfileFormFields({ initialProfile }: { initialProfile: Profile | null 
             label={(v) => t.vietfit.goalOption[v as (typeof GOAL_VALUES)[number]]}
           />
         </div>
-        <Button type="submit" className="col-span-2" disabled={upsert.isPending}>
+        <Button type="submit" className="sm:col-span-2" disabled={upsert.isPending}>
           {upsert.isPending ? t.profile.savingProfile : t.profile.saveProfile}
         </Button>
       </form>
