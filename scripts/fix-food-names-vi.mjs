@@ -28,7 +28,9 @@ export const CORRECTIONS = {
   "1018": ["Bột mị", "Bột mì"],
   "1022": ["Mỳ sổi", "Mỳ sợi"],
   "2001": ["Củ ốu", "Củ ấu"],
-  "2002": ["Củ cái", "Củ cải"],
+  // 2002 and 13010 were removed after checking the source PDF (Sept 2026): the
+  // book prints "Củ cái" (winged yam, a starchy root — radishes are 4053/4054)
+  // and "Magi". scripts/fix-fct-pdf-discrepancies.mjs restores both.
   "3021": ["Bột đậu tương đã loại bềo (đậu nành)", "Bột đậu tương đã loại béo (đậu nành)"],
   "3029": ["Hạt dưa đỏ rang (dưa hốu)", "Hạt dưa đỏ rang (dưa hấu)"],
   "3030": ["Hạt điều khô, chiên dỗu", "Hạt điều khô, chiên dầu"],
@@ -138,7 +140,6 @@ export const CORRECTIONS = {
   "12022": ["Kếo sô cô la", "Kẹo sô cô la"],
   "12023": ["Kếo sữa", "Kẹo sữa"],
   "12024": ["Kếo vừng viên", "Kẹo vừng viên"],
-  "13010": ["Magi", "Maggi"],
   "13011": ["Mắm tôm đổc", "Mắm tôm đặc"],
   "13014": ["Nước mắm cá (loại đổc biệt)", "Nước mắm cá (loại đặc biệt)"],
   "13022": ["Xị dỗu", "Xì dầu"],
@@ -155,7 +156,7 @@ export const CORRECTIONS = {
 // Parses a quoted-or-bare CSV field starting at `i` in `line`. Returns
 // { value, start, end } where [start,end) spans the raw field text
 // (including quotes, if any) — NOT including the trailing delimiter.
-function readField(line, i) {
+export function readField(line, i) {
   const start = i;
   if (line[i] === '"') {
     let j = i + 1;
@@ -180,7 +181,7 @@ function readField(line, i) {
   return { value: line.slice(start, j), start, end: j };
 }
 
-function quoteField(value) {
+export function quoteField(value) {
   if (/[",\n]/.test(value)) {
     return `"${value.replace(/"/g, '""')}"`;
   }

@@ -1,0 +1,1794 @@
+{
+ "description": "Cell-level corrections to vietnam_food_composition_2007.csv. 'names' and 'values' were verified against data/VTN_FCT_2007.pdf (Bảng thành phần thực phẩm Việt Nam, NXB Y học 2007) on 2026-09-12; pdf_page is the 1-based page of the PDF file. 'name_normalizations' deliberately depart from the book's typography to follow Vietnamese orthography (capitalisation, decimal comma, spacing); each carries its reason. Applied by scripts/fix-fct-pdf-discrepancies.mjs.",
+ "names": [
+  {
+   "code": "2002",
+   "column": "Food_Name_Vietnamese",
+   "old": "Củ cải",
+   "new": "Củ cái",
+   "pdf_page": 40
+  },
+  {
+   "code": "4015",
+   "column": "Food_Name_Vietnamese",
+   "old": "Cải thịa (cải trắng)",
+   "new": "Cải thìa (cải trắng)",
+   "pdf_page": 117
+  },
+  {
+   "code": "4042",
+   "column": "Food_Name_Vietnamese",
+   "old": "Hế lá",
+   "new": "Hẹ lá",
+   "pdf_page": 144
+  },
+  {
+   "code": "4101",
+   "column": "Food_Name_Vietnamese",
+   "old": "Thịa là",
+   "new": "Thìa là",
+   "pdf_page": 203
+  },
+  {
+   "code": "4109",
+   "column": "Food_Name_Vietnamese",
+   "old": "Cà muối nền",
+   "new": "Cà muối nén",
+   "pdf_page": 211
+  },
+  {
+   "code": "4112",
+   "column": "Food_Name_Vietnamese",
+   "old": "Dưa cải bế",
+   "new": "Dưa cải bẹ",
+   "pdf_page": 214
+  },
+  {
+   "code": "5024",
+   "column": "Food_Name_Vietnamese",
+   "old": "Lùu",
+   "new": "Lựu",
+   "pdf_page": 254
+  },
+  {
+   "code": "7008",
+   "column": "Food_Name_Vietnamese",
+   "old": "Thịt chó sốn",
+   "new": "Thịt chó sấn",
+   "pdf_page": 312
+  },
+  {
+   "code": "8008",
+   "column": "Food_Name_Vietnamese",
+   "old": "Cá đề",
+   "new": "Cá đé",
+   "pdf_page": 396
+  },
+  {
+   "code": "8012",
+   "column": "Food_Name_Vietnamese",
+   "old": "Cá khô (chim, thu, nụ, đề)",
+   "new": "Cá khô (chim, thu, nụ, đé)",
+   "pdf_page": 400
+  },
+  {
+   "code": "8016",
+   "column": "Food_Name_Vietnamese",
+   "old": "Cá mì",
+   "new": "Cá mỡ",
+   "pdf_page": 404
+  },
+  {
+   "code": "11019",
+   "column": "Food_Name_Vietnamese",
+   "old": "Thịt lổn hộp",
+   "new": "Thịt lợn hộp",
+   "pdf_page": 492
+  },
+  {
+   "code": "11020",
+   "column": "Food_Name_Vietnamese",
+   "old": "Thịt lổn, thịt bò xay hộp",
+   "new": "Thịt lợn, thịt bò xay hộp",
+   "pdf_page": 493
+  },
+  {
+   "code": "13008",
+   "column": "Food_Name_Vietnamese",
+   "old": "ớt khô bột",
+   "new": "Ớt khô bột",
+   "pdf_page": 533
+  },
+  {
+   "code": "13010",
+   "column": "Food_Name_Vietnamese",
+   "old": "Maggi",
+   "new": "Magi",
+   "pdf_page": 535
+  },
+  {
+   "code": "13013",
+   "column": "Food_Name_Vietnamese",
+   "old": "Mắm tềp chua",
+   "new": "Mắm tép chua",
+   "pdf_page": 538
+  }
+ ],
+ "values": [
+  {
+   "code": "1002",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.200",
+   "pdf_page": 15
+  },
+  {
+   "code": "1004",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.160",
+   "pdf_page": 17
+  },
+  {
+   "code": "1005",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.960",
+   "pdf_page": 18
+  },
+  {
+   "code": "1006",
+   "column": "Total_PUFA_g",
+   "old": "2",
+   "new": "2.130",
+   "pdf_page": 19
+  },
+  {
+   "code": "1007",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.890",
+   "pdf_page": 20
+  },
+  {
+   "code": "1008",
+   "column": "Total_PUFA_g",
+   "old": "2",
+   "new": "2.160",
+   "pdf_page": 21
+  },
+  {
+   "code": "1016",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.190",
+   "pdf_page": 29
+  },
+  {
+   "code": "1017",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.380",
+   "pdf_page": 30
+  },
+  {
+   "code": "1018",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.780",
+   "pdf_page": 31
+  },
+  {
+   "code": "1019",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.760",
+   "pdf_page": 32
+  },
+  {
+   "code": "2002",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.080",
+   "pdf_page": 40
+  },
+  {
+   "code": "2004",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.050",
+   "pdf_page": 42
+  },
+  {
+   "code": "2008",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.010",
+   "pdf_page": 46
+  },
+  {
+   "code": "2013",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.080",
+   "pdf_page": 51
+  },
+  {
+   "code": "2014",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.040",
+   "pdf_page": 52
+  },
+  {
+   "code": "2019",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.150",
+   "pdf_page": 57
+  },
+  {
+   "code": "2022",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.040",
+   "pdf_page": 60
+  },
+  {
+   "code": "2023",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.130",
+   "pdf_page": 61
+  },
+  {
+   "code": "3001",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.370",
+   "pdf_page": 67
+  },
+  {
+   "code": "3004",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.610",
+   "pdf_page": 70
+  },
+  {
+   "code": "3005",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.540",
+   "pdf_page": 71
+  },
+  {
+   "code": "3006",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.500",
+   "pdf_page": 72
+  },
+  {
+   "code": "3007",
+   "column": "Total_PUFA_g",
+   "old": "11",
+   "new": "11.260",
+   "pdf_page": 73
+  },
+  {
+   "code": "3008",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.460",
+   "pdf_page": 74
+  },
+  {
+   "code": "3010",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.380",
+   "pdf_page": 76
+  },
+  {
+   "code": "3012",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.290",
+   "pdf_page": 78
+  },
+  {
+   "code": "3013",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.470",
+   "pdf_page": 79
+  },
+  {
+   "code": "3015",
+   "column": "Total_PUFA_g",
+   "old": "7",
+   "new": "7.850",
+   "pdf_page": 81
+  },
+  {
+   "code": "3017",
+   "column": "Total_PUFA_g",
+   "old": "15",
+   "new": "15.560",
+   "pdf_page": 83
+  },
+  {
+   "code": "3020",
+   "column": "Total_PUFA_g",
+   "old": "21",
+   "new": "21.770",
+   "pdf_page": 86
+  },
+  {
+   "code": "3021",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.530",
+   "pdf_page": 87
+  },
+  {
+   "code": "3022",
+   "column": "Total_PUFA_g",
+   "old": "12",
+   "new": "12.340",
+   "pdf_page": 88
+  },
+  {
+   "code": "3023",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.400",
+   "pdf_page": 89
+  },
+  {
+   "code": "3024",
+   "column": "Total_PUFA_g",
+   "old": "14",
+   "new": "14.220",
+   "pdf_page": 90
+  },
+  {
+   "code": "3025",
+   "column": "Total_PUFA_g",
+   "old": "2",
+   "new": "2.700",
+   "pdf_page": 91
+  },
+  {
+   "code": "3032",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.770",
+   "pdf_page": 98
+  },
+  {
+   "code": "4001",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.010",
+   "pdf_page": 103
+  },
+  {
+   "code": "4003",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.010",
+   "pdf_page": 105
+  },
+  {
+   "code": "4004",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.080",
+   "pdf_page": 106
+  },
+  {
+   "code": "4005",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.140",
+   "pdf_page": 107
+  },
+  {
+   "code": "4007",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.120",
+   "pdf_page": 109
+  },
+  {
+   "code": "4010",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.060",
+   "pdf_page": 112
+  },
+  {
+   "code": "4011",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.130",
+   "pdf_page": 113
+  },
+  {
+   "code": "4014",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.040",
+   "pdf_page": 116
+  },
+  {
+   "code": "4015",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.100",
+   "pdf_page": 117
+  },
+  {
+   "code": "4016",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.040",
+   "pdf_page": 118
+  },
+  {
+   "code": "4018",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.080",
+   "pdf_page": 120
+  },
+  {
+   "code": "4019",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.240",
+   "pdf_page": 121
+  },
+  {
+   "code": "4021",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.050",
+   "pdf_page": 123
+  },
+  {
+   "code": "4022",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.330",
+   "pdf_page": 124
+  },
+  {
+   "code": "4027",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.050",
+   "pdf_page": 129
+  },
+  {
+   "code": "4030",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.170",
+   "pdf_page": 132
+  },
+  {
+   "code": "4031",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.190",
+   "pdf_page": 133
+  },
+  {
+   "code": "4034",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.550",
+   "pdf_page": 136
+  },
+  {
+   "code": "4035",
+   "column": "Total_PUFA_g",
+   "old": "3",
+   "new": "3.780",
+   "pdf_page": 137
+  },
+  {
+   "code": "4036",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.060",
+   "pdf_page": 138
+  },
+  {
+   "code": "4037",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.160",
+   "pdf_page": 139
+  },
+  {
+   "code": "4039",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.060",
+   "pdf_page": 141
+  },
+  {
+   "code": "4040",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.310",
+   "pdf_page": 142
+  },
+  {
+   "code": "4041",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.170",
+   "pdf_page": 143
+  },
+  {
+   "code": "4042",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.170",
+   "pdf_page": 144
+  },
+  {
+   "code": "4045",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.180",
+   "pdf_page": 147
+  },
+  {
+   "code": "4052",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.090",
+   "pdf_page": 154
+  },
+  {
+   "code": "4053",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.130",
+   "pdf_page": 155
+  },
+  {
+   "code": "4054",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.090",
+   "pdf_page": 156
+  },
+  {
+   "code": "4059",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.020",
+   "pdf_page": 161
+  },
+  {
+   "code": "4061",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.160",
+   "pdf_page": 163
+  },
+  {
+   "code": "4063",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.060",
+   "pdf_page": 165
+  },
+  {
+   "code": "4066",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.020",
+   "pdf_page": 168
+  },
+  {
+   "code": "4067",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.100",
+   "pdf_page": 169
+  },
+  {
+   "code": "4068",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.010",
+   "pdf_page": 170
+  },
+  {
+   "code": "4069",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.080",
+   "pdf_page": 171
+  },
+  {
+   "code": "4070",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.120",
+   "pdf_page": 172
+  },
+  {
+   "code": "4072",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.150",
+   "pdf_page": 174
+  },
+  {
+   "code": "4075",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.390",
+   "pdf_page": 177
+  },
+  {
+   "code": "4076",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.130",
+   "pdf_page": 178
+  },
+  {
+   "code": "4081",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.040",
+   "pdf_page": 183
+  },
+  {
+   "code": "4082",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.120",
+   "pdf_page": 184
+  },
+  {
+   "code": "4083",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.170",
+   "pdf_page": 185
+  },
+  {
+   "code": "4090",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.200",
+   "pdf_page": 192
+  },
+  {
+   "code": "4096",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.050",
+   "pdf_page": 198
+  },
+  {
+   "code": "4098",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.060",
+   "pdf_page": 200
+  },
+  {
+   "code": "4099",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.100",
+   "pdf_page": 201
+  },
+  {
+   "code": "4100",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.130",
+   "pdf_page": 202
+  },
+  {
+   "code": "4101",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.100",
+   "pdf_page": 203
+  },
+  {
+   "code": "4103",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.250",
+   "pdf_page": 205
+  },
+  {
+   "code": "4114",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.080",
+   "pdf_page": 216
+  },
+  {
+   "code": "4126",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.160",
+   "pdf_page": 228
+  },
+  {
+   "code": "5002",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.030",
+   "pdf_page": 232
+  },
+  {
+   "code": "5003",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.090",
+   "pdf_page": 233
+  },
+  {
+   "code": "5006",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.070",
+   "pdf_page": 236
+  },
+  {
+   "code": "5010",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.110",
+   "pdf_page": 240
+  },
+  {
+   "code": "5011",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.050",
+   "pdf_page": 241
+  },
+  {
+   "code": "5012",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.060",
+   "pdf_page": 242
+  },
+  {
+   "code": "5015",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.040",
+   "pdf_page": 245
+  },
+  {
+   "code": "5016",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.090",
+   "pdf_page": 246
+  },
+  {
+   "code": "5017",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.030",
+   "pdf_page": 247
+  },
+  {
+   "code": "5020",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.040",
+   "pdf_page": 250
+  },
+  {
+   "code": "5022",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.010",
+   "pdf_page": 252
+  },
+  {
+   "code": "5023",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.030",
+   "pdf_page": 253
+  },
+  {
+   "code": "5024",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.060",
+   "pdf_page": 254
+  },
+  {
+   "code": "5027",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.040",
+   "pdf_page": 257
+  },
+  {
+   "code": "5028",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.090",
+   "pdf_page": 258
+  },
+  {
+   "code": "5031",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.080",
+   "pdf_page": 261
+  },
+  {
+   "code": "5032",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.070",
+   "pdf_page": 262
+  },
+  {
+   "code": "5034",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.040",
+   "pdf_page": 264
+  },
+  {
+   "code": "5037",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.050",
+   "pdf_page": 267
+  },
+  {
+   "code": "5040",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.400",
+   "pdf_page": 270
+  },
+  {
+   "code": "5042",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.680",
+   "pdf_page": 272
+  },
+  {
+   "code": "5044",
+   "column": "Cholesterol_mg",
+   "old": "1",
+   "new": "",
+   "pdf_page": 274
+  },
+  {
+   "code": "5047",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.070",
+   "pdf_page": 277
+  },
+  {
+   "code": "5051",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.050",
+   "pdf_page": 281
+  },
+  {
+   "code": "5052",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.130",
+   "pdf_page": 282
+  },
+  {
+   "code": "5053",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.360",
+   "pdf_page": 283
+  },
+  {
+   "code": "5055",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.050",
+   "pdf_page": 285
+  },
+  {
+   "code": "5056",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.290",
+   "pdf_page": 286
+  },
+  {
+   "code": "6001",
+   "column": "Total_PUFA_g",
+   "old": "3",
+   "new": "3.040",
+   "pdf_page": 289
+  },
+  {
+   "code": "6004",
+   "column": "Total_PUFA_g",
+   "old": "11",
+   "new": "11.200",
+   "pdf_page": 292
+  },
+  {
+   "code": "6005",
+   "column": "Total_PUFA_g",
+   "old": "25",
+   "new": "25.000",
+   "pdf_page": 293
+  },
+  {
+   "code": "6006",
+   "column": "Total_PUFA_g",
+   "old": "51",
+   "new": "51.900",
+   "pdf_page": 294
+  },
+  {
+   "code": "6007",
+   "column": "Total_PUFA_g",
+   "old": "35",
+   "new": "35.000",
+   "pdf_page": 295
+  },
+  {
+   "code": "6008",
+   "column": "Total_PUFA_g",
+   "old": "9",
+   "new": "9.300",
+   "pdf_page": 296
+  },
+  {
+   "code": "6009",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.800",
+   "pdf_page": 297
+  },
+  {
+   "code": "6010",
+   "column": "Total_PUFA_g",
+   "old": "57",
+   "new": "57.900",
+   "pdf_page": 298
+  },
+  {
+   "code": "6011",
+   "column": "Total_PUFA_g",
+   "old": "32",
+   "new": "32.000",
+   "pdf_page": 299
+  },
+  {
+   "code": "6012",
+   "column": "Total_PUFA_g",
+   "old": "41",
+   "new": "41.700",
+   "pdf_page": 300
+  },
+  {
+   "code": "6013",
+   "column": "Total_PUFA_g",
+   "old": "54",
+   "new": "54.680",
+   "pdf_page": 301
+  },
+  {
+   "code": "6014",
+   "column": "Total_PUFA_g",
+   "old": "10",
+   "new": "10.520",
+   "pdf_page": 302
+  },
+  {
+   "code": "7001",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.510",
+   "pdf_page": 305
+  },
+  {
+   "code": "7002",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.270",
+   "pdf_page": 306
+  },
+  {
+   "code": "7005",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.170",
+   "pdf_page": 309
+  },
+  {
+   "code": "7006",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.390",
+   "pdf_page": 310
+  },
+  {
+   "code": "7007",
+   "column": "Total_PUFA_g",
+   "old": "3",
+   "new": "3.070",
+   "pdf_page": 311
+  },
+  {
+   "code": "7011",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.170",
+   "pdf_page": 315
+  },
+  {
+   "code": "7013",
+   "column": "Total_PUFA_g",
+   "old": "3",
+   "new": "3.230",
+   "pdf_page": 317
+  },
+  {
+   "code": "7014",
+   "column": "Total_PUFA_g",
+   "old": "3",
+   "new": "3.230",
+   "pdf_page": 318
+  },
+  {
+   "code": "7015",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.470",
+   "pdf_page": 319
+  },
+  {
+   "code": "7016",
+   "column": "Total_PUFA_g",
+   "old": "3",
+   "new": "3.800",
+   "pdf_page": 320
+  },
+  {
+   "code": "7017",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.770",
+   "pdf_page": 321
+  },
+  {
+   "code": "7018",
+   "column": "Total_PUFA_g",
+   "old": "2",
+   "new": "2.240",
+   "pdf_page": 322
+  },
+  {
+   "code": "7019",
+   "column": "Total_PUFA_g",
+   "old": "3",
+   "new": "3.760",
+   "pdf_page": 323
+  },
+  {
+   "code": "7020",
+   "column": "Total_PUFA_g",
+   "old": "2",
+   "new": "2.250",
+   "pdf_page": 324
+  },
+  {
+   "code": "7021",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.080",
+   "pdf_page": 325
+  },
+  {
+   "code": "7022",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.450",
+   "pdf_page": 326
+  },
+  {
+   "code": "7023",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.270",
+   "pdf_page": 327
+  },
+  {
+   "code": "7028",
+   "column": "Total_PUFA_g",
+   "old": "3",
+   "new": "2.815",
+   "pdf_page": 332
+  },
+  {
+   "code": "7029",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.550",
+   "pdf_page": 333
+  },
+  {
+   "code": "7030",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.260",
+   "pdf_page": 334
+  },
+  {
+   "code": "7032",
+   "column": "Total_PUFA_g",
+   "old": "2",
+   "new": "2.010",
+   "pdf_page": 336
+  },
+  {
+   "code": "7033",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.180",
+   "pdf_page": 337
+  },
+  {
+   "code": "7034",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.890",
+   "pdf_page": 338
+  },
+  {
+   "code": "7038",
+   "column": "Total_PUFA_g",
+   "old": "3",
+   "new": "3.680",
+   "pdf_page": 342
+  },
+  {
+   "code": "7039",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.470",
+   "pdf_page": 343
+  },
+  {
+   "code": "7040",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.820",
+   "pdf_page": 344
+  },
+  {
+   "code": "7041",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.870",
+   "pdf_page": 345
+  },
+  {
+   "code": "7042",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.630",
+   "pdf_page": 346
+  },
+  {
+   "code": "7044",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.900",
+   "pdf_page": 348
+  },
+  {
+   "code": "7045",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.780",
+   "pdf_page": 349
+  },
+  {
+   "code": "7048",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.360",
+   "pdf_page": 352
+  },
+  {
+   "code": "7049",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.590",
+   "pdf_page": 353
+  },
+  {
+   "code": "7050",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.430",
+   "pdf_page": 354
+  },
+  {
+   "code": "7051",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.340",
+   "pdf_page": 355
+  },
+  {
+   "code": "7052",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.340",
+   "pdf_page": 356
+  },
+  {
+   "code": "7053",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.970",
+   "pdf_page": 357
+  },
+  {
+   "code": "7054",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.440",
+   "pdf_page": 358
+  },
+  {
+   "code": "7055",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.550",
+   "pdf_page": 359
+  },
+  {
+   "code": "7056",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.600",
+   "pdf_page": 360
+  },
+  {
+   "code": "7057",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.120",
+   "pdf_page": 361
+  },
+  {
+   "code": "7080",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.100",
+   "pdf_page": 384
+  },
+  {
+   "code": "7082",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.090",
+   "pdf_page": 386
+  },
+  {
+   "code": "8003",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.430",
+   "pdf_page": 391
+  },
+  {
+   "code": "8009",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.720",
+   "pdf_page": 397
+  },
+  {
+   "code": "8011",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.990",
+   "pdf_page": 399
+  },
+  {
+   "code": "8019",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.280",
+   "pdf_page": 407
+  },
+  {
+   "code": "8020",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.640",
+   "pdf_page": 408
+  },
+  {
+   "code": "8026",
+   "column": "Total_PUFA_g",
+   "old": "2",
+   "new": "2.480",
+   "pdf_page": 414
+  },
+  {
+   "code": "8027",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.940",
+   "pdf_page": 415
+  },
+  {
+   "code": "8030",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.570",
+   "pdf_page": 418
+  },
+  {
+   "code": "8031",
+   "column": "Total_PUFA_g",
+   "old": "2",
+   "new": "2.420",
+   "pdf_page": 419
+  },
+  {
+   "code": "8033",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.130",
+   "pdf_page": 421
+  },
+  {
+   "code": "8035",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.390",
+   "pdf_page": 423
+  },
+  {
+   "code": "8038",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.950",
+   "pdf_page": 426
+  },
+  {
+   "code": "8040",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.520",
+   "pdf_page": 428
+  },
+  {
+   "code": "8048",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.890",
+   "pdf_page": 436
+  },
+  {
+   "code": "8051",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.670",
+   "pdf_page": 439
+  },
+  {
+   "code": "8054",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.280",
+   "pdf_page": 442
+  },
+  {
+   "code": "9001",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.360",
+   "pdf_page": 450
+  },
+  {
+   "code": "9002",
+   "column": "Total_PUFA_g",
+   "old": "4",
+   "new": "4.200",
+   "pdf_page": 451
+  },
+  {
+   "code": "9003",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.000",
+   "pdf_page": 452
+  },
+  {
+   "code": "9004",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.220",
+   "pdf_page": 453
+  },
+  {
+   "code": "9007",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.320",
+   "pdf_page": 456
+  },
+  {
+   "code": "9009",
+   "column": "Total_PUFA_g",
+   "old": "7",
+   "new": "7.410",
+   "pdf_page": 458
+  },
+  {
+   "code": "10001",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.200",
+   "pdf_page": 463
+  },
+  {
+   "code": "10002",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.150",
+   "pdf_page": 464
+  },
+  {
+   "code": "10003",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.500",
+   "pdf_page": 465
+  },
+  {
+   "code": "10004",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.090",
+   "pdf_page": 466
+  },
+  {
+   "code": "10005",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.000",
+   "pdf_page": 467
+  },
+  {
+   "code": "10006",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.670",
+   "pdf_page": 468
+  },
+  {
+   "code": "10007",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.030",
+   "pdf_page": 469
+  },
+  {
+   "code": "10009",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.940",
+   "pdf_page": 471
+  },
+  {
+   "code": "11002",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.080",
+   "pdf_page": 475
+  },
+  {
+   "code": "11003",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.040",
+   "pdf_page": 476
+  },
+  {
+   "code": "11006",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.020",
+   "pdf_page": 479
+  },
+  {
+   "code": "11013",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.040",
+   "pdf_page": 486
+  },
+  {
+   "code": "12012",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.440",
+   "pdf_page": 508
+  },
+  {
+   "code": "12013",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.000",
+   "pdf_page": 509
+  },
+  {
+   "code": "12026",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.000",
+   "pdf_page": 522
+  },
+  {
+   "code": "13002",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.310",
+   "pdf_page": 527
+  },
+  {
+   "code": "13003",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.150",
+   "pdf_page": 528
+  },
+  {
+   "code": "13004",
+   "column": "Total_PUFA_g",
+   "old": "1",
+   "new": "1.130",
+   "pdf_page": 529
+  },
+  {
+   "code": "13005",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.000",
+   "pdf_page": 530
+  },
+  {
+   "code": "13006",
+   "column": "Total_PUFA_g",
+   "old": "2",
+   "new": "2.180",
+   "pdf_page": 531
+  },
+  {
+   "code": "13010",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.040",
+   "pdf_page": 535
+  },
+  {
+   "code": "13017",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.003",
+   "pdf_page": 542
+  },
+  {
+   "code": "13021",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.070",
+   "pdf_page": 546
+  },
+  {
+   "code": "13022",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.019",
+   "pdf_page": 547
+  },
+  {
+   "code": "13023",
+   "column": "Total_PUFA_g",
+   "old": "45",
+   "new": "45.540",
+   "pdf_page": 548
+  },
+  {
+   "code": "14001",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.000",
+   "pdf_page": 551
+  },
+  {
+   "code": "14002",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.000",
+   "pdf_page": 552
+  },
+  {
+   "code": "14003",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.000",
+   "pdf_page": 553
+  },
+  {
+   "code": "14004",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.000",
+   "pdf_page": 554
+  },
+  {
+   "code": "14006",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.040",
+   "pdf_page": 556
+  },
+  {
+   "code": "14010",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.040",
+   "pdf_page": 560
+  },
+  {
+   "code": "14011",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.000",
+   "pdf_page": 561
+  },
+  {
+   "code": "14012",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.000",
+   "pdf_page": 562
+  },
+  {
+   "code": "14013",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.000",
+   "pdf_page": 563
+  },
+  {
+   "code": "14014",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.000",
+   "pdf_page": 564
+  },
+  {
+   "code": "14015",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.000",
+   "pdf_page": 565
+  },
+  {
+   "code": "14016",
+   "column": "Total_PUFA_g",
+   "old": "0",
+   "new": "0.000",
+   "pdf_page": 566
+  }
+ ],
+ "name_normalizations": [
+  {
+   "code": "1002",
+   "column": "Food_Name_Vietnamese",
+   "old": "Gạo nếp máy (Loại thường)",
+   "new": "Gạo nếp máy (loại thường)",
+   "reason": "common noun lowercase inside brackets; the book's index prints it lowercase"
+  },
+  {
+   "code": "3008",
+   "column": "Food_Name_Vietnamese",
+   "old": "Đậu trắng hạt (Đậu Tây)",
+   "new": "Đậu trắng hạt (đậu tây)",
+   "reason": "common noun lowercase inside brackets; the book's index prints it lowercase"
+  },
+  {
+   "code": "3006",
+   "column": "Food_Name_Vietnamese",
+   "old": "Đậu Hà lan (hạt)",
+   "new": "Đậu Hà Lan (hạt)",
+   "reason": "proper noun Hà Lan; the book prints 'Hà lan' here but 'Đậu Hà Lan' for 4031"
+  },
+  {
+   "code": "4056",
+   "column": "Food_Name_Vietnamese",
+   "old": "Mướp Nhật bản",
+   "new": "Mướp Nhật Bản",
+   "reason": "proper noun Nhật Bản"
+  },
+  {
+   "code": "4124",
+   "column": "Food_Name_Vietnamese",
+   "old": "Nấm mỡ (Nấm tây)",
+   "new": "Nấm mỡ (nấm tây)",
+   "reason": "common noun lowercase inside brackets"
+  },
+  {
+   "code": "6002",
+   "column": "Food_Name_Vietnamese",
+   "old": "Dầu thảo mộc (Lạc, vừng, cám...)",
+   "new": "Dầu thảo mộc (lạc, vừng, cám...)",
+   "reason": "common noun lowercase inside brackets"
+  },
+  {
+   "code": "14016",
+   "column": "Food_Name_Vietnamese",
+   "old": "Rượu Whisky (cồn 35,2 g)",
+   "new": "Rượu whisky (cồn 35,2 g)",
+   "reason": "whisky is a common noun"
+  },
+  {
+   "code": "14015",
+   "column": "Food_Name_Vietnamese",
+   "old": "Rượu vang trắng ngọt (cồn 10.2 g)",
+   "new": "Rượu vang trắng ngọt (cồn 10,2 g)",
+   "reason": "Vietnamese decimal comma, as in every other name"
+  },
+  {
+   "code": "14011",
+   "column": "Food_Name_Vietnamese",
+   "old": "Rượu nếp (80g/ 24 ml) (cồn 5 g)",
+   "new": "Rượu nếp (80 g/24 ml) (cồn 5 g)",
+   "reason": "unit spacing"
+  },
+  {
+   "code": "14001",
+   "column": "Food_Name_Vietnamese",
+   "old": "Bia (cồn: 4,5 g)",
+   "new": "Bia (cồn 4,5 g)",
+   "reason": "stray colon; other beverage names print '(cồn N g)'"
+  }
+ ]
+}
