@@ -2,24 +2,17 @@ import { z } from "zod";
 import { and, asc, eq, ilike, or, sql } from "drizzle-orm";
 import { nutritionItems } from "@/server/db/schema";
 import { createTRPCRouter, publicProcedure } from "@/server/trpc/init";
+import { FOOD_GROUPS } from "@/features/vietsearch/food-groups";
 
 // No auth required — VietSearch is a read-only dictionary, gated by
 // Experience Mode at the route level (plan §1.5 is Advanced-only), not by
 // ownership. Matches D2: anonymous browsing everywhere.
 export const vietsearchRouter = createTRPCRouter({
-  getCategories: publicProcedure.query(async ({ ctx }) => {
-    const rows = await ctx.db
-      .selectDistinct({ category: nutritionItems.category })
-      .from(nutritionItems)
-      .orderBy(asc(nutritionItems.category));
-    return rows.map((r) => r.category).filter((c): c is string => c !== null);
-  }),
-
   search: publicProcedure
     .input(
       z.object({
         query: z.string().max(200).optional(),
-        category: z.string().max(100).optional(),
+        group: z.number().int().min(1).max(FOOD_GROUPS.length).optional(),
         language: z.enum(["en", "vi"]).default("vi"),
       }),
     )
@@ -29,8 +22,11 @@ export const vietsearchRouter = createTRPCRouter({
         const like = `%${input.query.trim()}%`;
         conditions.push(or(ilike(nutritionItems.nameVi, like), ilike(nutritionItems.nameEn, like)));
       }
-      if (input.category) {
-        conditions.push(eq(nutritionItems.category, input.category));
+      if (input.group !== undefined) {
+        // The group is the leading digits of the food code (1001 -> 1, 14016 -> 14),
+        // as the 2007 table numbers its foods, so filtering never depends on the
+        // label text stored in `category`.
+        conditions.push(sql`${nutritionItems.foodCode}::int / 1000 = ${input.group}`);
       }
 
       return ctx.db
@@ -39,7 +35,6 @@ export const vietsearchRouter = createTRPCRouter({
           foodCode: nutritionItems.foodCode,
           nameVi: nutritionItems.nameVi,
           nameEn: nutritionItems.nameEn,
-          category: nutritionItems.category,
         })
         .from(nutritionItems)
         .where(conditions.length > 0 ? and(...conditions) : undefined)

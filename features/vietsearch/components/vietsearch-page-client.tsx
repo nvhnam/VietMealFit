@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { FOOD_GROUPS, foodGroupLabel } from "@/features/vietsearch/food-groups";
 import { IngredientCombobox, type IngredientOption } from "./ingredient-combobox";
 import { VietSearchResults } from "./vietsearch-results";
 
@@ -25,20 +26,21 @@ const MIN_GRAMS = 100;
 
 export function VietSearchPageClient() {
   const trpc = useTRPC();
-  const { t } = useI18n();
-  const [category, setCategory] = useState<string | undefined>(undefined);
+  const { t, language } = useI18n();
+  const [group, setGroup] = useState<number | undefined>(undefined);
   const [selected, setSelected] = useState<IngredientOption | null>(null);
   const [gramsInput, setGramsInput] = useState(String(MIN_GRAMS));
   const [submitted, setSubmitted] = useState<{ id: string; grams: number } | null>(null);
 
-  const { data: categories } = useQuery(trpc.vietsearch.getCategories.queryOptions());
-
+  // The book's 14 food groups, in its order and the reader's language. An array,
+  // not an object: object keys "1".."14" would be listed before "__all__".
+  const groupOptions: { value: string; label: ReactNode }[] = [
+    { value: "__all__", label: t.vietsearch.allCategories },
+    ...FOOD_GROUPS.map((g) => ({ value: String(g.group), label: foodGroupLabel(g, language) })),
+  ];
   // `items` is what makes <SelectValue> render the label rather than the raw
   // value — without it the trigger literally reads "__all__".
-  const categoryItems: Record<string, ReactNode> = {
-    __all__: t.vietsearch.allCategories,
-    ...Object.fromEntries((categories ?? []).map((c) => [c, c])),
-  };
+  const groupItems: Record<string, ReactNode> = Object.fromEntries(groupOptions.map((o) => [o.value, o.label]));
 
   const gramsValue = Number(gramsInput);
   const gramsValid = Number.isFinite(gramsValue) && gramsValue >= MIN_GRAMS;
@@ -58,11 +60,11 @@ export function VietSearchPageClient() {
           <div className="flex flex-col gap-1.5">
             <Label>{t.vietsearch.categoryLabel}</Label>
             <Select
-              items={categoryItems}
-              value={category ?? "__all__"}
+              items={groupItems}
+              value={group === undefined ? "__all__" : String(group)}
               onValueChange={(v) => {
                 if (!v) return;
-                setCategory(v === "__all__" ? undefined : v);
+                setGroup(v === "__all__" ? undefined : Number(v));
                 setSelected(null);
               }}
             >
@@ -70,7 +72,7 @@ export function VietSearchPageClient() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {Object.entries(categoryItems).map(([value, label]) => (
+                {groupOptions.map(({ value, label }) => (
                   <SelectItem key={value} value={value}>
                     {label}
                   </SelectItem>
@@ -81,7 +83,7 @@ export function VietSearchPageClient() {
 
           <div className="flex flex-col gap-1.5">
             <Label>{t.vietsearch.ingredientLabel}</Label>
-            <IngredientCombobox value={selected} onSelect={setSelected} category={category} />
+            <IngredientCombobox value={selected} onSelect={setSelected} group={group} />
           </div>
 
           <div className="flex flex-col gap-1.5">

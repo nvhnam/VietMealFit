@@ -1,0 +1,89 @@
+{
+  "source": "Bảng thành phần thực phẩm Việt Nam (Vietnamese Food Composition Table), Viện Dinh dưỡng – Bộ Y tế, NXB Y học, 2007. vi: group names as printed in the table of contents and group index pages; en: group title pages, in sentence case; foods: number of foods per group as stated on p. vii.",
+  "groups": [
+    {
+      "group": 1,
+      "en": "Cereal and products",
+      "vi": "Ngũ cốc và sản phẩm chế biến",
+      "foods": 23
+    },
+    {
+      "group": 2,
+      "en": "Starchy root and products",
+      "vi": "Khoai củ và sản phẩm chế biến",
+      "foods": 26
+    },
+    {
+      "group": 3,
+      "en": "Pulses, nuts, seeds and products",
+      "vi": "Hạt, quả giàu đạm, béo và sản phẩm chế biến",
+      "foods": 33
+    },
+    {
+      "group": 4,
+      "en": "Vegetables",
+      "vi": "Rau, quả, củ dùng làm rau",
+      "foods": 126
+    },
+    {
+      "group": 5,
+      "en": "Fruits",
+      "vi": "Quả chín",
+      "foods": 56
+    },
+    {
+      "group": 6,
+      "en": "Oil, lard, butter",
+      "vi": "Dầu, mỡ, bơ",
+      "foods": 14
+    },
+    {
+      "group": 7,
+      "en": "Meat and meat products",
+      "vi": "Thịt và sản phẩm chế biến",
+      "foods": 82
+    },
+    {
+      "group": 8,
+      "en": "Fish, shellfish and products",
+      "vi": "Thủy sản và sản phẩm chế biến",
+      "foods": 59
+    },
+    {
+      "group": 9,
+      "en": "Egg and products",
+      "vi": "Trứng và sản phẩm chế biến",
+      "foods": 11
+    },
+    {
+      "group": 10,
+      "en": "Milk and products",
+      "vi": "Sữa và sản phẩm chế biến",
+      "foods": 9
+    },
+    {
+      "group": 11,
+      "en": "Canned food",
+      "vi": "Đồ hộp",
+      "foods": 21
+    },
+    {
+      "group": 12,
+      "en": "Sugar, confectionery",
+      "vi": "Đồ ngọt (đường, bánh, mứt, kẹo)",
+      "foods": 27
+    },
+    {
+      "group": 13,
+      "en": "Condiments, traditional sauces",
+      "vi": "Gia vị, nước chấm",
+      "foods": 23
+    },
+    {
+      "group": 14,
+      "en": "Beverage and liquor",
+      "vi": "Nước giải khát, bia, rượu",
+      "foods": 16
+    }
+  ]
+}

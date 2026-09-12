@@ -1,14 +1,10 @@
 // One-time seed: data/seed/vietnam_food_composition_2007.csv -> nutrition_items.
 // Run: node --env-file=.env.local scripts/import-nutrition-items.mjs
 //
-// Category labels below were NOT copied from the official table's printed
-// group headings (I couldn't verify those with confidence) — they were
-// derived empirically by inspecting which Food_Code range each label's
-// sample items actually fall in (see chat history for the food names
-// sampled per group). Food_Code encodes the group as floor(code / 1000),
-// confirmed against all 526 rows (per-group counts sum exactly to 526).
-// Worth a human sanity check against the source document if precise
-// official group titles matter later.
+// Category labels are the food-group names printed in the 2007 table (English
+// title-page wording), read from data/seed/food_groups_2007.json, which also
+// holds the Vietnamese names. Food_Code encodes the group as floor(code / 1000),
+// the numbering the book itself uses (checked against the PDF, Sept 2026).
 import { readFileSync } from "node:fs";
 import { parse } from "csv-parse/sync";
 import postgres from "postgres";
@@ -16,22 +12,9 @@ import "dotenv/config";
 
 const CSV_PATH = "data/seed/vietnam_food_composition_2007.csv";
 
-const CATEGORY_BY_GROUP = {
-  1: "Cereals and products",
-  2: "Roots and tubers",
-  3: "Protein/fat-rich nuts, seeds, and legumes",
-  4: "Vegetables",
-  5: "Fruits",
-  6: "Fats and oils",
-  7: "Meat and products",
-  8: "Fish and aquatic products",
-  9: "Eggs and products",
-  10: "Milk and dairy products",
-  11: "Canned and preserved foods",
-  12: "Cakes, biscuits, and confectionery",
-  13: "Spices and condiments",
-  14: "Beverages",
-};
+const CATEGORY_BY_GROUP = Object.fromEntries(
+  JSON.parse(readFileSync("data/seed/food_groups_2007.json", "utf8")).groups.map((g) => [g.group, g.en]),
+);
 
 // First-class columns per plan §4.1 — everything else goes into extended_nutrients.
 const FIRST_CLASS = new Set([

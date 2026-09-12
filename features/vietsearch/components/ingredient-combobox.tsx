@@ -15,17 +15,17 @@ export type IngredientOption = {
   id: string;
   nameVi: string;
   nameEn: string | null;
-  category: string | null;
 };
 
 export function IngredientCombobox({
   value,
   onSelect,
-  category,
+  group,
 }: {
   value: IngredientOption | null;
   onSelect: (item: IngredientOption) => void;
-  category?: string;
+  /** Food group number (1–14) to search within; all groups when omitted. */
+  group?: number;
 }) {
   const trpc = useTRPC();
   const { t, language } = useI18n();
@@ -35,7 +35,7 @@ export function IngredientCombobox({
 
   const { data: results, isFetching } = useQuery(
     trpc.vietsearch.search.queryOptions(
-      open ? { query: debouncedQuery || undefined, category, language } : skipToken,
+      open ? { query: debouncedQuery || undefined, group, language } : skipToken,
     ),
   );
 
