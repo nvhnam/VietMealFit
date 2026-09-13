@@ -8,9 +8,4 @@ export function isExperienceMode(value: unknown): value is ExperienceMode {
 }
 
 /** Modules gated behind Advanced mode per plan §1.1 — hidden from nav and route-guarded in Basic mode. */
-export const ADVANCED_ONLY_MODULES = [
-  "vietlean",
-  "vietsearch",
-  "vietmeet",
-  "vietsmart",
-] as const;
+export const ADVANCED_ONLY_MODULES = ["vietlean", "vietsearch"] as const;

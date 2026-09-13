@@ -1,14 +1,13 @@
 import { test, expect } from "@playwright/test";
 
-// Advanced mode unlocks VietLean, VietSearch, VietMeet, VietSmart, and the
-// VietAsk dock (plan §1.1). This spec covers the modules the paper didn't
-// have in a real, working form: the calculator, the nutrition dictionary,
-// and the AI assistant dock's presence/open behavior.
+// Advanced mode unlocks VietLean, VietSearch, and the VietAsk dock. This spec
+// covers the calculator, the nutrition dictionary, and the AI assistant
+// dock's presence/open behavior.
 test.describe("Advanced mode happy path", () => {
-  test("nav shows all six modules and the VietAsk dock is present", async ({ page }) => {
+  test("nav shows all four modules and the VietAsk dock is present", async ({ page }) => {
     await page.goto("/vietlean?mode=advanced");
     const nav = page.getByRole("navigation", { name: "Modules" });
-    for (const label of ["VietMeal", "VietFit", "VietLean", "VietSearch", "VietMeet", "VietSmart"]) {
+    for (const label of ["VietMeal", "VietFit", "VietLean", "VietSearch"]) {
       await expect(nav.getByRole("link", { name: label })).toBeVisible();
     }
     await expect(page.getByRole("button", { name: "Open VietAsk" })).toBeVisible();

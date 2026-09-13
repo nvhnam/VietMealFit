@@ -8,9 +8,9 @@ import { en } from "@/features/i18n/messages/en";
 import { vi } from "@/features/i18n/messages/vi";
 
 /**
- * Route guard for the four Advanced-only modules (plan §1.1: VietLean,
- * VietSearch, VietMeet, VietSmart). Nav already hides these links in Basic
- * mode; this catches direct navigation / stale bookmarks. `mode` is passed
+ * Route guard for the Advanced-only modules (VietLean, VietSearch). Nav
+ * already hides these links in Basic mode; this catches direct navigation /
+ * stale bookmarks. `mode` is passed
  * in by the page (via getServerExperienceMode(searchParams.mode)) since only
  * page.tsx — not this shared component — has access to searchParams.
  */

@@ -12,8 +12,6 @@ test.describe("Basic mode happy path", () => {
     await expect(nav.getByRole("link", { name: "VietFit" })).toBeVisible();
     await expect(nav.getByRole("link", { name: "VietLean" })).toHaveCount(0);
     await expect(nav.getByRole("link", { name: "VietSearch" })).toHaveCount(0);
-    await expect(nav.getByRole("link", { name: "VietMeet" })).toHaveCount(0);
-    await expect(nav.getByRole("link", { name: "VietSmart" })).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Open VietAsk" })).toHaveCount(0);
   });
 

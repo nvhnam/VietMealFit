@@ -5,10 +5,8 @@ import { usePathname } from "next/navigation";
 import {
   Calculator,
   Dumbbell,
-  Library,
   Search,
   UtensilsCrossed,
-  Users,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -23,8 +21,6 @@ const CORE_LINKS: { href: string; label: string; icon: LucideIcon }[] = [
 const ADVANCED_LINKS: { href: string; label: string; icon: LucideIcon }[] = [
   { href: "/vietlean", label: "VietLean", icon: Calculator },
   { href: "/vietsearch", label: "VietSearch", icon: Search },
-  { href: "/vietmeet", label: "VietMeet", icon: Users },
-  { href: "/vietsmart", label: "VietSmart", icon: Library },
 ];
 
 export function AppNav() {
