@@ -82,6 +82,18 @@ describe("vietmeal router", () => {
     expect(latest?.id).toBe(secondPlan!.id);
   });
 
+  it("generate() leaves a saved calorie goal and height alone when the form leaves them blank", async () => {
+    const caller = appRouter.createCaller({ db, user });
+    await db.update(profiles).set({ calorieGoal: 2100, heightCm: "172.0" }).where(eq(profiles.id, user.id));
+
+    await caller.vietmeal.generate({ weightKg: 70, dietaryPreference: "anything", allergies: [] });
+
+    const [profileRow] = await db.select().from(profiles).where(eq(profiles.id, user.id)).limit(1);
+    expect(profileRow?.calorieGoal).toBe(2100);
+    expect(profileRow?.heightCm).toBe("172.0");
+    expect(profileRow?.weightKg).toBe("70.0");
+  });
+
   it("toggleItemCompleted marks the item completed in the DB", async () => {
     const caller = appRouter.createCaller({ db, user });
     const plan = await caller.vietmeal.getCurrentPlan();

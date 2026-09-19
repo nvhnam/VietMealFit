@@ -28,8 +28,9 @@ export const vietfitRouter = createTRPCRouter({
       ctx.db,
       ctx.user.id,
       {
-        gender: input.gender ?? null,
-        age: input.age ?? null,
+        // Blank optional fields are left untouched, as in vietmeal.generate.
+        gender: input.gender,
+        age: input.age,
         heightCm: input.heightCm,
         weightKg: input.weightKg,
         experienceLevel: input.experienceLevel,

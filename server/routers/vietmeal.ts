@@ -27,10 +27,13 @@ export const vietmealRouter = createTRPCRouter({
       ctx.user.id,
       {
         weightKg: input.weightKg,
-        heightCm: input.heightCm ?? null,
+        // Optional fields left blank stay undefined, which upsertProfile
+        // skips: this form starts empty rather than from the profile, so a
+        // blank here means "not given", not "clear the saved value".
+        heightCm: input.heightCm,
         dietaryPreference: input.dietaryPreference ?? null,
         allergies: input.allergies,
-        calorieGoal: input.calorieGoal ?? null,
+        calorieGoal: input.calorieGoal,
       },
       ctx.user.email?.split("@")[0] ?? "VietMealFit User",
     );
