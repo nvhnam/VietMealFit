@@ -105,4 +105,34 @@ describe("vietfit router", () => {
       caller2.vietfit.toggleItemCompleted({ itemId: firstItem.id, completed: false }),
     ).rejects.toMatchObject({ code: "NOT_FOUND" });
   });
+
+  it("getCompletedHistory lists ticked items with their tick time, only for their owner, and drops them on untick", async () => {
+    const caller = appRouter.createCaller({ db, user });
+    const caller2 = appRouter.createCaller({ db, user: user2 });
+    const plan = await caller.vietfit.getCurrentPlan();
+    // Items come back unordered, so tick this one here rather than relying on
+    // which item an earlier test happened to tick.
+    const firstItem = plan!.items[0];
+    await caller.vietfit.toggleItemCompleted({ itemId: firstItem.id, completed: true });
+
+    const history = await caller.vietfit.getCompletedHistory();
+    const entry = history.find((h) => h.id === firstItem.id);
+    expect(entry).toBeDefined();
+    expect(entry!.completedAt).toBeInstanceOf(Date);
+    expect(Date.now() - entry!.completedAt!.getTime()).toBeLessThan(5 * 60_000);
+    expect(entry!.sets).toBeGreaterThan(0);
+
+    const otherHistory = await caller2.vietfit.getCompletedHistory();
+    expect(otherHistory.map((h) => h.id)).not.toContain(firstItem.id);
+
+    await caller.vietfit.toggleItemCompleted({ itemId: firstItem.id, completed: false });
+    const [dbItem] = await db
+      .select({ completedAt: exercisePlanItems.completedAt })
+      .from(exercisePlanItems)
+      .where(eq(exercisePlanItems.id, firstItem.id))
+      .limit(1);
+    expect(dbItem?.completedAt).toBeNull();
+    const after = await caller.vietfit.getCompletedHistory();
+    expect(after.map((h) => h.id)).not.toContain(firstItem.id);
+  });
 });

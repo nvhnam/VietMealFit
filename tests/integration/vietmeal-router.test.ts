@@ -120,6 +120,36 @@ describe("vietmeal router", () => {
     ).rejects.toMatchObject({ code: "NOT_FOUND" });
   });
 
+  it("getCompletedHistory lists ticked items with their tick time, only for their owner, and drops them on untick", async () => {
+    const caller = appRouter.createCaller({ db, user });
+    const caller2 = appRouter.createCaller({ db, user: user2 });
+    const plan = await caller.vietmeal.getCurrentPlan();
+    // Items come back unordered, so tick this one here rather than relying on
+    // which item an earlier test happened to tick.
+    const firstItem = plan!.items[0];
+    await caller.vietmeal.toggleItemCompleted({ itemId: firstItem.id, completed: true });
+
+    const history = await caller.vietmeal.getCompletedHistory();
+    const entry = history.find((h) => h.id === firstItem.id);
+    expect(entry).toBeDefined();
+    expect(entry!.completedAt).toBeInstanceOf(Date);
+    expect(Date.now() - entry!.completedAt!.getTime()).toBeLessThan(5 * 60_000);
+    expect(entry!.recipe.calories).toBeTypeOf("number");
+
+    const otherHistory = await caller2.vietmeal.getCompletedHistory();
+    expect(otherHistory.map((h) => h.id)).not.toContain(firstItem.id);
+
+    await caller.vietmeal.toggleItemCompleted({ itemId: firstItem.id, completed: false });
+    const [dbItem] = await db
+      .select({ completedAt: mealPlanItems.completedAt })
+      .from(mealPlanItems)
+      .where(eq(mealPlanItems.id, firstItem.id))
+      .limit(1);
+    expect(dbItem?.completedAt).toBeNull();
+    const after = await caller.vietmeal.getCompletedHistory();
+    expect(after.map((h) => h.id)).not.toContain(firstItem.id);
+  });
+
   it("throws a BAD_REQUEST (not a silent allergen-unsafe plan or a 500) when every breakfast recipe conflicts with allergies", async () => {
     // Derive an allergy list from the real seeded catalog's own allergen
     // tags, rather than guessing a vocabulary — guarantees the breakfast

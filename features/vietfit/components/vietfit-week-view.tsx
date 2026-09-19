@@ -30,6 +30,7 @@ export function VietFitWeekView({ plan }: { plan: ExercisePlanWithItems }) {
     trpc.vietfit.toggleItemCompleted.mutationOptions({
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: trpc.vietfit.getCurrentPlan.queryKey() });
+        queryClient.invalidateQueries({ queryKey: trpc.vietfit.getCompletedHistory.queryKey() });
       },
     }),
   );

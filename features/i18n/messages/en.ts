@@ -98,6 +98,23 @@ export const en = {
     saveProfile: "Save profile",
     savingProfile: "Saving...",
     profileSaved: "Profile saved",
+    progressHeading: "Your progress",
+    progressDescription:
+      "Meals and exercises you have ticked off in VietMeal and VietFit, grouped by the day you ticked them.",
+    noMealsTicked: "No meals ticked yet. Tick a meal in your VietMeal plan and it will show up here.",
+    noExercisesTicked: "No exercises ticked yet. Tick an exercise in your VietFit plan and it will show up here.",
+    today: "Today",
+    yesterday: "Yesterday",
+    undatedGroup: "Earlier (date not recorded)",
+    dailyTotalVsTarget: "Daily total vs. target",
+    dailyTotal: "Daily total",
+    targetsNote:
+      "Your calorie target is the daily goal above. Protein and fat use VietLean's maintenance ratios for your weight; carbs fill the rest of the calorie goal.",
+    targetsNeedCalorieGoal: "Set a daily calorie goal above to compare each day against your calorie and carb targets.",
+    targetsNeedWeight: "Add your weight above to see protein, fat and carb targets.",
+    exerciseSummary: (exercises: number, sets: number) =>
+      `${exercises} ${exercises === 1 ? "exercise" : "exercises"} · ${sets} ${sets === 1 ? "set" : "sets"}`,
+    showOlderDays: "Show older days",
   },
   vietmeal: {
     title: "VietMeal",

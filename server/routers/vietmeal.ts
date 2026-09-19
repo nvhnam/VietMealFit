@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { and, desc, eq, inArray } from "drizzle-orm";
+import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import { mealPlans, mealPlanItems, recipes } from "@/server/db/schema";
 import { createTRPCRouter, protectedProcedure } from "@/server/trpc/init";
 import { upsertProfile } from "@/server/lib/upsert-profile";
@@ -123,7 +123,7 @@ export const vietmealRouter = createTRPCRouter({
       // by guessing an item id.
       const [updated] = await ctx.db
         .update(mealPlanItems)
-        .set({ completed: input.completed })
+        .set({ completed: input.completed, completedAt: input.completed ? new Date() : null })
         .from(mealPlans)
         .where(
           and(
@@ -139,6 +139,34 @@ export const vietmealRouter = createTRPCRouter({
       }
       return { success: true };
     }),
+
+  /**
+   * Every ticked meal across all of the caller's plans, newest tick first.
+   * Rows ticked before completed_at existed come last, with a null timestamp.
+   * Grouping by calendar day is left to the client, which knows the user's
+   * timezone.
+   */
+  getCompletedHistory: protectedProcedure.query(async ({ ctx }) => {
+    return ctx.db
+      .select({
+        id: mealPlanItems.id,
+        completedAt: mealPlanItems.completedAt,
+        mealType: mealPlanItems.mealType,
+        recipe: {
+          nameVi: recipes.nameVi,
+          nameEn: recipes.nameEn,
+          calories: recipes.calories,
+          proteinG: recipes.proteinG,
+          carbG: recipes.carbG,
+          fatG: recipes.fatG,
+        },
+      })
+      .from(mealPlanItems)
+      .innerJoin(mealPlans, eq(mealPlanItems.planId, mealPlans.id))
+      .innerJoin(recipes, eq(mealPlanItems.recipeId, recipes.id))
+      .where(and(eq(mealPlans.userId, ctx.user.id), eq(mealPlanItems.completed, true)))
+      .orderBy(sql`${mealPlanItems.completedAt} desc nulls last`, mealPlanItems.id);
+  }),
 });
 
 async function getPlanWithItems(db: typeof import("@/server/db").db, planId: string, userId: string) {

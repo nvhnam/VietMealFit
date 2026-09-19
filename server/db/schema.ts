@@ -115,6 +115,10 @@ export const mealPlanItems = pgTable("meal_plan_items", {
     .notNull()
     .references(() => recipes.id, { onDelete: "restrict" }),
   completed: boolean("completed").notNull().default(false),
+  // When the item was last ticked; cleared on untick. Null on rows ticked
+  // before this column existed. Plans are never deleted on regeneration, so
+  // these rows double as the user's completion history (profile page).
+  completedAt: timestamp("completed_at", { withTimezone: true }),
 });
 
 export const mealPlansRelations = relations(mealPlans, ({ one, many }) => ({
@@ -173,6 +177,8 @@ export const exercisePlanItems = pgTable("exercise_plan_items", {
   sets: smallint("sets").notNull(),
   repScheme: text("rep_scheme").notNull(),
   completed: boolean("completed").notNull().default(false),
+  // See mealPlanItems.completedAt.
+  completedAt: timestamp("completed_at", { withTimezone: true }),
 });
 
 export const exercisePlansRelations = relations(exercisePlans, ({ one, many }) => ({

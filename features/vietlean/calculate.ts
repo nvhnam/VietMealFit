@@ -96,12 +96,28 @@ function requirePositive(value: number, name: string) {
   }
 }
 
+/**
+ * Macro split for a given calorie target: protein and fat from bodyweight
+ * ratios for the phase, carbs filling whatever calories remain.
+ */
+export function macroTargets(
+  weightKg: number,
+  calorieTarget: number,
+  phase: LeanPhase,
+): { proteinG: number; fatG: number; carbG: number } {
+  const { proteinGPerKg, fatGPerKg } = PHASE_PARAMS[phase];
+  const proteinG = Math.round(weightKg * proteinGPerKg);
+  const fatG = Math.round(weightKg * fatGPerKg);
+  const remainingKcal = Math.max(0, calorieTarget - proteinG * 4 - fatG * 9);
+  return { proteinG, fatG, carbG: Math.round(remainingKcal / 4) };
+}
+
 export function calculateVietLean(input: VietLeanInput): VietLeanResult {
   requirePositive(input.weightKg, "weightKg");
   requirePositive(input.heightCm, "heightCm");
   requirePositive(input.age, "age");
 
-  const { tdeeMultiplier, proteinGPerKg, fatGPerKg } = PHASE_PARAMS[input.phase];
+  const { tdeeMultiplier } = PHASE_PARAMS[input.phase];
 
   const bmr = mifflinStJeorBmr(input);
   const tdee = bmr * ACTIVITY_FACTORS[input.activityLevel];
@@ -113,11 +129,7 @@ export function calculateVietLean(input: VietLeanInput): VietLeanResult {
   const flooredAtBmr = phaseTarget < bmr;
   const calorieTarget = Math.round(flooredAtBmr ? bmr : phaseTarget);
 
-  const proteinG = Math.round(input.weightKg * proteinGPerKg);
-  const fatG = Math.round(input.weightKg * fatGPerKg);
-
-  const remainingKcal = Math.max(0, calorieTarget - proteinG * 4 - fatG * 9);
-  const carbG = Math.round(remainingKcal / 4);
+  const { proteinG, fatG, carbG } = macroTargets(input.weightKg, calorieTarget, input.phase);
 
   return {
     bmr: Math.round(bmr),

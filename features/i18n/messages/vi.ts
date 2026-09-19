@@ -100,6 +100,22 @@ export const vi: Messages = {
     saveProfile: "Lưu hồ sơ",
     savingProfile: "Đang lưu...",
     profileSaved: "Đã lưu hồ sơ",
+    progressHeading: "Tiến độ của bạn",
+    progressDescription:
+      "Các bữa ăn và bài tập bạn đã đánh dấu hoàn thành trong VietMeal và VietFit, nhóm theo ngày bạn đánh dấu.",
+    noMealsTicked: "Bạn chưa đánh dấu bữa ăn nào. Hãy đánh dấu một bữa trong kế hoạch VietMeal để xem tại đây.",
+    noExercisesTicked: "Bạn chưa đánh dấu bài tập nào. Hãy đánh dấu một bài tập trong kế hoạch VietFit để xem tại đây.",
+    today: "Hôm nay",
+    yesterday: "Hôm qua",
+    undatedGroup: "Trước đây (không ghi lại ngày)",
+    dailyTotalVsTarget: "Tổng trong ngày so với mục tiêu",
+    dailyTotal: "Tổng trong ngày",
+    targetsNote:
+      "Mục tiêu calo là mục tiêu hằng ngày ở trên. Đạm và chất béo dùng tỉ lệ duy trì của VietLean theo cân nặng của bạn; tinh bột chiếm phần calo còn lại.",
+    targetsNeedCalorieGoal: "Hãy đặt mục tiêu calo hằng ngày ở trên để so sánh mỗi ngày với mục tiêu calo và tinh bột.",
+    targetsNeedWeight: "Hãy nhập cân nặng ở trên để xem mục tiêu đạm, chất béo và tinh bột.",
+    exerciseSummary: (exercises: number, sets: number) => `${exercises} bài tập · ${sets} set`,
+    showOlderDays: "Xem các ngày trước",
   },
   vietmeal: {
     title: "VietMeal",

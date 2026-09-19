@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
 import { exercisePlans, exercisePlanItems, exercises } from "@/server/db/schema";
 import { createTRPCRouter, protectedProcedure } from "@/server/trpc/init";
 import { upsertProfile } from "@/server/lib/upsert-profile";
@@ -118,7 +118,7 @@ export const vietfitRouter = createTRPCRouter({
       // so this join is the only thing preventing cross-user tampering.
       const [updated] = await ctx.db
         .update(exercisePlanItems)
-        .set({ completed: input.completed })
+        .set({ completed: input.completed, completedAt: input.completed ? new Date() : null })
         .from(exercisePlans)
         .where(
           and(
@@ -134,6 +134,29 @@ export const vietfitRouter = createTRPCRouter({
       }
       return { success: true };
     }),
+
+  /** Same contract as vietmeal.getCompletedHistory, for exercises. */
+  getCompletedHistory: protectedProcedure.query(async ({ ctx }) => {
+    return ctx.db
+      .select({
+        id: exercisePlanItems.id,
+        completedAt: exercisePlanItems.completedAt,
+        sets: exercisePlanItems.sets,
+        repScheme: exercisePlanItems.repScheme,
+        exercise: {
+          name: exercises.name,
+          nameVi: exercises.nameVi,
+          repSchemeVi: exercises.repSchemeVi,
+          difficulty: exercises.difficulty,
+          muscleGroups: exercises.muscleGroups,
+        },
+      })
+      .from(exercisePlanItems)
+      .innerJoin(exercisePlans, eq(exercisePlanItems.planId, exercisePlans.id))
+      .innerJoin(exercises, eq(exercisePlanItems.exerciseId, exercises.id))
+      .where(and(eq(exercisePlans.userId, ctx.user.id), eq(exercisePlanItems.completed, true)))
+      .orderBy(sql`${exercisePlanItems.completedAt} desc nulls last`, exercisePlanItems.order);
+  }),
 });
 
 async function getPlanWithItems(db: typeof import("@/server/db").db, planId: string, userId: string) {

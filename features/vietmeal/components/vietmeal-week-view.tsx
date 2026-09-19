@@ -32,6 +32,7 @@ export function VietMealWeekView({ plan }: { plan: MealPlanWithItems }) {
     trpc.vietmeal.toggleItemCompleted.mutationOptions({
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: trpc.vietmeal.getCurrentPlan.queryKey() });
+        queryClient.invalidateQueries({ queryKey: trpc.vietmeal.getCompletedHistory.queryKey() });
       },
     }),
   );

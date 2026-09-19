@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { ProfileForm } from "@/features/profile/components/profile-form";
+import { ProfileProgress } from "@/features/profile/components/profile-progress";
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -12,5 +13,10 @@ export default async function ProfilePage() {
     redirect("/account/sign-in");
   }
 
-  return <ProfileForm />;
+  return (
+    <div className="mx-auto flex max-w-lg flex-col gap-6">
+      <ProfileForm />
+      <ProfileProgress />
+    </div>
+  );
 }
