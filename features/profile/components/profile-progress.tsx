@@ -12,6 +12,11 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
+  formatPortionMultiplier,
+  isScaledPortion,
+  scaleRecipeMacros,
+} from "@/features/vietmeal/portion";
+import {
   dailyTargets,
   dateFromKey,
   groupByLocalDay,
@@ -96,12 +101,18 @@ function MealHistory({ entries, targets }: { entries: MealEntry[]; targets: Dail
           <>
             {/* Totals only mean something for a single real day. */}
             {group.key && (
-              <DailyTotals totals={sumMacros(group.items.map((e) => e.recipe))} targets={targets} />
+              <DailyTotals
+                totals={sumMacros(
+                  group.items.map((e) => scaleRecipeMacros(e.recipe, e.portionMultiplier)),
+                )}
+                targets={targets}
+              />
             )}
             {group.items.map((entry) => {
               const primary =
                 language === "vi" ? entry.recipe.nameVi : (entry.recipe.nameEn ?? entry.recipe.nameVi);
               const secondary = language === "vi" ? entry.recipe.nameEn : entry.recipe.nameVi;
+              const scaled = scaleRecipeMacros(entry.recipe, entry.portionMultiplier);
               return (
                 <div key={entry.id} className="rounded-lg border p-3">
                   <div className="flex flex-wrap items-center gap-2">
@@ -112,11 +123,14 @@ function MealHistory({ entries, targets }: { entries: MealEntry[]; targets: Dail
                     {secondary && secondary !== primary && (
                       <span className="text-sm text-muted-foreground">({secondary})</span>
                     )}
+                    {isScaledPortion(entry.portionMultiplier) && (
+                      <Badge variant="outline">{formatPortionMultiplier(entry.portionMultiplier)}</Badge>
+                    )}
                     <TickTime date={entry.completedAt} />
                   </div>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    {entry.recipe.calories} kcal · {entry.recipe.proteinG}g {t.common.macro.protein.toLowerCase()} ·{" "}
-                    {entry.recipe.carbG}g {t.common.macro.carbs.toLowerCase()} · {entry.recipe.fatG}g{" "}
+                    {scaled.calories} kcal · {scaled.proteinG}g {t.common.macro.protein.toLowerCase()} ·{" "}
+                    {scaled.carbG}g {t.common.macro.carbs.toLowerCase()} · {scaled.fatG}g{" "}
                     {t.common.macro.fat.toLowerCase()}
                   </p>
                 </div>

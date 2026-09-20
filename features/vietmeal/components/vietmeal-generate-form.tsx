@@ -21,6 +21,9 @@ import {
 } from "@/components/ui/select";
 // Shared with the profile form, which writes the same profile columns.
 import { ALLERGEN_VALUES, DIET_VALUES } from "@/features/shared/vocabularies";
+// Same vocabulary VietLean's own calculator uses — the target this form
+// derives comes from the same equation, so the inputs have to match.
+import { ACTIVITY_VALUES, type ActivityLevel } from "@/features/vietlean/calculate";
 
 
 export function VietMealGenerateForm({ hasExistingPlan }: { hasExistingPlan: boolean }) {
@@ -33,9 +36,15 @@ export function VietMealGenerateForm({ hasExistingPlan }: { hasExistingPlan: boo
   const dietItems: Record<string, ReactNode> = Object.fromEntries(
     DIET_VALUES.map((v) => [v, t.vietmeal.dietOption[v]]),
   );
+  // Labels are VietLean's, so the two pages can't describe the same five
+  // activity levels differently.
+  const activityItems: Record<string, ReactNode> = Object.fromEntries(
+    ACTIVITY_VALUES.map((v) => [v, t.vietlean.activityOption[v]]),
+  );
   const [weightKg, setWeightKg] = useState("65");
   const [heightCm, setHeightCm] = useState("");
   const [calorieGoal, setCalorieGoal] = useState("");
+  const [activityLevel, setActivityLevel] = useState<ActivityLevel>("moderate");
   const [dietaryPreference, setDietaryPreference] = useState("anything");
   const [allergies, setAllergies] = useState<string[]>([]);
   const [preferHighProtein, setPreferHighProtein] = useState(false);
@@ -74,6 +83,7 @@ export function VietMealGenerateForm({ hasExistingPlan }: { hasExistingPlan: boo
             weightKg: weight,
             heightCm: heightCm.trim() ? Number(heightCm) : undefined,
             calorieGoal: calorieGoal.trim() ? Number(calorieGoal) : undefined,
+            activityLevel,
             dietaryPreference,
             allergies,
             preferHighProtein,
@@ -107,6 +117,28 @@ export function VietMealGenerateForm({ hasExistingPlan }: { hasExistingPlan: boo
             value={calorieGoal}
             onChange={(e) => setCalorieGoal(e.target.value)}
           />
+        </div>
+        <div className="flex flex-col gap-1.5">
+          <Label htmlFor="activityLevel">{t.vietlean.activityLevel}</Label>
+          <Select
+            items={activityItems}
+            value={activityLevel}
+            onValueChange={(v) => v && setActivityLevel(v as ActivityLevel)}
+          >
+            <SelectTrigger id="activityLevel" className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {Object.entries(activityItems).map(([value, label]) => (
+                <SelectItem key={value} value={value}>
+                  {label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="sm:col-span-2">
+          <p className="text-sm text-muted-foreground">{t.vietmeal.portion.targetNote}</p>
         </div>
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="dietaryPreference">{t.vietmeal.dietaryPreference}</Label>

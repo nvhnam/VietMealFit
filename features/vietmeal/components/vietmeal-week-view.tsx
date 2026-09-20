@@ -11,6 +11,11 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  formatPortionMultiplier,
+  isScaledPortion,
+  scaleRecipeMacros,
+} from "@/features/vietmeal/portion";
 import { VietMealDownloadButton } from "./vietmeal-download-button";
 
 type RouterOutputs = inferRouterOutputs<AppRouter>;
@@ -49,6 +54,19 @@ export function VietMealWeekView({ plan }: { plan: MealPlanWithItems }) {
 
   const dayItems = (itemsByDay.get(activeDay) ?? []).slice().sort(
     (a, b) => MEAL_TYPE_ORDER.indexOf(a.mealType) - MEAL_TYPE_ORDER.indexOf(b.mealType),
+  );
+
+  // params is jsonb, so it is `unknown` to the client — read the one field we
+  // need defensively rather than asserting a shape the column can't guarantee.
+  const calorieTarget = (() => {
+    const params = plan.params as { calorieTarget?: unknown } | null;
+    const value = Number(params?.calorieTarget);
+    return Number.isFinite(value) && value > 0 ? Math.round(value) : null;
+  })();
+
+  const dayTotalKcal = dayItems.reduce(
+    (sum, item) => sum + scaleRecipeMacros(item.recipe, item.portionMultiplier).calories,
+    0,
   );
 
   return (
@@ -104,21 +122,54 @@ export function VietMealWeekView({ plan }: { plan: MealPlanWithItems }) {
                       {secondary && secondary !== primary && (
                         <span className="text-sm text-muted-foreground">({secondary})</span>
                       )}
+                      {isScaledPortion(item.portionMultiplier) && (
+                        <Badge variant="outline" title={t.vietmeal.portion.tooltip}>
+                          {formatPortionMultiplier(item.portionMultiplier)}
+                        </Badge>
+                      )}
                     </>
                   );
                 })()}
               </div>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {item.recipe.calories} kcal · {item.recipe.proteinG}g {t.common.macro.protein.toLowerCase()} ·{" "}
-                {item.recipe.carbG}g {t.common.macro.carbs.toLowerCase()} · {item.recipe.fatG}g{" "}
-                {t.common.macro.fat.toLowerCase()}
-              </p>
+              {(() => {
+                const scaled = scaleRecipeMacros(item.recipe, item.portionMultiplier);
+                return (
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {scaled.calories} kcal · {scaled.proteinG}g {t.common.macro.protein.toLowerCase()} ·{" "}
+                    {scaled.carbG}g {t.common.macro.carbs.toLowerCase()} · {scaled.fatG}g{" "}
+                    {t.common.macro.fat.toLowerCase()}
+                    {isScaledPortion(item.portionMultiplier) && (
+                      <span className="ml-1">
+                        {t.vietmeal.portion.basedOn(
+                          item.recipe.calories,
+                          formatPortionMultiplier(item.portionMultiplier),
+                        )}
+                      </span>
+                    )}
+                  </p>
+                );
+              })()}
               <p className="mt-2 text-sm">
                 {language === "vi" ? (item.recipe.instructionsVi ?? item.recipe.instructions) : item.recipe.instructions}
               </p>
             </div>
           </div>
         ))}
+
+        {dayItems.length > 0 && (
+          <div className="flex flex-col gap-1">
+            <p className="text-sm font-medium">
+              {calorieTarget == null
+                ? t.vietmeal.portion.dayTotal(dayTotalKcal)
+                : t.vietmeal.portion.dayTotalWithTarget(dayTotalKcal, calorieTarget)}
+            </p>
+            {/* A miss here is a catalog limit, not a rounding artefact — say
+                so rather than leaving the reader to wonder. */}
+            {calorieTarget != null && dayTotalKcal < calorieTarget * 0.95 && (
+              <p className="text-sm text-muted-foreground">{t.vietmeal.portion.belowTarget}</p>
+            )}
+          </div>
+        )}
       </div>
     </Card>
   );

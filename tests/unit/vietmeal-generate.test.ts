@@ -2,6 +2,10 @@ import { describe, expect, it } from "vitest";
 import {
   generateWeekPlan,
   currentWeekStart,
+  portionMultiplierFor,
+  MEAL_ENERGY_SHARE,
+  MAX_PORTION_MULTIPLIER,
+  MIN_PORTION_MULTIPLIER,
   NoEligibleRecipesError,
   type RecipeForGeneration,
 } from "@/features/vietmeal/generate";
@@ -158,6 +162,150 @@ describe("generateWeekPlan", () => {
     const slots = generateWeekPlan(recipes, { bmiCategory: "Obese" });
     const breakfastRecipeIds = new Set(slots.filter((s) => s.mealType === "breakfast").map((s) => s.recipeId));
     expect(breakfastRecipeIds).toEqual(new Set(["light", "heavy"]));
+  });
+});
+
+describe("portionMultiplierFor", () => {
+  it("returns the ratio that brings a serving onto the slot target", () => {
+    expect(portionMultiplierFor(400, 500)).toBe(1.25);
+    expect(portionMultiplierFor(400, 300)).toBe(0.75);
+  });
+
+  it("is 1 when the serving already matches", () => {
+    expect(portionMultiplierFor(400, 400)).toBe(1);
+  });
+
+  it("never scales a dish past the plausible-serving band", () => {
+    // A 100 kcal dish cannot become a 900 kcal meal.
+    expect(portionMultiplierFor(100, 900)).toBe(MAX_PORTION_MULTIPLIER);
+    // ...nor a 2000 kcal dish a 200 kcal one.
+    expect(portionMultiplierFor(2000, 200)).toBe(MIN_PORTION_MULTIPLIER);
+  });
+
+  it("snaps to a step the UI can print", () => {
+    // 437/400 = 1.0925 -> 1.1, not 1.0925.
+    expect(portionMultiplierFor(400, 437)).toBe(1.1);
+  });
+
+  it("leaves a zero- or bad-calorie recipe unscaled rather than dividing by it", () => {
+    expect(portionMultiplierFor(0, 600)).toBe(1);
+    expect(portionMultiplierFor(Number.NaN, 600)).toBe(1);
+  });
+});
+
+describe("generateWeekPlan energy targeting", () => {
+  // Nine options per meal type, spread widely enough that fitting a target
+  // has something to choose between.
+  function spread(mealType: RecipeForGeneration["mealType"]): RecipeForGeneration[] {
+    return [150, 250, 350, 450, 550, 650, 750, 850, 950].map((calories, i) =>
+      recipe({ id: `${mealType}-${i}`, mealType, calories }),
+    );
+  }
+
+  const pool: RecipeForGeneration[] = [
+    ...spread("breakfast"),
+    ...spread("lunch"),
+    ...spread("dinner"),
+  ];
+
+  it("leaves every multiplier at 1 when no target is given", () => {
+    const slots = generateWeekPlan(pool, {});
+    expect(slots.every((s) => s.portionMultiplier === 1)).toBe(true);
+  });
+
+  it("is byte-identical to the unscaled plan when calorieTarget is null or zero", () => {
+    const base = generateWeekPlan(pool, {});
+    expect(generateWeekPlan(pool, { calorieTarget: null })).toEqual(base);
+    expect(generateWeekPlan(pool, { calorieTarget: 0 })).toEqual(base);
+  });
+
+  it("lands each day's total close to the target", () => {
+    const calorieTarget = 2000;
+    const slots = generateWeekPlan(pool, { calorieTarget });
+    const byId = new Map(pool.map((r) => [r.id, r]));
+
+    for (let day = 0; day < 7; day++) {
+      const total = slots
+        .filter((s) => s.day === day)
+        .reduce((sum, s) => sum + byId.get(s.recipeId)!.calories * s.portionMultiplier, 0);
+      // Within 10% of target — the pool is discrete, so exact hits aren't
+      // guaranteed, but a plan that ignored the target would be far outside.
+      expect(Math.abs(total - calorieTarget) / calorieTarget).toBeLessThan(0.1);
+    }
+  });
+
+  it("makes lunch the largest meal, following MEAL_ENERGY_SHARE", () => {
+    // The share drives selection; the day-level rebalance then moves
+    // multipliers to hit the daily total, so individual meals are not pinned
+    // to their exact share. What must survive is the ordering it encodes.
+    expect(MEAL_ENERGY_SHARE.lunch).toBeGreaterThan(MEAL_ENERGY_SHARE.breakfast);
+    expect(MEAL_ENERGY_SHARE.lunch).toBeGreaterThan(MEAL_ENERGY_SHARE.dinner);
+
+    const slots = generateWeekPlan(pool, { calorieTarget: 2000 });
+    const byId = new Map(pool.map((r) => [r.id, r]));
+    const meanFor = (mealType: "breakfast" | "lunch" | "dinner") => {
+      const served = slots
+        .filter((s) => s.mealType === mealType)
+        .map((s) => byId.get(s.recipeId)!.calories * s.portionMultiplier);
+      return served.reduce((a, b) => a + b, 0) / served.length;
+    };
+
+    expect(meanFor("lunch")).toBeGreaterThan(meanFor("breakfast"));
+    expect(meanFor("lunch")).toBeGreaterThan(meanFor("dinner"));
+  });
+
+  it("reports a shortfall instead of faking it when the pool cannot reach the target", () => {
+    // Three tiny dishes: even at MAX_PORTION_MULTIPLIER the day cannot get
+    // near 4000 kcal. The generator must still return a usable plan.
+    const tiny: RecipeForGeneration[] = [
+      recipe({ id: "b", mealType: "breakfast", calories: 100 }),
+      recipe({ id: "l", mealType: "lunch", calories: 100 }),
+      recipe({ id: "d", mealType: "dinner", calories: 100 }),
+    ];
+    const slots = generateWeekPlan(tiny, { calorieTarget: 4000 });
+    expect(slots).toHaveLength(21);
+    // Pinned at the ceiling, not scaled past it.
+    expect(slots.every((s) => s.portionMultiplier === MAX_PORTION_MULTIPLIER)).toBe(true);
+  });
+
+  it("still varies the week rather than repeating the single best-fitting dish", () => {
+    const slots = generateWeekPlan(pool, { calorieTarget: 2000 });
+    const breakfasts = slots.filter((s) => s.mealType === "breakfast").map((s) => s.recipeId);
+    expect(new Set(breakfasts).size).toBe(7);
+  });
+
+  it("keeps every multiplier inside the clamp band", () => {
+    // A deliberately unreachable target: every dish is far too small.
+    const slots = generateWeekPlan(pool, { calorieTarget: 9000 });
+    for (const slot of slots) {
+      expect(slot.portionMultiplier).toBeGreaterThanOrEqual(MIN_PORTION_MULTIPLIER);
+      expect(slot.portionMultiplier).toBeLessThanOrEqual(MAX_PORTION_MULTIPLIER);
+    }
+  });
+
+  it("still refuses an allergen when fitting a target", () => {
+    const withAllergen: RecipeForGeneration[] = [
+      ...pool,
+      // A perfect fit for the breakfast slot, but unsafe.
+      recipe({ id: "peanut-perfect", mealType: "breakfast", calories: 600, allergenTags: ["peanut"] }),
+    ];
+    const slots = generateWeekPlan(withAllergen, { calorieTarget: 2000, allergies: ["peanut"] });
+    expect(slots.some((s) => s.recipeId === "peanut-perfect")).toBe(false);
+  });
+
+  it("breaks an exact tie toward the earlier pool entry, so ordering nudges still count", () => {
+    // Both are an identical distance from the breakfast slot target; the
+    // high-protein one is moved to the front by preferHighProtein and must
+    // therefore be the one chosen on day 0.
+    const tied: RecipeForGeneration[] = [
+      recipe({ id: "plain", mealType: "breakfast", calories: 600 }),
+      recipe({ id: "hp", mealType: "breakfast", calories: 600, dietTags: ["high-protein"] }),
+      recipe({ id: "l1", mealType: "lunch", calories: 800 }),
+      recipe({ id: "d1", mealType: "dinner", calories: 600 }),
+    ];
+    const slots = generateWeekPlan(tied, { calorieTarget: 2000, preferHighProtein: true });
+    const day0 = slots.find((s) => s.day === 0 && s.mealType === "breakfast")!;
+    expect(day0.recipeId).toBe("hp");
   });
 });
 

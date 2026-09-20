@@ -1007,7 +1007,6 @@
       "vegetarian",
       "pescatarian",
       "keto",
-      "gluten-free",
       "high-protein"
     ],
     "calories": 194,
@@ -1036,7 +1035,8 @@
     ],
     "instructions": "Pan-fry tofu cubes until lightly golden. Add mushrooms and a splash of soy sauce, braise until the mushrooms soften and the sauce reduces.",
     "allergen_tags": [
-      "soy"
+      "soy",
+      "gluten"
     ],
     "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000048 (\"Đậu phụ kho nấm\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN. Added to fill a catalog gap: vegan/vegetarian and keto breakfast pools had one or zero options.",
     "instructions_vi": "Chiên sơ đậu hũ đến khi hơi vàng. Cho nấm và chút nước tương vào, kho đến khi nấm mềm và nước sốt sánh lại."
@@ -1048,8 +1048,7 @@
     "diet_tags": [
       "vegan",
       "vegetarian",
-      "pescatarian",
-      "gluten-free"
+      "pescatarian"
     ],
     "calories": 385,
     "protein_g": 25.8,
@@ -1077,7 +1076,8 @@
     ],
     "instructions": "Boil tofu briefly until warmed through. Serve with steamed rice and a soy-lime-chili dipping sauce.",
     "allergen_tags": [
-      "soy"
+      "soy",
+      "gluten"
     ],
     "source": "Composite: boiled tofu component from NIN's public dish-nutrition database (viendinhduong.vn), dish code VPF-000072 (\"Đậu phụ luộc\"; carbohydrate was blank in the source record and was estimated from the stated energy minus protein/fat, ~1.4g), plus a standard 150g cooked white rice serving (~195 kcal, 4g protein, 42g carb, 0.4g fat). Accessed 2026-08-09. Added to fill a catalog gap: vegan/vegetarian lunch pool had only one option.",
     "instructions_vi": "Luộc sơ đậu hũ đến khi nóng đều. Ăn cùng cơm trắng và nước chấm tương ớt chanh."
@@ -2273,8 +2273,7 @@
       "vegan",
       "vegetarian",
       "pescatarian",
-      "keto",
-      "gluten-free"
+      "keto"
     ],
     "calories": 139,
     "protein_g": 8.7,
@@ -2296,7 +2295,8 @@
     ],
     "instructions": "Pan-fry tofu cubes until golden. Serve with soy dipping sauce.",
     "allergen_tags": [
-      "soy"
+      "soy",
+      "gluten"
     ],
     "source": "Nutrient values from the National Institute of Nutrition (NIN) public dish-nutrition database (viendinhduong.vn), dish code VPF-000124 (\"Đậu phụ rán\"), accessed 2026-08-09. Ingredients list is hand-curated, not from NIN.",
     "instructions_vi": "Chiên đậu hũ vàng đều. Ăn cùng nước tương chấm."

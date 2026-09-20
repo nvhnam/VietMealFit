@@ -143,6 +143,17 @@ export const vi: Messages = {
       fish: "Cá",
     },
     preferHighProtein: "Ưu tiên món giàu đạm",
+    portion: {
+      targetNote:
+        "Để trống mục calo mục tiêu thì hệ thống dùng mức duy trì VietLean, tính từ giới tính và tuổi trong hồ sơ của bạn. Khẩu phần được điều chỉnh trong khoảng ×0,75 đến ×1,5 để đạt mức đó.",
+      tooltip: "Khẩu phần đã được điều chỉnh theo mục tiêu năng lượng hằng ngày.",
+      basedOn: (baseKcal: number, multiplier: string) => `(khẩu phần ${baseKcal} kcal, ${multiplier})`,
+      dayTotal: (total: number) => `Tổng trong ngày: ${total} kcal`,
+      dayTotalWithTarget: (total: number, target: number) =>
+        `Tổng trong ngày: ${total} / ${target} kcal mục tiêu`,
+      belowTarget:
+        "Các món phù hợp với chế độ ăn và dị ứng của bạn không thể đạt mức mục tiêu này, kể cả ở khẩu phần lớn nhất mà hệ thống điều chỉnh.",
+    },
     generatePlan: "Tạo thực đơn",
     regeneratePlan: "Tạo lại thực đơn",
     generating: "Đang tạo...",

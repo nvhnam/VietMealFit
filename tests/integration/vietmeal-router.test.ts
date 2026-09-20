@@ -178,4 +178,83 @@ describe("vietmeal router", () => {
       }),
     ).rejects.toMatchObject({ code: "BAD_REQUEST" });
   });
+  it("fits the week to an explicit calorie goal and persists the portion multipliers", async () => {
+    const caller = appRouter.createCaller({ db, user });
+    const calorieGoal = 1800;
+    const plan = await caller.vietmeal.generate({
+      weightKg: 68,
+      heightCm: 172,
+      calorieGoal,
+      dietaryPreference: "anything",
+      allergies: [],
+      preferHighProtein: false,
+    });
+
+    expect((plan!.params as { calorieTarget?: number }).calorieTarget).toBe(calorieGoal);
+    expect((plan!.params as { calorieTargetSource?: string }).calorieTargetSource).toBe("explicit");
+
+    for (const item of plan!.items) {
+      const multiplier = Number(item.portionMultiplier);
+      expect(multiplier).toBeGreaterThanOrEqual(0.75);
+      expect(multiplier).toBeLessThanOrEqual(1.5);
+    }
+
+    // The served week, not the catalog week: every day should land near goal.
+    for (let day = 0; day < 7; day++) {
+      const served = plan!.items
+        .filter((i) => i.day === day)
+        .reduce((sum, i) => sum + i.recipe.calories * Number(i.portionMultiplier), 0);
+      expect(Math.abs(served - calorieGoal) / calorieGoal).toBeLessThan(0.1);
+    }
+  });
+
+  it("leaves multipliers at 1 when no goal is set and the profile can't supply one", async () => {
+    const caller = appRouter.createCaller({ db, user });
+    await db.update(profiles).set({ gender: null, age: null }).where(eq(profiles.id, user.id));
+
+    const plan = await caller.vietmeal.generate({
+      weightKg: 68,
+      dietaryPreference: "anything",
+      allergies: [],
+      preferHighProtein: false,
+    });
+
+    expect((plan!.params as { calorieTarget?: number | null }).calorieTarget).toBeNull();
+    expect(plan!.items.every((i) => Number(i.portionMultiplier) === 1)).toBe(true);
+  });
+
+  it("derives the target from VietLean when the profile has sex and age but no goal is typed", async () => {
+    const caller = appRouter.createCaller({ db, user });
+    await db.update(profiles).set({ gender: "male", age: 30 }).where(eq(profiles.id, user.id));
+
+    const plan = await caller.vietmeal.generate({
+      weightKg: 70,
+      heightCm: 175,
+      activityLevel: "moderate",
+      dietaryPreference: "anything",
+      allergies: [],
+      preferHighProtein: false,
+    });
+
+    const params = plan!.params as { calorieTarget?: number; calorieTargetSource?: string };
+    // Mifflin-St Jeor for a 30y male at 175cm/70kg, moderate activity,
+    // maintenance: the same figure VietLean's own page returns.
+    expect(params.calorieTarget).toBe(2556);
+    expect(params.calorieTargetSource).toBe("vietlean");
+  });
+
+  it("excludes soy-sauce dishes from a gluten-free plan", async () => {
+    const caller = appRouter.createCaller({ db, user });
+    const plan = await caller.vietmeal.generate({
+      weightKg: 68,
+      heightCm: 172,
+      dietaryPreference: "anything",
+      allergies: ["gluten"],
+      preferHighProtein: false,
+    });
+
+    for (const item of plan!.items) {
+      expect(item.recipe.allergenTags.map((t) => t.toLowerCase())).not.toContain("gluten");
+    }
+  });
 });

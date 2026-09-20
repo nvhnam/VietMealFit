@@ -155,3 +155,75 @@ describe("generateWeekSchedule", () => {
     expect(mondaySlots[0].exerciseId).toBe("jump-rope");
   });
 });
+
+describe("generateWeekSchedule training goal", () => {
+  const cardio = (id: string) =>
+    exercise({ id, difficulty: "beginner", muscleGroups: ["cardio", "full_body"] });
+  const compound = (id: string) =>
+    exercise({ id, difficulty: "beginner", muscleGroups: ["chest", "triceps"] });
+  const isolation = (id: string) => exercise({ id, difficulty: "beginner", muscleGroups: ["biceps"] });
+
+  const pool: ExerciseForGeneration[] = [
+    isolation("iso1"),
+    compound("comp1"),
+    cardio("cardio1"),
+    isolation("iso2"),
+    compound("comp2"),
+    cardio("cardio2"),
+  ];
+
+  it("leaves the schedule untouched when no goal is given", () => {
+    const withoutGoal = generateWeekSchedule(pool, { experienceLevel: "beginner" });
+    const generalFitness = generateWeekSchedule(pool, {
+      experienceLevel: "beginner",
+      goal: "general_fitness",
+    });
+    expect(generalFitness).toEqual(withoutGoal);
+  });
+
+  it("leads with cardio for weight loss and endurance", () => {
+    for (const goal of ["weight_loss", "endurance"] as const) {
+      const slots = generateWeekSchedule(pool, { experienceLevel: "beginner", goal });
+      const first = slots.find((s) => s.day === 0 && s.order === 0)!;
+      expect(first.exerciseId).toBe("cardio1");
+    }
+  });
+
+  it("leads with multi-muscle-group strength work for muscle gain", () => {
+    const slots = generateWeekSchedule(pool, { experienceLevel: "beginner", goal: "muscle_gain" });
+    const first = slots.find((s) => s.day === 0 && s.order === 0)!;
+    expect(first.exerciseId).toBe("comp1");
+  });
+
+  it("never drops an exercise the goal does not favour", () => {
+    const slots = generateWeekSchedule(pool, { experienceLevel: "beginner", goal: "muscle_gain" });
+    // 3 days x 6 slots cycles the whole 6-exercise pool exactly three times.
+    expect(new Set(slots.map((s) => s.exerciseId)).size).toBe(pool.length);
+  });
+
+  it("sizes the session by goal", () => {
+    const perDay = (goal: "weight_loss" | "muscle_gain" | "general_fitness" | "endurance") => {
+      const slots = generateWeekSchedule(pool, { experienceLevel: "beginner", goal });
+      return slots.filter((s) => s.day === 0).length;
+    };
+    expect(perDay("muscle_gain")).toBe(6);
+    expect(perDay("endurance")).toBe(4);
+    expect(perDay("weight_loss")).toBe(5);
+    expect(perDay("general_fitness")).toBe(5);
+  });
+
+  it("still refuses an exercise that conflicts with a physical limitation", () => {
+    const risky = exercise({
+      id: "risky-cardio",
+      difficulty: "beginner",
+      muscleGroups: ["cardio"],
+      limitationTags: ["knee_pain"],
+    });
+    const slots = generateWeekSchedule([...pool, risky], {
+      experienceLevel: "beginner",
+      goal: "weight_loss",
+      limitations: ["knee_pain"],
+    });
+    expect(slots.some((s) => s.exerciseId === "risky-cardio")).toBe(false);
+  });
+});

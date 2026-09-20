@@ -3,11 +3,19 @@ import { and, desc, eq, sql } from "drizzle-orm";
 import { exercisePlans, exercisePlanItems, exercises } from "@/server/db/schema";
 import { createTRPCRouter, protectedProcedure } from "@/server/trpc/init";
 import { upsertProfile } from "@/server/lib/upsert-profile";
-import { generateWeekSchedule, type Difficulty } from "@/features/vietfit/generate";
+import { generateWeekSchedule, type Difficulty, type Goal } from "@/features/vietfit/generate";
 import { bmiCategory, computeBmi } from "@/features/shared/bmi";
+import { GOAL_VALUES } from "@/features/shared/vocabularies";
 import { TRPCError } from "@trpc/server";
 
 const difficultySchema = z.enum(["beginner", "intermediate", "advanced"]);
+/**
+ * The form has offered exactly these four options for some time, but the
+ * column stayed free text, so the value never reached the generator in a
+ * shape it could branch on. Validating here closes that: same closed-
+ * vocabulary treatment already applied to allergies, limitations and gender.
+ */
+const goalSchema = z.enum(GOAL_VALUES as unknown as [Goal, ...Goal[]]);
 
 const generateInput = z.object({
   gender: z.string().max(50).optional(),
@@ -16,7 +24,7 @@ const generateInput = z.object({
   weightKg: z.number().min(20).max(400),
   experienceLevel: difficultySchema.default("beginner"),
   limitations: z.array(z.string()).default([]),
-  goal: z.string().min(1).max(100),
+  goal: goalSchema,
   preferredCardioQuery: z.string().max(100).optional(),
 });
 
@@ -61,6 +69,7 @@ export const vietfitRouter = createTRPCRouter({
         limitations: input.limitations,
         preferredCardioQuery: input.preferredCardioQuery,
         bmiCategory: bmiCategory(bmi),
+        goal: input.goal,
       });
     } catch (err) {
       throw new TRPCError({ code: "BAD_REQUEST", message: (err as Error).message });

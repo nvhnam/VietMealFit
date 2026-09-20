@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { MacroPieChart } from "@/components/shared/macro-pie-chart";
 import { useI18n } from "@/features/i18n";
+import { scaleRecipeMacros } from "@/features/vietmeal/portion";
 import type { MealPlanWithItems } from "./vietmeal-week-view";
 
 export function VietMealMacroChart({ plan }: { plan: MealPlanWithItems }) {
@@ -12,9 +13,12 @@ export function VietMealMacroChart({ plan }: { plan: MealPlanWithItems }) {
     let carbG = 0;
     let fatG = 0;
     for (const item of plan.items) {
-      proteinG += Number(item.recipe.proteinG);
-      carbG += Number(item.recipe.carbG);
-      fatG += Number(item.recipe.fatG);
+      // Served portions, not catalog portions — the split is meant to
+      // describe the week the user was actually given.
+      const scaled = scaleRecipeMacros(item.recipe, item.portionMultiplier);
+      proteinG += scaled.proteinG;
+      carbG += scaled.carbG;
+      fatG += scaled.fatG;
     }
     return {
       proteinG: Math.round(proteinG),

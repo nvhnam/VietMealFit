@@ -5,16 +5,68 @@ import { createTRPCRouter, protectedProcedure } from "@/server/trpc/init";
 import { upsertProfile } from "@/server/lib/upsert-profile";
 import { generateWeekPlan, currentWeekStart, type MealType } from "@/features/vietmeal/generate";
 import { bmiCategory, computeBmi } from "@/features/shared/bmi";
+import { isGender, normalizeGender } from "@/features/shared/gender";
+import {
+  ACTIVITY_VALUES,
+  calculateVietLean,
+  type ActivityLevel,
+} from "@/features/vietlean/calculate";
 import { TRPCError } from "@trpc/server";
 
 const generateInput = z.object({
   weightKg: z.number().min(20).max(400),
   heightCm: z.number().min(50).max(300).optional(),
   calorieGoal: z.number().int().min(0).max(10000).optional(),
+  activityLevel: z.enum(ACTIVITY_VALUES as [ActivityLevel, ...ActivityLevel[]]).optional(),
   dietaryPreference: z.string().max(50).optional(),
   allergies: z.array(z.string()).default([]),
   preferHighProtein: z.boolean().default(false),
 });
+
+/**
+ * The daily energy figure the plan is fitted to, or null to leave it unfitted.
+ *
+ * An explicit calorie goal always wins — it is the user's own stated number,
+ * and silently overriding it with a computed one would make the field
+ * decorative again. Otherwise the target is VietLean's, computed by the same
+ * function VietLean's own page and VietAsk's chat tool call, so the three can
+ * never quote different numbers for the same person.
+ *
+ * Falls back to null (unfitted, as before) whenever the Mifflin-St Jeor
+ * inputs aren't all known: VietMeal's form asks only for weight and an
+ * optional height, so sex and age come from the profile and may simply not be
+ * there. That is the ordinary case for a new user, not an error.
+ */
+function resolveCalorieTarget(args: {
+  calorieGoal?: number;
+  activityLevel?: ActivityLevel;
+  weightKg: number;
+  heightCm: number | null;
+  gender: string | null;
+  age: number | null;
+}): number | null {
+  if (args.calorieGoal != null && args.calorieGoal > 0) return args.calorieGoal;
+
+  const sex = normalizeGender(args.gender);
+  if (!isGender(sex) || !args.age || !args.heightCm) return null;
+
+  try {
+    return calculateVietLean({
+      sex,
+      age: args.age,
+      heightCm: args.heightCm,
+      weightKg: args.weightKg,
+      // Maintenance: VietMeal plans what to eat, it does not run a phase.
+      // A cut or bulk is VietLean's job, and the user can carry that number
+      // back here as an explicit calorie goal.
+      phase: "lean",
+      activityLevel: args.activityLevel ?? "moderate",
+    }).calorieTarget;
+  } catch {
+    // Out-of-range stored profile values shouldn't block a plan.
+    return null;
+  }
+}
 
 export const vietmealRouter = createTRPCRouter({
   generate: protectedProcedure.input(generateInput).mutation(async ({ ctx, input }) => {
@@ -22,7 +74,7 @@ export const vietmealRouter = createTRPCRouter({
     // collects, without touching displayName (never in this input) or
     // requiring a separate "complete your profile first" step — VietMeal
     // is meant to be usable standalone per plan §1.2.
-    await upsertProfile(
+    const profile = await upsertProfile(
       ctx.db,
       ctx.user.id,
       {
@@ -56,9 +108,23 @@ export const vietmealRouter = createTRPCRouter({
       (r): r is typeof r & { mealType: MealType } => r.mealType !== "snack",
     );
 
-    // Height is optional on this form — BMI-based nudging only applies when
-    // it's available; weight alone isn't enough to compute BMI.
-    const bmi = input.heightCm ? computeBmi(input.heightCm, input.weightKg) : null;
+    // Height is optional on this form — fall back to the stored profile value
+    // before giving up, since a returning user has usually supplied it once
+    // already (via this form, VietFit, VietLean or the profile page).
+    const heightCm =
+      input.heightCm ?? (profile.heightCm != null ? Number(profile.heightCm) : null);
+    // BMI-based nudging only applies when height is available; weight alone
+    // isn't enough to compute BMI.
+    const bmi = heightCm ? computeBmi(heightCm, input.weightKg) : null;
+
+    const calorieTarget = resolveCalorieTarget({
+      calorieGoal: input.calorieGoal,
+      activityLevel: input.activityLevel,
+      weightKg: input.weightKg,
+      heightCm,
+      gender: profile.gender,
+      age: profile.age,
+    });
 
     let slots;
     try {
@@ -67,6 +133,7 @@ export const vietmealRouter = createTRPCRouter({
         allergies: input.allergies,
         preferHighProtein: input.preferHighProtein,
         bmiCategory: bmi ? bmiCategory(bmi) : null,
+        calorieTarget,
       });
     } catch (err) {
       throw new TRPCError({ code: "BAD_REQUEST", message: (err as Error).message });
@@ -82,6 +149,13 @@ export const vietmealRouter = createTRPCRouter({
         params: {
           weightKg: input.weightKg,
           calorieGoal: input.calorieGoal ?? null,
+          // What the plan was actually fitted to, and where it came from —
+          // the client shows the target alongside each day's total, and
+          // "explicit" vs "vietlean" is what tells it which note to render.
+          calorieTarget,
+          calorieTargetSource:
+            calorieTarget == null ? null : input.calorieGoal ? "explicit" : "vietlean",
+          activityLevel: input.activityLevel ?? null,
           dietaryPreference: input.dietaryPreference ?? null,
           allergies: input.allergies,
           preferHighProtein: input.preferHighProtein,
@@ -95,6 +169,8 @@ export const vietmealRouter = createTRPCRouter({
         day: slot.day,
         mealType: slot.mealType,
         recipeId: slot.recipeId,
+        // numeric(4,2) round-trips as a string through the driver.
+        portionMultiplier: String(slot.portionMultiplier),
       })),
     );
 
@@ -152,6 +228,7 @@ export const vietmealRouter = createTRPCRouter({
         id: mealPlanItems.id,
         completedAt: mealPlanItems.completedAt,
         mealType: mealPlanItems.mealType,
+        portionMultiplier: mealPlanItems.portionMultiplier,
         recipe: {
           nameVi: recipes.nameVi,
           nameEn: recipes.nameEn,

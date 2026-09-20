@@ -142,6 +142,17 @@ export const en = {
       fish: "Fish",
     },
     preferHighProtein: "Prioritize high-protein meals",
+    portion: {
+      targetNote:
+        "Leave the calorie goal blank and we use your VietLean maintenance target, from the gender and age on your profile. Servings are scaled between ×0.75 and ×1.5 to meet it.",
+      tooltip: "Serving scaled to fit your daily energy target.",
+      basedOn: (baseKcal: number, multiplier: string) => `(${baseKcal} kcal serving, ${multiplier})`,
+      dayTotal: (total: number) => `Daily total: ${total} kcal`,
+      dayTotalWithTarget: (total: number, target: number) =>
+        `Daily total: ${total} / ${target} kcal target`,
+      belowTarget:
+        "The dishes available for your diet and allergies cannot reach this target, even at the largest serving we will scale to.",
+    },
     generatePlan: "Generate plan",
     regeneratePlan: "Regenerate plan",
     generating: "Generating...",

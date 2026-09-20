@@ -34,7 +34,7 @@ describe("vietfit router", () => {
     await expect(caller.vietfit.getCurrentPlan()).resolves.toBeNull();
   });
 
-  it("generate() creates a 15-item plan for a beginner (3 days x 5) honoring limitations and difficulty", async () => {
+  it("generate() sizes a beginner muscle-gain plan at 3 days x 6 while honoring limitations and difficulty", async () => {
     const caller = appRouter.createCaller({ db, user });
     const plan = await caller.vietfit.generate({
       heightCm: 175,
@@ -44,7 +44,8 @@ describe("vietfit router", () => {
       goal: "muscle_gain",
     });
 
-    expect(plan!.items).toHaveLength(15);
+    // muscle_gain carries a sixth accessory slot per session (3 days x 6).
+    expect(plan!.items).toHaveLength(18);
 
     const [profileRow] = await db.select().from(profiles).where(eq(profiles.id, user.id)).limit(1);
     expect(profileRow?.heightCm).toBe("175.0");

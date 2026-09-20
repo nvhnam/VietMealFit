@@ -119,6 +119,12 @@ export const mealPlanItems = pgTable("meal_plan_items", {
   // before this column existed. Plans are never deleted on regeneration, so
   // these rows double as the user's completion history (profile page).
   completedAt: timestamp("completed_at", { withTimezone: true }),
+  // How much of the recipe's recorded serving this slot calls for, once the
+  // plan has been fitted to a daily energy target. Defaults to 1.00, which
+  // is both the unscaled case and what every pre-existing row means.
+  portionMultiplier: numeric("portion_multiplier", { precision: 4, scale: 2 })
+    .notNull()
+    .default("1.00"),
 });
 
 export const mealPlansRelations = relations(mealPlans, ({ one, many }) => ({

@@ -20,9 +20,24 @@
  * on the BMI card (underweight -> favor strength work over cardio;
  * overweight/obese -> favor more cardio for a calorie deficit); "Normal"
  * applies no nudge.
+ *
+ * The training goal shapes two things. It reorders the pool toward the work
+ * that serves it (cardio for weight loss and endurance, multi-muscle-group
+ * strength for muscle gain, nothing for general fitness), and it sets how
+ * many exercises a session holds. Both are conventional defaults in the same
+ * spirit as the days-per-week table above — a muscle-gain session carries
+ * more sets of fewer, heavier patterns, an endurance session spends its time
+ * on sustained work rather than a long exercise list — and neither is
+ * derived from a specific training methodology. The goal nudge is applied
+ * before the BMI one so a measured body state outranks a stated intent, and
+ * both are outranked by an explicit preferredCardioQuery.
  */
+import { GOAL_VALUES } from "@/features/shared/vocabularies";
+
 export type Difficulty = "beginner" | "intermediate" | "advanced";
 export type BmiCategory = "Underweight" | "Normal" | "Overweight" | "Obese";
+/** Closed vocabulary shared with the form and the profile's fitness goals. */
+export type Goal = (typeof GOAL_VALUES)[number];
 
 export type ExerciseForGeneration = {
   id: string;
@@ -57,7 +72,40 @@ const TRAINING_SCHEDULE: Record<Difficulty, number[]> = {
   advanced: [0, 1, 2, 3, 4], // Mon-Fri
 };
 
-const EXERCISES_PER_DAY = 5;
+/**
+ * Session length by goal. general_fitness/weight_loss keep the long-standing
+ * default of 5; muscle_gain adds a sixth slot for accessory volume, and
+ * endurance drops to 4 so the session is not a checklist of distinct
+ * movements. Callers that pass no goal get the default.
+ */
+const EXERCISES_PER_DAY_BY_GOAL: Record<Goal, number> = {
+  weight_loss: 5,
+  muscle_gain: 6,
+  general_fitness: 5,
+  endurance: 4,
+};
+const DEFAULT_EXERCISES_PER_DAY = 5;
+
+/**
+ * A compound movement for this purpose: strength work that loads more than
+ * one muscle group. Derived from the catalog's own muscle_groups array
+ * rather than a second hand-maintained flag, so it can't drift from it.
+ */
+function isCompoundStrength(exercise: ExerciseForGeneration): boolean {
+  return !isCardioTagged(exercise) && exercise.muscleGroups.length > 1;
+}
+
+// Same "boost, don't exclude" shape as every other nudge here.
+function boostByGoal(pool: ExerciseForGeneration[], goal: Goal): ExerciseForGeneration[] {
+  const matches =
+    goal === "muscle_gain"
+      ? pool.filter(isCompoundStrength)
+      : goal === "weight_loss" || goal === "endurance"
+        ? pool.filter(isCardioTagged)
+        : [];
+  if (matches.length === 0 || matches.length === pool.length) return pool;
+  return [...matches, ...pool.filter((e) => !matches.includes(e))];
+}
 
 function isLimitationSafe(exercise: ExerciseForGeneration, limitations: string[]): boolean {
   if (limitations.length === 0) return true;
@@ -86,6 +134,7 @@ export function generateWeekSchedule(
     limitations?: string[];
     preferredCardioQuery?: string;
     bmiCategory?: BmiCategory | null;
+    goal?: Goal | null;
   },
 ): ExerciseSlot[] {
   const limitations = opts.limitations ?? [];
@@ -99,6 +148,10 @@ export function generateWeekSchedule(
   const maxRank = DIFFICULTY_RANK[experienceLevel];
   const byDifficulty = safePool.filter((e) => DIFFICULTY_RANK[e.difficulty] <= maxRank);
   let pool = byDifficulty.length > 0 ? byDifficulty : safePool;
+
+  // Goal first, so the BMI lean below (a measured body state) outranks it,
+  // and an explicit cardio request outranks both.
+  if (opts.goal) pool = boostByGoal(pool, opts.goal);
 
   // Applied before preferredCardioQuery, so an explicit cardio request
   // still wins top billing over the implicit BMI-derived lean.
@@ -129,10 +182,13 @@ export function generateWeekSchedule(
   }
 
   const trainingDays = TRAINING_SCHEDULE[experienceLevel];
+  const exercisesPerDay = opts.goal
+    ? EXERCISES_PER_DAY_BY_GOAL[opts.goal]
+    : DEFAULT_EXERCISES_PER_DAY;
   const slots: ExerciseSlot[] = [];
   let cursor = 0;
   for (const day of trainingDays) {
-    for (let order = 0; order < EXERCISES_PER_DAY; order++) {
+    for (let order = 0; order < exercisesPerDay; order++) {
       slots.push({ day, order, exerciseId: pool[cursor % pool.length].id });
       cursor++;
     }

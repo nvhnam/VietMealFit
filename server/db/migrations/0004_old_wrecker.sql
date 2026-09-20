@@ -1,0 +1,1 @@
+ALTER TABLE "meal_plan_items" ADD COLUMN "portion_multiplier" numeric(4, 2) DEFAULT '1.00' NOT NULL;
